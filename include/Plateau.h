@@ -21,13 +21,13 @@ class Plateau {
 
     virtual bool MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
 
-    virtual Case getCase(void _coordonnees);
+    virtual Case MGetCase();
 
     virtual Case MGetPlateau();
 
  public:
 
-    Case myCase;
+    Case[][] myCase;
 
     Timer myTimer;
 
