@@ -1,6 +1,6 @@
 #include "ObjetMalus.h"
 
- {
+
 
 
 bool ObjetMalus::MDestruction()

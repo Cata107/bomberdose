@@ -1,6 +1,6 @@
 #include "MurIncassable.h"
 
- {
+
 
 
 bool MurIncassable::MCreation()

@@ -1,6 +1,6 @@
 #include "MurCassableSansBonus.h"
 
- {
+
 
 
 bool MurCassableSansBonus::MCreation()

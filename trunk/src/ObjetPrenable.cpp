@@ -1,6 +1,6 @@
 #include "ObjetPrenable.h"
 
- {
+
 
 
 bool ObjetPrenable::MObjetPris()

@@ -1,6 +1,6 @@
 #include "Flamme.h"
 
- {
+
 
 
 bool Flamme::MCreation()

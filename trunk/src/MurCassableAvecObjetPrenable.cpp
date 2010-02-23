@@ -1,6 +1,6 @@
 #include "MurCassableAvecObjetPrenable.h"
 
- {
+
 
 
 bool MurCassableAvecObjetPrenable::MCreation()

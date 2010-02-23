@@ -1,6 +1,6 @@
 #include "BonusRoller.h"
 
- {
+
 
 
 bool BonusRoller::MAppliquerEffet(Joueur _joueur)
