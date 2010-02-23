@@ -26,12 +26,29 @@ class Joueur {
     int m_Puissance;
 
  protected:
-    String m_nom;
+    string m_nom;
     int m_nbBombes;
     int m_modificateurVitesse;
     float m_vitesse;
-    null m_maladie;
-    null m_coordonnee;
+    enum m_maladie
+	{
+		aucune,
+		rapidite,
+		lenteur,
+		flamme1,
+		explosionRapide,
+		explosionLente,
+		pasDeBombe,
+		toucheInversee,
+		toujoursBouger,
+	};
+
+    struct m_coordonnee
+    {
+		int x;
+		int y;
+    };
+
     Plateau *m_pPlateau;
 
  public:

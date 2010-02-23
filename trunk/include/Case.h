@@ -18,7 +18,11 @@ class Case {
     bool m_vide;
 
  protected:
-    null m_coordonee;
+    struct m_coordonees
+    {
+        int x;
+        int y;
+    }
 
  public:
 
