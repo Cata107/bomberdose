@@ -1,10 +1,7 @@
 #ifndef Timer_h
 #define Timer_h
 
-#include "Bombe.h"
-
-class Plateau;
-class Flamme;
+#include <sfml/System.hpp>
 
 class Timer {
 
@@ -18,17 +15,9 @@ class Timer {
 
 
  protected:
-    null m_timer;
 
- public:
+	sf::Clock m_timer;
 
-    Plateau *myPlateau;
-
-    Bombe myBombe;
-
-    Bombe *myBombe;
-
-    Flamme *myFlamme;
 };
 
 #endif // Timer_h

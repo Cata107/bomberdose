@@ -14,21 +14,16 @@ class Case {
 
     virtual bool MFill();
 
- public:
-    bool m_vide;
 
  protected:
     struct m_coordonees
     {
         int x;
         int y;
-    }
+    };
 
- public:
-
-    Plateau *myPlateau;
-
-    ObjetFixe *myObjetFixe;
+	bool m_vide;
+	ObjetFixe *myObjetFixe;
 };
 
 #endif // Case_h
