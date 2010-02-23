@@ -1,9 +1,10 @@
 #ifndef Joueur_h
 #define Joueur_h
 
+#include <iostream>
+#include <sfml/System.hpp>
 #include "Plateau.h"
 
-class BomberDose;
 
 class Joueur {
 
@@ -15,22 +16,21 @@ class Joueur {
 
     virtual bool MJouer();
 
-    virtual Plateau MGetPlateau();
+    virtual const Plateau& MGetPlateau() const;
 
-    virtual bool MGetPosition();
+	virtual const sf::Vector2i MGetPosition() const;
 
-    virtual bool MSetPosition(void _coordonnees);
-
- public:
-    int m_score;
-    int m_Puissance;
+	virtual bool MSetPosition(const sf::Vector2i& _coordonnees);
+    
 
  protected:
-    string m_nom;
+	std::string m_nom;
+	int m_score;
     int m_nbBombes;
-    int m_modificateurVitesse;
+    int m_Puissance;
+	int m_modificateurVitesse;
     float m_vitesse;
-    enum m_maladie
+    enum Maladie
 	{
 		aucune,
 		rapidite,
@@ -42,18 +42,11 @@ class Joueur {
 		toucheInversee,
 		toujoursBouger,
 	};
+	Maladie m_maladie;
+	sf::Vector2i m_coordonnees;
 
-    struct m_coordonnee
-    {
-		int x;
-		int y;
-    };
+    Plateau m_plateau;
 
-    Plateau *m_pPlateau;
-
- public:
-
-    BomberDose *myBomberDose;
 };
 
 #endif // Joueur_h

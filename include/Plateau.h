@@ -5,8 +5,6 @@
 #include "MurCassableAvecObjetPrenable.h"
 #include "Timer.h"
 
-class BomberDose;
-
 class Plateau {
 
  public:
@@ -21,17 +19,15 @@ class Plateau {
 
     virtual bool MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
 
-    virtual Case MGetCase();
+	virtual Case MGetCase(sf::Vector2i _coordonnees);
 
     virtual Case MGetPlateau();
 
- public:
+ protected:
 
-    Case[][] myCase;
+    Case* m_Case;
 
-    Timer myTimer;
-
-    BomberDose *myBomberDose;
+    Timer m_timer;
 };
 
 #endif // Plateau_h
