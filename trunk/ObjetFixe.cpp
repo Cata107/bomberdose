@@ -1,4 +1,0 @@
-#include "ObjetFixe.h"
-
- {
-
