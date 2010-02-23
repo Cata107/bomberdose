@@ -1,6 +1,6 @@
 #include "Mur.h"
 
- {
+
 
 
 bool Mur::MCreation()

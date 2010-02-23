@@ -1,6 +1,5 @@
 #include "BonusBombe.h"
 
- {
 
 
 bool BonusBombe::MAppliquerEffet(Joueur _joueur)

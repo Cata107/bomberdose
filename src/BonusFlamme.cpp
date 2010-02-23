@@ -1,6 +1,6 @@
 #include "BonusFlamme.h"
 
- {
+
 
 
 bool BonusFlamme::MAppliquerEffet(Joueur _joueur)

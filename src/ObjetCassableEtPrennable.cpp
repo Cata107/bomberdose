@@ -1,6 +1,6 @@
 #include "ObjetCassableEtPrennable.h"
 
- {
+
 
 
 bool ObjetCassableEtPrennable::MCreation()

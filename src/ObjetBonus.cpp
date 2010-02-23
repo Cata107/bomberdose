@@ -1,6 +1,6 @@
 #include "ObjetBonus.h"
 
- {
+
 
 
 bool ObjetBonus::MDestruction()

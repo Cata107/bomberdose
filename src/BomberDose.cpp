@@ -1,6 +1,5 @@
 #include "BomberDose.h"
 
- {
 
 
 bool BomberDose::MCreatePlayer(Joueur _joueurs, Plateau _plateau)

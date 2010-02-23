@@ -1,6 +1,6 @@
 #include "Case.h"
 
- {
+
 
 
 bool Case::MCreation()
