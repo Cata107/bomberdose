@@ -13,7 +13,7 @@ class Plateau {
 
     virtual bool MDestruction();
 
-    virtual bool MSetBombe();
+    virtual bool MSetBombe(sf::Vector2i coordonnees);
 
     virtual bool MPlacerMursIncassables();
 
