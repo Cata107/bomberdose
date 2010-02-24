@@ -1,3 +1,4 @@
+/* useless
 #ifndef ObjetCassableEtPrennable_h
 #define ObjetCassableEtPrennable_h
 
@@ -19,3 +20,4 @@ class ObjetCassableEtPrennable : public ObjetCassable, public ObjetPrenable {
 };
 
 #endif // ObjetCassableEtPrennable_h
+*/

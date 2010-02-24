@@ -1,3 +1,4 @@
+/* useless
 #ifndef ObjetCassable_h
 #define ObjetCassable_h
 
@@ -14,3 +15,4 @@ class ObjetCassable : public ObjetFixe {
 };
 
 #endif // ObjetCassable_h
+*/

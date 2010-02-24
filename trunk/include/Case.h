@@ -14,6 +14,8 @@ class Case {
 
     virtual bool MFill();
 
+	virtual bool MClean();
+
 
  protected:
     struct m_coordonees
