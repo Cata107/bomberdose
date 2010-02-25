@@ -26,20 +26,32 @@ bool Case::MClean()
 	m_vide = true;
 	return true;
 }
-int Case::MConvertToInt()
 //Converti une case en int en hexadécimal, utile pour communiquer le plateau par les sockets
+int Case::MConvertToInt()
 {
     if (Case::MIsEmpty())
     {
         return CASE_VIDE;
     }
-    if (myObjetFixe->MIsMurDestructible())
+    if (myObjetFixe->MIsMurCassable())
+    {
+        return CASE_AVECMURCASSABLE;
+    }
+    if (myObjetFixe->MIsMurIncassable())
     {
         return CASE_AVECMURINCASSABLE;
     }
-    if (myObjetFixe->MIsMurIndestructible())
+    if (myObjetFixe->MIsBonusFlamme())
     {
-        return CASE_AVECMURCASSABLE;
+        return CASE_AVECBONUS_FLAMME;
+    }
+    if (myObjetFixe->MIsBonusBombe())
+    {
+        return CASE_AVECBONUS_BOMBE;
+    }
+    if (myObjetFixe->MIsBonusRoller())
+    {
+        return CASE_AVECBONUS_ROLLER;
     }
     //reste à définir les autres cases, avec bonus, etc
 }
