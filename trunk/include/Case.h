@@ -1,9 +1,6 @@
 #ifndef Case_h
 #define Case_h
 
-class Plateau;
-class ObjetFixe;
-
 class Case {
 
  public:
@@ -14,7 +11,12 @@ class Case {
 
     virtual bool MFill();
 
+    int MConvertToInt();
+
 	virtual bool MClean();
+
+	int MConvertToInt();
+
 
 
  protected:

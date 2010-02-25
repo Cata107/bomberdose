@@ -4,6 +4,7 @@
 #include "Case.h"
 #include "MurCassableAvecObjetPrenable.h"
 #include "Timer.h"
+#include "Macro.h"
 
 class Plateau {
 
@@ -25,7 +26,7 @@ class Plateau {
 
  protected:
 
-    Case* m_Case;
+    Case m_Case[];
 
     Timer m_timer;
 };
