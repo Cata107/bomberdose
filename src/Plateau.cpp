@@ -32,10 +32,14 @@ bool Plateau::MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassable
     return false;
 }
 
-//Retourne une case du plateau, selon les coordonnees donnees en parametre 
+//Retourne une case du plateau, selon les coordonnees donnees en parametre
 Case Plateau::MGetCase(sf::Vector2i _coordonnees)
 {
-	return Case(); //jte laisse calculer ça oli, on a un tableau à une dimension(tout aligné), faut retourner la case selon le Vector2i 
+    int accesColonne = _coordonnees.x;
+    int accesLigne = _coordonnees.y * NB_COLONNES;
+    int coordUniDimensionnelle = accesColonne + accesLigne;
+
+    return m_Case[ coordUniDimensionnelle ];
 }
 
 //Retourne le Plateau
