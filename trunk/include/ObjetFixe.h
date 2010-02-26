@@ -26,6 +26,10 @@ protected:
 		bool bonusFlamme;
 		bool bonusBombe;
 		bool bonusRoller;
+		bool bombe;
+		bool flamme;
+		bool malus;
+
 	};
 
 	TypeObjet m_typeObjet;

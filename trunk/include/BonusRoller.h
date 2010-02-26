@@ -8,8 +8,11 @@
 class BonusRoller : public ObjetBonus {
 
  public:
+	
+	BonusRoller(const sf::Vector2i _coordonnees);
 
-    virtual bool MAppliquerEffet(Joueur _joueur);
+	virtual bool MCreation();
+    virtual bool MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // BonusRoller_h

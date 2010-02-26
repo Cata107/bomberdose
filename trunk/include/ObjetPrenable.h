@@ -3,12 +3,13 @@
 
 #include "ObjetFixe.h"
 
-
 class ObjetPrenable : public ObjetFixe {
 
  public:
 
-    virtual bool MCreation();
+	ObjetPrenable(const sf::Vector2i _coordonnees);
+
+    virtual bool MCreation() = 0;
 
     virtual bool MObjetPris();
 

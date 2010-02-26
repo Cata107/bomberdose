@@ -9,9 +9,13 @@ class ObjetBonus : public ObjetPrenable {
 
  public:
 
+	ObjetBonus(const sf::Vector2i _coordonnees);
+
+	virtual bool MCreation() = 0;
+	
     virtual bool MDestruction();
 
-    virtual bool MAppliquerEffet(Joueur _joueur)  = 0;
+    virtual bool MAppliquerEffet(Joueur& _joueur)  = 0;
 };
 
 #endif // ObjetBonus_h
