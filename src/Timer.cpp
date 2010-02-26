@@ -15,10 +15,3 @@ float Timer::MGetTime()
 {
     return m_timer.GetElapsedTime();
 }
-
-//Recommence le Timer
-bool Timer::MRestartTimer()
-{
-	m_timer.Reset();
-    return true;
-}

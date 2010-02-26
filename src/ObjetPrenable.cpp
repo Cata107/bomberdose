@@ -1,9 +1,8 @@
 #include "ObjetPrenable.h"
 
-//Creer un ObjetPrenable
-bool ObjetPrenable::MCreation()
+//Constructeur
+ObjetPrenable::ObjetPrenable(const sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 {
-	return false;
 }
 
 //Test la collision entre un joueur et un ObjetPrenable

@@ -8,6 +8,9 @@ ObjetFixe::ObjetFixe(const sf::Vector2i _coordonnees) : m_coordonnees(_coordonne
 	m_typeObjet.bonusRoller = false;
 	m_typeObjet.murCassable = false;
 	m_typeObjet.murIncassable = false;
+	m_typeObjet.flamme = false;
+	m_typeObjet.bombe = false;
+	m_typeObjet.malus = false;
 
 }
 
