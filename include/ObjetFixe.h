@@ -9,9 +9,9 @@ class ObjetFixe {
 	
 	ObjetFixe(const sf::Vector2i _coordonnees);
     virtual bool MCreation()  = 0;
-    virtual bool MDestruction()  = 0;
 	virtual bool MIsMurCassable();
 	virtual bool MIsMurIncassable();
+	virtual bool MIsMalus();
 	virtual bool MIsBonusFlamme();
 	virtual bool MIsBonusBombe();
 	virtual bool MIsBonusRoller();
