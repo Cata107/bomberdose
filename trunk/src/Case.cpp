@@ -34,22 +34,32 @@ int Case::MConvertToInt()
     {
         return CASE_VIDE;
     }
+
     if (m_pObjetFixe->MIsMurCassable())
     {
         return CASE_AVECMURCASSABLE;
     }
+
     if (m_pObjetFixe->MIsMurIncassable())
     {
         return CASE_AVECMURINCASSABLE;
     }
+
+	if (m_pObjetFixe->MIsMalus())
+	{
+		return CASE_AVECMALUS;
+	}
+
     if (m_pObjetFixe->MIsBonusFlamme())
     {
         return CASE_AVECBONUS_FLAMME;
     }
+
     if (m_pObjetFixe->MIsBonusBombe())
     {
         return CASE_AVECBONUS_BOMBE;
     }
+
     if (m_pObjetFixe->MIsBonusRoller())
     {
         return CASE_AVECBONUS_ROLLER;
