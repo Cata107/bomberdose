@@ -3,7 +3,7 @@
 //Creer un ObjetPrenable
 bool ObjetPrenable::MCreation()
 {
-	return false
+	return false;
 }
 
 //Test la collision entre un joueur et un ObjetPrenable
