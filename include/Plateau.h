@@ -27,7 +27,7 @@ class Plateau {
 
     virtual Case MGetPlateau();
 
-    int * MGetPlateauConverti();
+    int* MGetPlateauConverti();
 
 
  protected:
