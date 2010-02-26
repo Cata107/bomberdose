@@ -22,6 +22,7 @@ bool Case::MFill()
     return true;
 }
 
+//Vider la case
 bool Case::MClean()
 {
 	m_vide = true;
@@ -44,12 +45,12 @@ int Case::MConvertToInt()
     {
         return CASE_AVECMURINCASSABLE;
     }
-
+	
 	if (m_pObjetFixe->MIsMalus())
 	{
 		return CASE_AVECMALUS;
 	}
-
+	
     if (m_pObjetFixe->MIsBonusFlamme())
     {
         return CASE_AVECBONUS_FLAMME;
