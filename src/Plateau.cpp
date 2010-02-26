@@ -42,9 +42,23 @@ Case Plateau::MGetCase(sf::Vector2i _coordonnees)
     return m_Case[ coordUniDimensionnelle ];
 }
 
+Case Plateau::MGetCase(int _coordonneeUniDimensionnelle)
+{
+    return m_Case[ _coordonneeUniDimensionnelle ];
+}
+
 //Retourne le Plateau
 Case Plateau::MGetPlateau()
 
 {
 	return *m_Case;
+}
+int* Plateau::MGetPlateauConverti()
+{
+    int* tableau = new int[NB_LIGNES*NB_COLONNES];
+    for (int i = 0; i < NB_LIGNES*NB_COLONNES; i++)
+    {
+        tableau[i] = Plateau::MGetCase(i).MConvertToInt();
+    }
+    return tableau;
 }

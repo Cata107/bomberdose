@@ -1,8 +1,9 @@
 #ifndef Case_h
 #define Case_h
+#include "Macro.h"
 
 #include "ObjetFixe.h"
-#include <sfml/System.hpp>
+#include <SFML/System.hpp>
 
 class Case {
 
