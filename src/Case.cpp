@@ -1,4 +1,5 @@
 #include "Case.h"
+#include "Macro.h"
 
 
 
@@ -11,7 +12,7 @@ bool Case::MCreation()
 //Retourne true si la case est vide, c'est-a-dire qu'il ne possede aucun objet
 bool Case::MIsEmpty()
 {
-    return myObjetFixe==NULL ;
+    return m_pObjetFixe==NULL ;
 }
 
 //Permet de mettre la variable m_vide a vrai si un objet est creer sur la Case
@@ -33,23 +34,23 @@ int Case::MConvertToInt()
     {
         return CASE_VIDE;
     }
-    if (myObjetFixe->MIsMurCassable())
+    if (m_pObjetFixe->MIsMurCassable())
     {
         return CASE_AVECMURCASSABLE;
     }
-    if (myObjetFixe->MIsMurIncassable())
+    if (m_pObjetFixe->MIsMurIncassable())
     {
         return CASE_AVECMURINCASSABLE;
     }
-    if (myObjetFixe->MIsBonusFlamme())
+    if (m_pObjetFixe->MIsBonusFlamme())
     {
         return CASE_AVECBONUS_FLAMME;
     }
-    if (myObjetFixe->MIsBonusBombe())
+    if (m_pObjetFixe->MIsBonusBombe())
     {
         return CASE_AVECBONUS_BOMBE;
     }
-    if (myObjetFixe->MIsBonusRoller())
+    if (m_pObjetFixe->MIsBonusRoller())
     {
         return CASE_AVECBONUS_ROLLER;
     }
