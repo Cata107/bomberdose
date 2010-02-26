@@ -22,7 +22,13 @@ class Plateau {
 
 	virtual Case MGetCase(sf::Vector2i _coordonnees);
 
+	Case MGetCase(int _coordonneeUniDimensionelle);
+
+
     virtual Case MGetPlateau();
+
+    int * MGetPlateauConverti();
+
 
  protected:
 

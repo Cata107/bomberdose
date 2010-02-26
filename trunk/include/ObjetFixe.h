@@ -1,12 +1,12 @@
 #ifndef ObjetFixe_h
 #define ObjetFixe_h
 
-#include <sfml/System.hpp>
+#include <SFML/System.hpp>
 
 class ObjetFixe {
 
  public:
-	
+
 	ObjetFixe(const sf::Vector2i _coordonnees);
     virtual bool MCreation()  = 0;
 	virtual bool MIsMurCassable();

@@ -2,7 +2,7 @@
 #define Joueur_h
 
 #include <iostream>
-#include <sfml/System.hpp>
+#include <SFML/System.hpp>
 #include "Plateau.h"
 
 
@@ -21,7 +21,7 @@ class Joueur {
 	virtual const sf::Vector2i MGetPosition() const;
 
 	virtual bool MSetPosition(const sf::Vector2i& _coordonnees);
-    
+
 
  protected:
 	std::string m_nom;

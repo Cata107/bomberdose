@@ -1,7 +1,7 @@
 #ifndef Timer_h
 #define Timer_h
 
-#include <sfml/System.hpp>
+#include <SFML/System.hpp>
 
 class Timer {
 
