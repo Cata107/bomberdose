@@ -17,5 +17,5 @@ bool BonusBombe::MCreation()
 //Augmente le nombre de bombe du joueur
 bool BonusBombe::MAppliquerEffet(Joueur& _joueur)
 {
-    return false;
+    return _joueur.MAugmenterNombreBombe();
 }
