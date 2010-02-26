@@ -15,4 +15,22 @@
 #define CASE_AVECBONUS_BOMBE 0x07
 //il reste à définir les constantes des cases avec les différents bonus
 
+
+/*-----------------------------------Maximum et Minimum-------------------------------------------------*/
+#define MAX_BOMBE 6
+#define MAX_PUISSANCE 6
+#define MAX_SPEED 9
+
+
+#define MIN_BOMBE 1
+#define MIN_PUISSANCE 1
+#define MIN_SPEED 1
+
+/*-------------------------------------------Defaut-----------------------------------------------------*/
+
+#define DEFAUT_BOMBE 1
+#define DEFAUT_PUISSANCE 2
+#define DEFAUT_SPEED 5
+#define DEFAUT_SCORE 0
+
 #endif //Macro_h
