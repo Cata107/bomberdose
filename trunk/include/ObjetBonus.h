@@ -2,10 +2,10 @@
 #define ObjetBonus_h
 
 #include "Joueur.h"
-#include "ObjetCassableEtPrennable.h"
+#include "ObjetPrenable.h"
 
 
-class ObjetBonus : public ObjetCassableEtPrennable {
+class ObjetBonus : public ObjetPrenable {
 
  public:
 

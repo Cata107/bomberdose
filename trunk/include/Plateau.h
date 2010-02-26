@@ -26,7 +26,7 @@ class Plateau {
 
  protected:
 
-    Case m_Case[];
+    Case* m_Case;
 
     Timer m_timer;
 };

@@ -1,6 +1,9 @@
 #ifndef Case_h
 #define Case_h
 
+#include "ObjetFixe.h"
+#include <sfml/System.hpp>
+
 class Case {
 
  public:
@@ -15,19 +18,13 @@ class Case {
 
 	virtual bool MClean();
 
-	int MConvertToInt();
-
 
 
  protected:
-    struct m_coordonees
-    {
-        int x;
-        int y;
-    };
 
+	sf::Vector2i m_coordonnees;
 	bool m_vide;
-	ObjetFixe *myObjetFixe;
+	ObjetFixe* m_pObjetFixe;
 };
 
 #endif // Case_h
