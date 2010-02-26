@@ -2,10 +2,10 @@
 #define ObjetMalus_h
 
 #include "Joueur.h"
-#include "ObjetCassableEtPrennable.h"
+#include "ObjetPrenable.h"
 
 
-class ObjetMalus : public ObjetCassableEtPrennable {
+class ObjetMalus : public ObjetPrenable {
 
  public:
 

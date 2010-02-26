@@ -2,10 +2,9 @@
 #define MurCassable_h
 
 #include "Mur.h"
-#include "ObjetCassable.h"
 
 
-class MurCassable : public Mur, public ObjetCassable {
+class MurCassable : public Mur {
 
  public:
 
