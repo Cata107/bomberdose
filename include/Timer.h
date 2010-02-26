@@ -11,8 +11,6 @@ class Timer {
 
     virtual float MGetTime();
 
-    virtual bool MRestartTimer();
-
 
  protected:
 

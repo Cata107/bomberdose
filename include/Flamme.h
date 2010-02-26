@@ -8,6 +8,8 @@
 class Flamme : public ObjetFixe {
 
  public:
+	
+	Flamme(const sf::Vector2i _coordonnees);
 
     virtual bool MCreation();
 
@@ -15,7 +17,7 @@ class Flamme : public ObjetFixe {
 
  public:
 
-    Timer myTimer;
+    Timer m_timer;
 };
 
 #endif // Flamme_h

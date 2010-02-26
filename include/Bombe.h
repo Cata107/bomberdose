@@ -7,7 +7,7 @@
 class Bombe : public ObjetFixe {
 
  public:
-
+	Bombe(const sf::Vector2i _coordonnees);
     virtual bool MCreation();
     virtual bool MDestruction();
 
