@@ -24,6 +24,11 @@ bool ObjetFixe::MIsMurIncassable()
 	return m_typeObjet.murIncassable;
 }
 
+bool ObjetFixe::MIsMalus()
+{
+	return m_typeObjet.malus;
+}
+
 bool ObjetFixe::MIsBonusFlamme()
 {
 	return m_typeObjet.bonusFlamme;
@@ -38,3 +43,4 @@ bool ObjetFixe::MIsBonusRoller()
 {
 	return m_typeObjet.bonusRoller;
 }
+

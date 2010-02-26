@@ -1,7 +1,6 @@
 #include "Mur.h"
 
-//Créer un mur
-bool Mur::MCreation()
+Mur::Mur(sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 {
-    return false;
+
 }
