@@ -1,10 +1,13 @@
 #ifndef Plateau_h
 #define Plateau_h
 
+#include <iostream>
+#include <list>
 #include "Case.h"
 #include "MurCassableAvecObjetPrenable.h"
 #include "Timer.h"
 #include "Macro.h"
+#include "Bombe.h"
 
 class Plateau {
 
@@ -35,6 +38,8 @@ class Plateau {
     Case* m_Case;
 
     Timer m_timer;
+
+	std::list<Bombe*> m_listBombes;
 };
 
 #endif // Plateau_h

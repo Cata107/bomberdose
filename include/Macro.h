@@ -1,10 +1,17 @@
 #ifndef Macro_h
 #define Macro_h
 
+
+//-----------------------------------Info du Plateau et Case---------------------------------------------
+
+
 //nb de colonnes du plateau de jeu
 #define NB_COLONNES 8
 //nb de lignes du plateau de jeu
 #define NB_LIGNES 10
+//Taille d'une Case
+#define LONGUEUR_CASE 1
+#define LARGEUR_CASE 1
 
 #define CASE_VIDE 0x01
 #define CASE_AVECMURINCASSABLE 0x02
