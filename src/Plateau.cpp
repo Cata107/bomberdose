@@ -15,9 +15,10 @@ bool Plateau::MDestruction()
 }
 
 //Place une bombe a la case aux coordonnees passees en parametre
-bool Plateau::MSetBombe(sf::Vector2i coordonnees)
+bool Plateau::MSetBombe(sf::Vector2i _coordonnees)
 {
-    return false;
+	m_listBombes.push_back(new Bombe(_coordonnees));
+    return true;
 }
 
 //Place les MursIncassables, qui sont fixes
