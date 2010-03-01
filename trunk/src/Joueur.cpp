@@ -1,14 +1,15 @@
 #include "Joueur.h"
 
-Joueur::Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau _plateau) : m_nom(_nom), m_coordonnees(_coordonnees), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau)
+Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau _plateau) : m_nom(_nom), m_coordonneesPixel(_coordonneesPixel), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau), m_nbBombesPosees(0)
 {
-
+	m_coordonneesCase = MConvertirPixelEnCase();
 }
 
 //Permet de poser une bombe sur la case où est le joueur
 bool Joueur::MPoserBombe(int _puissance)
 {
-    return false;
+	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau.MGetCase(m_coordonneesCase).MIsEmpty()))
+    return true;
 }
 
 //Met a jour le joueur après une action
@@ -30,18 +31,32 @@ const Plateau& Joueur::MGetPlateau() const
 }
 
 //Retourne la position du joueur
-const sf::Vector2i Joueur::MGetPosition() const
-
+const sf::Vector2i Joueur::MGetPositionPixel() const
 {
-    return m_coordonnees;
+    return m_coordonneesPixel;
 }
+
+const sf::Vector2i Joueur::MGetPositionCase() const
+{
+	return m_coordonneesCase;
+}
+
+const sf::Vector2i Joueur::MConvertirPixelEnCase() const
+{
+	sf::Vector2i temp;
+	temp.x = (m_coordonneesPixel.x / LONGUEUR_CASE ) ;
+	temp.y = (m_coordonneesPixel.y / LARGEUR_CASE ) ;
+	return temp;
+}
+
+
 
 //Change la position du joueur
 bool Joueur::MSetPosition(const sf::Vector2i& _coordonnees)
 
 {
-	m_coordonnees.x = _coordonnees.x;
-	m_coordonnees.y = _coordonnees.y;
+	m_coordonneesPixel.x = _coordonnees.x;
+	m_coordonneesPixel.y = _coordonnees.y;
     return true;
 }
 
