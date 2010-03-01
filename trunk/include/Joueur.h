@@ -22,7 +22,11 @@ class Joueur {
 
     virtual const Plateau& MGetPlateau() const;
 
-	virtual const sf::Vector2i MGetPosition() const;
+	virtual const sf::Vector2i MGetPositionPixel() const;
+
+	virtual const sf::Vector2i MGetPositionCase() const;
+
+	virtual const sf::Vector2i MConvertirPixelEnCase()const;
 
 	virtual bool MSetPosition(const sf::Vector2i& _coordonnees);
 	
@@ -32,13 +36,15 @@ class Joueur {
 
 	virtual bool MAugmenterVitesse();
 
+
  protected:
-	std::string m_nom;
-	int m_score;
-    int m_nbBombes;
-    int m_puissance;
-	int m_coefficientVitesse;
-    float m_vitesse;
+	std::string		m_nom;
+	int				m_score;
+    int				m_nbBombes;
+    int				m_puissance;
+	int				m_coefficientVitesse;
+    float			m_vitesse;
+	int				m_nbBombesPosees;
     enum Maladie
 	{
 		aucune,
@@ -51,10 +57,10 @@ class Joueur {
 		toucheInversee,
 		toujoursBouger,
 	};
-	Maladie m_maladie;
-	sf::Vector2i m_coordonnees;
-
-    Plateau m_plateau;
+	Maladie			m_maladie;
+	sf::Vector2i	m_coordonneesPixel;
+	sf::Vector2i	m_coordonneesCase;
+    Plateau			m_plateau;
 
 };
 
