@@ -8,9 +8,9 @@ class Mur : public ObjetFixe {
 
  public:
 
-	Mur(sf::Vector2i _coordonnees);
+	/* Constructeur */	Mur(sf::Vector2i _coordonnees);
 
-    virtual bool MCreation() = 0;
+		virtual bool	MCreation() = 0;
 };
 
 #endif // Mur_h

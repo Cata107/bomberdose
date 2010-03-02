@@ -9,15 +9,15 @@ class Flamme : public ObjetFixe {
 
  public:
 	
-	Flamme(const sf::Vector2i _coordonnees);
+	/* Constructeur */	Flamme(const sf::Vector2i _coordonnees);
 
-    virtual bool MCreation();
+		virtual bool	MCreation();
 
-    virtual bool MDestruction();
+		virtual bool	MDestruction();
 
  public:
 
-    Timer m_timer;
+				Timer	m_timer;
 };
 
 #endif // Flamme_h

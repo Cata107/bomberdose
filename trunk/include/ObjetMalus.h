@@ -9,13 +9,13 @@ class ObjetMalus : public ObjetPrenable {
 
  public:
 
-	ObjetMalus(const sf::Vector2i _coordonnees);
+	/* Constructeur */	ObjetMalus(const sf::Vector2i _coordonnees);
 
-	virtual bool MCreation();
+		virtual bool	MCreation();
 
-    virtual bool MDestruction();
+		virtual bool	MDestruction();
 
-    virtual bool MAppliquerEffet(Joueur& _joueur);
+		virtual bool	MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // ObjetMalus_h
