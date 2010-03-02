@@ -1,6 +1,12 @@
 #include "Plateau.h"
 
-
+Plateau::Plateau()
+{
+	for (int i = 0; i < NB_CASE; i++)
+	{
+		m_tCase[i].MSetPosition(i);
+	}
+}
 
 //Creer le Plateau
 bool Plateau::MCreation(MurCassableAvecObjetPrenable _listeMurCassableAvecObjetPrenable)
@@ -40,19 +46,19 @@ Case Plateau::MGetCase(sf::Vector2i _coordonnees)
     int accesLigne = _coordonnees.y * NB_COLONNES;
     int coordUniDimensionnelle = accesColonne + accesLigne;
 
-    return m_Case[ coordUniDimensionnelle ];
+    return m_tCase[ coordUniDimensionnelle ];
 }
 
 Case Plateau::MGetCase(int _coordonneeUniDimensionnelle)
 {
-    return m_Case[ _coordonneeUniDimensionnelle ];
+    return m_tCase[ _coordonneeUniDimensionnelle ];
 }
 
 //Retourne le Plateau
 Case Plateau::MGetPlateau()
 
 {
-	return *m_Case;
+	return *m_tCase;
 }
 int* Plateau::MGetPlateauConverti()
 {

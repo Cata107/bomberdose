@@ -1,6 +1,9 @@
 #include "MurCassableAvecObjetPrenable.h"
 
+MurCassableAvecObjetPrenable::MurCassableAvecObjetPrenable(sf::Vector2i _coordonnees) : MurCassable(_coordonnees)
+{
 
+}
 
 //Creer un MurCassableAvecObjetPrenable
 bool MurCassableAvecObjetPrenable::MCreation()

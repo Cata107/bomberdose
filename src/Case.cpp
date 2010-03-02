@@ -1,8 +1,18 @@
 #include "Case.h"
 #include "Macro.h"
 
+//Constructeur par defaut. Est appele lors de la creation du tableau de Case dans le Plateau
+Case::Case() : m_vide(true), m_pObjetFixe(NULL)
+{
+	
+}
 
-
+bool Case::MSetPosition(int _indiceCase)
+{
+	m_coordonnees.x = _indiceCase % NB_COLONNES;
+	m_coordonnees.y = _indiceCase / NB_COLONNES;
+	return true;
+}
 //Creer une case
 bool Case::MCreation()
 {
