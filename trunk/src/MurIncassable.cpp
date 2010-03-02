@@ -1,5 +1,10 @@
 #include "MurIncassable.h"
 
+//Constructeur
+MurIncassable::MurIncassable(sf::Vector2i _coordonnees) : Mur(_coordonnees)
+{
+
+}
 
 //Creer un MurIncassable a des endroits fixes
 bool MurIncassable::MCreation()

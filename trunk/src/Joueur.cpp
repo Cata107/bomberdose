@@ -44,8 +44,8 @@ const sf::Vector2i Joueur::MGetPositionCase() const
 const sf::Vector2i Joueur::MConvertirPixelEnCase() const
 {
 	sf::Vector2i temp;
-	temp.x = (m_coordonneesPixel.x / LONGUEUR_CASE ) ;
-	temp.y = (m_coordonneesPixel.y / LARGEUR_CASE ) ;
+	temp.x = (m_coordonneesPixel.x / LONGUEUR_CASE ) ;	//A remplacer. LONGUEUR_CASE par le resultat de 1/LONGUEUR_CASE précalcule
+	temp.y = (m_coordonneesPixel.y / LARGEUR_CASE ) ;	//A remplacer. LARGEUR_CASE par le resultat de 1/LARGEUR_CASE précalcule
 	return temp;
 }
 
