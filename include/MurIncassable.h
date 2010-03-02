@@ -8,9 +8,11 @@ class MurIncassable : public Mur {
 
  public:
 
-    virtual bool MCreation();
+	/* Constructeur */	MurIncassable(sf::Vector2i _coordonnees);
 
-    virtual bool MDestruction();
+		virtual bool	MCreation();
+
+		virtual bool	MDestruction();
 };
 
 #endif // MurIncassable_h

@@ -13,33 +13,34 @@ class Plateau {
 
  public:
 
-    virtual bool MCreation(MurCassableAvecObjetPrenable _listeMurCassableAvecObjetPrenable);
+ /*	Constructeur */	Plateau();
+    
+			bool	MCreation(MurCassableAvecObjetPrenable _listeMurCassableAvecObjetPrenable);
 
-    virtual bool MDestruction();
+			bool	MDestruction();
 
-    virtual bool MSetBombe(sf::Vector2i coordonnees);
+			bool	MSetBombe(sf::Vector2i coordonnees);
 
-    virtual bool MPlacerMursIncassables();
+			bool	MPlacerMursIncassables();
 
-    virtual bool MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
+			bool	MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
 
-	virtual Case MGetCase(sf::Vector2i _coordonnees);
+			Case	MGetCase(sf::Vector2i _coordonnees);
 
-	Case MGetCase(int _coordonneeUniDimensionelle);
+			Case	MGetCase(int _coordonneeUniDimensionelle);
 
+			Case	MGetPlateau();
 
-    virtual Case MGetPlateau();
-
-    int* MGetPlateauConverti();
+			int*	MGetPlateauConverti();
 
 
  protected:
 
-    Case* m_Case;
+			Case*				m_tCase;
 
-    Timer m_timer;
+			Timer				m_timer;
 
-	std::list<Bombe*> m_listBombes;
+			std::list<Bombe*>	m_listBombes;
 };
 
 #endif // Plateau_h

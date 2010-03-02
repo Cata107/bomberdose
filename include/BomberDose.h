@@ -11,18 +11,15 @@ class BomberDose {
 
  public:
 
-    virtual bool MCreatePlayer(Joueur _joueurs, Plateau _plateau);
+    virtual bool	MCreatePlayer(Joueur _joueurs, Plateau _plateau);
 
-    virtual bool MGetJoueur(int _indice);
+    virtual bool	MGetJoueur(int _indice);
 
  public:
 
-    Plateau *myPlateau;
+	Plateau					*myPlateau;
 
-    /**
-     * @element-type Joueur
-     */
-    std::vector< Joueur* > myJoueur;
+    std::vector< Joueur* >	myJoueur;
 };
 
 #endif // BomberDose_h

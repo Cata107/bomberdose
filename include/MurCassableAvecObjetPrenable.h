@@ -8,9 +8,11 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 
  public:
 
-    virtual bool MCreation();
+	/*Constructeur */	MurCassableAvecObjetPrenable(sf::Vector2i _coordonnees);
 
-    virtual bool MDestruction();
+		virtual bool	MCreation();
+
+		virtual bool	MDestruction();
 };
 
 #endif // MurCassableAvecObjetPrenable_h

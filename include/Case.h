@@ -9,23 +9,27 @@ class Case {
 
  public:
 
-    virtual bool MCreation();
+ /*	Constructeur */	Case();
 
-    virtual bool MIsEmpty();
+			bool	MCreation();
 
-    virtual bool MFill();
+			bool	MIsEmpty();
 
-    int MConvertToInt();
+			bool	MFill();
 
-	virtual bool MClean();
+			int		MConvertToInt();
+
+			bool	MClean();
+
+			bool	MSetPosition(int _indiceCase);
 
 
 
  protected:
 
-	sf::Vector2i m_coordonnees;
-	bool m_vide;
-	ObjetFixe* m_pObjetFixe;
+	sf::Vector2i	m_coordonnees;
+	bool			m_vide;
+	ObjetFixe*		m_pObjetFixe;
 };
 
 #endif // Case_h

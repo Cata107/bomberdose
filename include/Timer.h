@@ -7,14 +7,14 @@ class Timer {
 
  public:
 
-    virtual bool MStartTimer();
+    virtual bool	MStartTimer();
 
-    virtual float MGetTime();
+    virtual float	MGetTime();
 
 
  protected:
 
-	sf::Clock m_timer;
+		sf::Clock	m_timer;
 
 };
 

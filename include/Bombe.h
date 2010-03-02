@@ -7,13 +7,16 @@
 class Bombe : public ObjetFixe {
 
  public:
-	Bombe(const sf::Vector2i _coordonnees);
-    virtual bool MCreation();
-    virtual bool MDestruction();
+
+	/* Constructeur */	Bombe(const sf::Vector2i _coordonnees);
+    
+		virtual bool	MCreation();
+    
+		virtual bool	MDestruction();
 
  protected:
-    int m_puissance;
-	Timer m_timer;
+		int				m_puissance;
+		Timer			m_timer;
 };
 
 #endif // Bombe_h
