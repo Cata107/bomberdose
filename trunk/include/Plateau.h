@@ -5,6 +5,7 @@
 #include <list>
 #include "Case.h"
 #include "MurCassableAvecObjetPrenable.h"
+#include "MurIncassable.h"
 #include "Timer.h"
 #include "Macro.h"
 #include "Bombe.h"
@@ -22,6 +23,10 @@ class Plateau {
 			bool	MSetBombe(sf::Vector2i coordonnees);
 
 			bool	MPlacerMursIncassables();
+
+			bool	MPlacerMursIncassablesBord();
+
+			bool	MPlacerMursIncassablesMilieu();
 
 			bool	MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
 
