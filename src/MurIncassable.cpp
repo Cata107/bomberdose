@@ -3,7 +3,7 @@
 //Constructeur
 MurIncassable::MurIncassable(sf::Vector2i _coordonnees) : Mur(_coordonnees)
 {
-
+	m_typeObjet.murIncassable = true;
 }
 
 //Creer un MurIncassable a des endroits fixes
