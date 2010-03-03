@@ -15,13 +15,17 @@ class Case {
 
 			bool	MIsEmpty();
 
-			bool	MFill();
+			bool	MFill(ObjetFixe& _objetFixe);
 
 			int		MConvertToInt();
 
 			bool	MClean();
 
 			bool	MSetPosition(int _indiceCase);
+
+			bool	MSetPosition(sf::Vector2i _coordonnees);
+
+	sf::Vector2i	MGetPosition();
 
 
 
