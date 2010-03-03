@@ -2,6 +2,8 @@
 
 Plateau::Plateau()
 {
+	m_tCase = new Case[NB_CASE];
+	
 	for (int i = 0; i < NB_CASE; i++)
 	{
 		m_tCase[i].MSetPosition(i);

@@ -2,7 +2,7 @@
 
 MurCassable::MurCassable(sf::Vector2i _coordonnees) : Mur(_coordonnees)
 {
-
+	m_typeObjet = MURCASSABLE;
 }
 
 //Creer un MurCassable 

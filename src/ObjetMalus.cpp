@@ -3,8 +3,7 @@
 //Constructeur
 ObjetMalus::ObjetMalus(const sf::Vector2i _coordonnees) : ObjetPrenable(_coordonnees)
 {
-	m_typeObjet.malus = true;
-	MCreation();
+	m_typeObjet = MALUS;
 }
 
 //Creer un objetMalus
