@@ -3,8 +3,7 @@
 //Constructeur
 BonusRoller::BonusRoller(const sf::Vector2i _coodonnees) : ObjetBonus(_coodonnees)
 {
-	m_typeObjet.bonusRoller = true;
-	MCreation();
+	m_typeObjet = BONUSROLLER;
 }
 
 //Creer le BonusRoller

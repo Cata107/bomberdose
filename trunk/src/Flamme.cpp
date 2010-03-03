@@ -2,8 +2,7 @@
 
 Flamme::Flamme(const sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 {
-	m_typeObjet.flamme = true;
-	MCreation();
+	m_typeObjet = FLAMME;
 }
 
 //Creer une Case enflammee, qui tue le joueur

@@ -3,8 +3,7 @@
 //Constructeur
 BonusBombe::BonusBombe(const sf::Vector2i _coodonnees) : ObjetBonus(_coodonnees)
 {
-	m_typeObjet.bonusBombe = true;
-	MCreation();
+	m_typeObjet = BONUSBOMBE;
 }
 
 //Creer le BonusBombe
