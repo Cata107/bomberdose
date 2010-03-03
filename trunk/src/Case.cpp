@@ -7,12 +7,22 @@ Case::Case() : m_vide(true), m_pObjetFixe(NULL)
 	
 }
 
+//Fixer la position d'une case en ayant l'indice en parametre
 bool Case::MSetPosition(int _indiceCase)
 {
 	m_coordonnees.x = _indiceCase % NB_COLONNES;
 	m_coordonnees.y = _indiceCase / NB_COLONNES;
 	return true;
 }
+
+//Fixer la position d'une case avec des coordonnees en parametre
+bool Case::MSetPosition(sf::Vector2i _coordonnees)
+{
+	m_coordonnees.x = _coordonnees.x;
+	m_coordonnees.y = _coordonnees.y;
+	return true;
+}
+
 //Creer une case
 bool Case::MCreation()
 {
@@ -26,10 +36,16 @@ bool Case::MIsEmpty()
 }
 
 //Permet de mettre la variable m_vide a vrai si un objet est creer sur la Case
-bool Case::MFill()
+bool Case::MFill(ObjetFixe& _objetFixe)
 {
+	*m_pObjetFixe = _objetFixe;
 	m_vide = false;
     return true;
+}
+
+sf::Vector2i Case::MGetPosition()
+{
+	return m_coordonnees;
 }
 
 //Vider la case
