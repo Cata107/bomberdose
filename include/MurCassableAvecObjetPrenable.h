@@ -13,6 +13,19 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 		virtual bool	MCreation();
 
 		virtual bool	MDestruction();
+
+protected:
+		
+			enum ObjetContenu
+			{
+				MALUS,
+				BONUSBOMBE,
+				BONUSFLAMME,
+				BONUSROLLER,
+			};
+
+			ObjetContenu m_objetContenu;
+				
 };
 
 #endif // MurCassableAvecObjetPrenable_h

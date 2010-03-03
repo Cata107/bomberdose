@@ -9,34 +9,38 @@ class ObjetFixe {
 
 	/* Constructeur */	ObjetFixe(const sf::Vector2i _coordonnees);
 		
-		virtual bool	MCreation()  = 0;
+		virtual bool			MCreation()  = 0;
 	
-		virtual bool	MIsMurCassable();
+		virtual sf::Vector2i	MGetCoordonnees();
+
+		virtual bool			MIsMurCassable();
 	
-		virtual bool	MIsMurIncassable();
+		virtual bool			MIsMurIncassable();
 	
-		virtual bool	MIsMalus();
+		virtual bool			MIsMalus();
 	
-		virtual bool	MIsBonusFlamme();
+		virtual bool			MIsBonusFlamme();
 	
-		virtual bool	MIsBonusBombe();
+		virtual bool			MIsBonusBombe();
 	
-		virtual bool	MIsBonusRoller();
+		virtual bool			MIsBonusRoller();
+
+		
 
 
 protected:
 		sf::Vector2i	m_coordonnees;
 
-		struct TypeObjet
+		enum TypeObjet
 		{
-		bool			murCassable;
-		bool			murIncassable;
-		bool			bonusFlamme;
-		bool			bonusBombe;
-		bool			bonusRoller;
-		bool			bombe;
-		bool			flamme;
-		bool			malus;
+						MURCASSABLE,
+						MURINCASSABLE,
+						BONUSFLAMME,
+						BONUSBOMBE,
+						BONUSROLLER,
+						BOMBE,
+						FLAMME,
+						MALUS,
 		};
 
 		TypeObjet		m_typeObjet;
