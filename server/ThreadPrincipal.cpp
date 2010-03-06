@@ -1,4 +1,6 @@
 #include "ThreadPrincipal.h"
+#include <iostream>
+
 
 ThreadPrincipal::ThreadPrincipal(int _numeroClient, sf::IPAddress _adresseIpClient, sf::SocketTCP _socketTCPClient, Server* _pServer)/*:sf::Thread::Thread()*/
 {
