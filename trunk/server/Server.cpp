@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Server.h"
 #include "ThreadPrincipal.h"
 

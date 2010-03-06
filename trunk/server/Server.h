@@ -1,8 +1,6 @@
 #ifndef Server_h
 #define Server_h
 #include <SFML/Network.hpp>
-#include <iostream>
-//#include "ThreadPrincipal.h"
 
 class Server {
 public :

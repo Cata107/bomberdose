@@ -1,8 +1,6 @@
 #ifndef ThreadPrincipal_h
 #define ThreadPrincipal_h
-#include <SFML/System.hpp>
 #include <SFML/Network.hpp>
-#include <iostream>
 #include "Server.h"
 
 class ThreadPrincipal : public sf::Thread
