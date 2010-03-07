@@ -44,6 +44,8 @@ void Client::MConnect()
 }
 void Client::MAttenteInstruction()
 {
+    while (true)
+    {
     char Buffer [5];
     std::size_t Received;
     if (m_SocketTCP.Receive(Buffer, sizeof(Buffer), Received) != sf::Socket::Done)
@@ -53,6 +55,7 @@ void Client::MAttenteInstruction()
     else
     {
         std::cout<< "Instruction : " << Buffer << std::endl;
+    }
     }
 
 }
