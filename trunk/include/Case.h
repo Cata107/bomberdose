@@ -15,7 +15,7 @@ class Case {
 
 			bool	MIsEmpty();
 
-			bool	MFill(ObjetFixe& _objetFixe);
+			bool	MFill(const ObjetFixe& _objetFixe);
 
 			int		MConvertToInt();
 
