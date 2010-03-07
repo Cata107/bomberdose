@@ -44,10 +44,10 @@ void Server::MAttenteConnexion()
             ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP);
             MAjouterThreadPrincipal( tp );
             tp->Launch();
-            std::ostringstream oss;
-            oss << m_nbClients;
-            std::string str = oss.str();
-            MEnvoiInstructionClients( str );
+            //std::ostringstream oss;
+            //oss << m_nbClients;
+            //std::string str = oss.str();
+            //MEnvoiInstructionClients( str );
             m_nbClients++;
             }
     }

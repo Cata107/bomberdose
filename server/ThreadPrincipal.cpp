@@ -1,7 +1,7 @@
 #include "ThreadPrincipal.h"
 #include <iostream>
 
-ThreadPrincipal::ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient, uint _portUDP):sf::Thread::Thread()
+ThreadPrincipal::ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient, uint _portUDP)
 {
     m_NumeroClient = _numeroClient;
     m_AdresseIpClient = _adresseIpClient;
@@ -12,11 +12,16 @@ ThreadPrincipal::ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _
 
 ThreadPrincipal::~ThreadPrincipal()
 {
+    delete m_pThreadEnvoi;
 }
 
 void ThreadPrincipal::Run()
 {
     std::cout << "Thread principal du client n° : " << m_NumeroClient << " créé." << std::endl;
+    MGameStart();
+    m_pThreadEnvoi->Launch();
+    MGameStop();
+    //m_pThreadEnvoi->Wait();
 }
 
 bool ThreadPrincipal::MEnvoiInstruction (std::string const _msg)
@@ -32,13 +37,17 @@ bool ThreadPrincipal::MEnvoiInstruction (std::string const _msg)
 }
 bool ThreadPrincipal::MGameStart()
 {
+    std::string str = "START";
     m_PartieEnCours = true;
     MCreateFils();
+    MEnvoiInstruction( str );
+    //m_pThreadEnvoi->Launch();
     return true;
 }
 bool ThreadPrincipal::MGameStop()
 {
     m_PartieEnCours = false;
+    m_pThreadEnvoi->MGameStop();
     MDeleteFils();
     return true;
 }
@@ -56,6 +65,8 @@ bool ThreadPrincipal::MDeleteFils()
 }
 bool ThreadPrincipal::MCreateEnvoi()
 {
+    m_pThreadEnvoi = new ThreadEnvoi( m_portUDP, m_NumeroClient, m_AdresseIpClient );
+    //m_pThreadEnvoi->Launch();
     return true;
 }
 bool ThreadPrincipal::MCreateEcoute()

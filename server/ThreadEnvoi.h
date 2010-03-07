@@ -10,7 +10,6 @@ class ThreadEnvoi : public sf::Thread
     ~ThreadEnvoi();
     virtual void Run();
     bool MEnvoiDonnees();
-    bool MGameStart();
     bool MGameStop();
 
 
@@ -22,7 +21,7 @@ class ThreadEnvoi : public sf::Thread
     uint m_portUDP;
     uint m_NumeroClient;
     sf::IPAddress m_clientAddress;
-    volatile bool m_PartieEnCours;
+    /*volatile*/ bool m_PartieEnCours;
 
 
 };
