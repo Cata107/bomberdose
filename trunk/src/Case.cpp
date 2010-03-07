@@ -36,7 +36,7 @@ bool Case::MIsEmpty()
 }
 
 //Permet de mettre la variable m_vide a vrai si un objet est creer sur la Case
-bool Case::MFill(ObjetFixe& _objetFixe)
+bool Case::MFill(const ObjetFixe& _objetFixe)
 {
 	*m_pObjetFixe = _objetFixe;
 	m_vide = false;
