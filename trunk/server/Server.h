@@ -1,9 +1,8 @@
 #ifndef Server_h
 #define Server_h
 #include <SFML/Network.hpp>
-#include <list>
-
-class ThreadPrincipal;
+#include <vector>
+#include "ThreadPrincipal.h"
 
 class Server {
     /* gère l'inscription des clients au serveur, crée pour chaque client un thread principal */
@@ -11,7 +10,7 @@ class Server {
 public :
 
     /* Constructeur */
-    Server (int const _port);
+    Server (uint const _port);
 
     /* Destructeur */
     ~Server();
@@ -31,8 +30,21 @@ public :
     /* Ne fait rien tant que la partie n'est pas terminée */
     void MAttenteFinPartie();
 
-    /* Initialise la liste des thread principaux, n'est utilisée que par le constructeur */
-    void MInitialiserListeThreadPrincipaux(std::list<ThreadPrincipal*> _listeThreadPrincipaux);
+    /* Ajoute un thread principal à la liste de threads principaux */
+    bool MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal);
+
+    /* Nettoie la liste des threads principaux */
+    bool MNettoyerListeThreads();
+
+    /* Envoie une instruction à tous les clients enregistrés dans la liste des threads principaux */
+    bool MEnvoiInstructionClients(std::string const _msg);
+
+    /* Se charge de transmettre à tous les threads du programme qu'une partie va commencer */
+    bool MGameStart();
+
+    /* Se charge de transmettre à tous les threads du programme qu'une partie est terminée */
+    bool MGameStop();
+
 
 protected :
 
@@ -40,10 +52,13 @@ protected :
     sf::IPAddress m_localAdress;
 
     /* Port nécessité pour la connexion sur la socket TCP */
-    int m_portTCP;
+    uint m_portTCP;
+
+    /* Port de connexion socket UDP */
+    uint m_portUDP;
 
     /* Nombre de clients connectés à ce serveur */
-    int m_nbClients;
+    uint m_nbClients;
 
     /* Socket TCP du serveur */
     sf::SocketTCP m_socketTCP;
@@ -52,7 +67,7 @@ protected :
     bool m_PartieEnCours;
 
     /* Garde trace des threads principaux lancés, principalement afin de les nettoyer une fois le serveur éteint */
-    std::list<ThreadPrincipal*> m_ListeThreadPrincipaux;
+    std::vector<ThreadPrincipal*> m_ListeThreadPrincipaux;
 
 };
 

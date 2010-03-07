@@ -1,19 +1,22 @@
 #include <iostream>
 #include "Server.h"
 #include "ThreadPrincipal.h"
+#include <sstream>
 
-Server::Server(int const _port)
+Server::Server(uint const _port)
 {
     m_localAdress = sf::IPAddress::GetLocalAddress();
     m_portTCP = _port;
+    //On utilise le même port UDP et TCP ... pour l'instant.
+    m_portUDP = _port;
     m_nbClients = 0;
     m_socketTCP = sf::SocketTCP::SocketTCP();
     m_PartieEnCours = false;
-    Server::MInitialiserListeThreadPrincipaux ( m_ListeThreadPrincipaux );
 }
 Server::~Server()
 {
     m_socketTCP.Close();
+    MNettoyerListeThreads();
 }
 void Server::MAfficherStatus()
 {
@@ -38,8 +41,13 @@ void Server::MAttenteConnexion()
         else {
             std::cout<<"Connexion d'un nouveau client d'adresse : " << clientAddress.ToString() << std::endl;
             //création du thread principal
-            ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, Server::MGetInstance());
+            ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP);
+            MAjouterThreadPrincipal( tp );
             tp->Launch();
+            std::ostringstream oss;
+            oss << m_nbClients;
+            std::string str = oss.str();
+            MEnvoiInstructionClients( str );
             m_nbClients++;
             }
     }
@@ -58,11 +66,51 @@ void Server::MAttenteFinPartie()
     {
     }
 }
-void Server::MInitialiserListeThreadPrincipaux(std::list<ThreadPrincipal*> _listeThreadPrincipaux)
+bool Server::MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        ThreadPrincipal *tp;
-        //_listeThreadPrincipaux.assign(*tp); << ça marche pas et j'ai pas envie de savoir pourquoi
-    }
+    m_ListeThreadPrincipaux.push_back( _ThreadPrincipal );
+    return true;
 }
+
+bool Server::MNettoyerListeThreads()
+{
+    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    {
+        ThreadPrincipal* tp = m_ListeThreadPrincipaux.back();
+        m_ListeThreadPrincipaux.pop_back();
+        delete tp;
+    }
+
+    return true;
+}
+
+bool Server::MEnvoiInstructionClients( std::string const _msg)
+{
+    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    {
+        m_ListeThreadPrincipaux[i]->MEnvoiInstruction(_msg);
+    }
+    return true;
+}
+
+bool Server::MGameStart()
+{
+    m_PartieEnCours = true;
+    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    {
+        m_ListeThreadPrincipaux[i]->MGameStart();
+    }
+    return true;
+}
+
+bool Server::MGameStop()
+{
+    m_PartieEnCours = false;
+    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    {
+        m_ListeThreadPrincipaux[i]->MGameStop();
+    }
+
+    return true;
+}
+
