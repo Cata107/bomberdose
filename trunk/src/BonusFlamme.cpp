@@ -13,8 +13,9 @@ bool BonusFlamme::MCreation()
 	return true;
 }
 
-//Augmente la puissance de la bombe du joueur
+/*
 bool BonusFlamme::MAppliquerEffet(Joueur& _joueur)
 {
-    return _joueur.MAugmenterPuissance();
+    return _joueur.MRamasserObjet(*this);
 }
+*/

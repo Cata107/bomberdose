@@ -101,6 +101,7 @@ Case Plateau::MGetPlateau()
 {
 	return *m_tCase;
 }
+
 int* Plateau::MGetPlateauConverti()
 {
     int* tableau = new int[NB_LIGNES*NB_COLONNES];

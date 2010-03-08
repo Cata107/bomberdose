@@ -19,8 +19,9 @@ bool ObjetMalus::MDestruction()
     return false;
 }
 
-//Si un ObjetMalus est ramasse par un joueur, on applique un des effets choisi aleatoirement dans la totalite des malus
+/*
 bool ObjetMalus::MAppliquerEffet(Joueur& _joueur)
 {
-    return false;
+    return _joueur.MRamasserObjet(*this);
 }
+*/
