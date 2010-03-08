@@ -1,7 +1,7 @@
 #ifndef BonusBombe_h
 #define BonusBombe_h
 
-#include "Joueur.h"
+//#include "Joueur.h"
 #include "ObjetBonus.h"
 
 
@@ -13,7 +13,7 @@ class BonusBombe : public ObjetBonus {
 
 		virtual bool	MCreation();
 
-		virtual bool	MAppliquerEffet(Joueur& _joueur);
+		//virtual bool	MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // BonusBombe_h

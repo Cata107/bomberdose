@@ -1,7 +1,7 @@
 #ifndef ObjetMalus_h
 #define ObjetMalus_h
 
-#include "Joueur.h"
+//#include "Joueur.h"
 #include "ObjetPrenable.h"
 
 
@@ -15,7 +15,7 @@ class ObjetMalus : public ObjetPrenable {
 
 		virtual bool	MDestruction();
 
-		virtual bool	MAppliquerEffet(Joueur& _joueur);
+		//virtual bool	MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // ObjetMalus_h
