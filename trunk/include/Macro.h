@@ -44,4 +44,11 @@
 #define DEFAUT_SPEED 5
 #define DEFAUT_SCORE 0
 
+/*-----------------------------------------MALUS---------------------------------------------------*/
+
+#define NB_MALUS 9
+
+#define MALUS_RAPIDITE 15
+#define MALUS_LENTEUR 1
+
 #endif //Macro_h
