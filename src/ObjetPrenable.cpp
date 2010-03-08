@@ -10,3 +10,9 @@ bool ObjetPrenable::MObjetPris()
 {
     return false;
 }
+
+bool ObjetPrenable::MAppliquerEffet(Joueur& _joueur)
+{
+	return _joueur.MRamasserObjet(*this);
+}
+

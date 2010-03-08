@@ -13,8 +13,9 @@ bool BonusBombe::MCreation()
 	return true;
 }
 
-//Augmente le nombre de bombe du joueur
+/*
 bool BonusBombe::MAppliquerEffet(Joueur& _joueur)
 {
-    return _joueur.MAugmenterNombreBombe();
+    return _joueur.MRamasserObjet(*this);
 }
+*/

@@ -13,8 +13,10 @@ bool BonusRoller::MCreation()
 	return true;
 }
 
-//Augmnte la vitesse du joueur
+
+/*
 bool BonusRoller::MAppliquerEffet(Joueur& _joueur)
 {
-    return _joueur.MAugmenterVitesse();
+    return _joueur.MRamasserObjet(*this);
 }
+*/

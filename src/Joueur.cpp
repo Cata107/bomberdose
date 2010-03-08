@@ -9,6 +9,9 @@ Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau _platea
 bool Joueur::MPoserBombe(int _puissance)
 {
 	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau.MGetCase(m_coordonneesCase).MIsEmpty()))
+	{
+		m_plateau.MSetBombe(m_coordonneesCase);
+	}
     return true;
 }
 
@@ -49,7 +52,62 @@ const sf::Vector2i Joueur::MConvertirPixelEnCase() const
 	return temp;
 }
 
+bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
+{
+	if (m_maladie != aucune)
+	{
+		switch(m_maladie)
+		{
+			case (rapidite):
+			m_coefficientVitesse = m_tmp;
+			m_maladie = aucune;
+			break;
 
+			case (lenteur):
+			m_coefficientVitesse = m_tmp;
+			m_maladie = aucune;
+			break;
+
+			case flamme1:
+			m_puissance = m_tmp;
+			m_maladie = aucune;
+			break;
+
+			case pasDeBombe:
+			m_nbBombes = m_tmp;
+			m_maladie = aucune;
+			break;
+
+			case (explosionRapide):
+			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
+			m_maladie = aucune;
+			break;
+
+			case (explosionLente):
+			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
+			m_maladie = aucune;
+			break;
+
+			case toucheInversee:
+			m_maladie = aucune;
+			break;
+
+			case toujoursBouger:
+			//code ptet
+			m_maladie = aucune;
+			break;
+
+			case toujoursPoserBombe:
+			//code ptet
+			m_maladie = aucune;
+			break;
+			
+		}
+	}
+
+
+	return true;
+}
 
 //Change la position du joueur
 bool Joueur::MSetPosition(const sf::Vector2i& _coordonnees)
