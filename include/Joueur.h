@@ -1,12 +1,12 @@
-
 #ifndef Joueur_h
 #define Joueur_h
 
-class ObjetPrenable;
 #include <iostream>
 #include <SFML/System.hpp>
+#include <SFML/Config.hpp>
 #include "Plateau.h"
 #include "Macro.h"
+#include "ObjetPrenable.h"
 
 class Joueur {
 

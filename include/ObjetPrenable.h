@@ -1,7 +1,7 @@
 #ifndef ObjetPrenable_h
 #define ObjetPrenable_h
 
-#include "Joueur.h"
+class Joueur;
 #include "ObjetFixe.h"
 
 
@@ -19,5 +19,4 @@ class ObjetPrenable : public ObjetFixe {
 
 		virtual bool	MAppliquerEffet(Joueur& _joueur);
 };
-
 #endif // ObjetPrenable_h
