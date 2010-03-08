@@ -6,7 +6,6 @@
 #include "Joueur.h"
 #include "Plateau.h"
 
-
 class BomberDose {
 
  public:

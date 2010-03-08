@@ -1,7 +1,7 @@
 #ifndef Case_h
 #define Case_h
-#include "Macro.h"
 
+#include "Macro.h"
 #include "ObjetFixe.h"
 #include <SFML/System.hpp>
 

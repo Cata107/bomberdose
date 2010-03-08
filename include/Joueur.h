@@ -1,11 +1,12 @@
+
 #ifndef Joueur_h
 #define Joueur_h
 
+class ObjetPrenable;
 #include <iostream>
 #include <SFML/System.hpp>
 #include "Plateau.h"
 #include "Macro.h"
-
 
 class Joueur {
 
@@ -13,7 +14,7 @@ class Joueur {
 
 
 	/* Constructeur */	Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau _plateau);
-	
+		
 		virtual	bool				MPoserBombe(int _puissance);
 
 		virtual bool				MUpdate();
@@ -28,6 +29,8 @@ class Joueur {
 
 		virtual const sf::Vector2i	MConvertirPixelEnCase()const;
 
+		virtual	bool				MRamasserObjet(ObjetPrenable& _objet);
+
 		virtual bool				MSetPosition(const sf::Vector2i& _coordonnees);
 	
 		virtual bool				MAugmenterNombreBombe();
@@ -35,6 +38,8 @@ class Joueur {
 		virtual bool				MAugmenterPuissance();
 
 		virtual bool				MAugmenterVitesse();
+
+		
 
 
  protected:
@@ -45,17 +50,19 @@ class Joueur {
 		int				m_coefficientVitesse;
 		float			m_vitesse;
 		int				m_nbBombesPosees;
+		int				m_tmp;	//Conserve l'entier pour pouvoir le reattribuer quand une maladie disparait
 		enum Maladie
 		{
 			aucune,
 			rapidite,
 			lenteur,
 			flamme1,
+			pasDeBombe,
 			explosionRapide,
 			explosionLente,
-			pasDeBombe,
 			toucheInversee,
 			toujoursBouger,
+			toujoursPoserBombe
 		};
 		Maladie			m_maladie;
 		sf::Vector2i	m_coordonneesPixel;
