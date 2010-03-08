@@ -1,0 +1,24 @@
+Obligatoires: 
+- Puissance des bombes
+- vitesse de course
+- nombre de bombes
+
+
+
+Facultatifs :
+- push-bomb
+- flammes qui traversent les murs
+- faire exploser la bombe plus vite
+- bombes qui traversent les murs
+
+
+--------------------------------------------------------------------
+
+Fac : 
+Une 2e map...
+Equipes
+Gestion des bonus par les utilisateur
+
+
+
+
