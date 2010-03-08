@@ -78,12 +78,12 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 			m_maladie = aucune;
 			break;
 
-			case (explosionRapide):
+			case explosionRapide:
 			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
 			m_maladie = aucune;
 			break;
 
-			case (explosionLente):
+			case explosionLente:
 			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
 			m_maladie = aucune;
 			break;
@@ -104,7 +104,48 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 			
 		}
 	}
+	
+	//Cas d'un Bonus Bombe
+	if (_objet.MIsBonusBombe())
+	{
+		if (m_nbBombes < MAX_BOMBE)
+			m_nbBombes++;
+	}
+	
+	//Cas d'un Bonus Flamme
+	if (_objet.MIsBonusFlamme())
+	{
+		if (m_puissance < MAX_PUISSANCE)
+			m_puissance++;
+	}
+	
+	//Case d'un Bonus Roller
+	if (_objet.MIsBonusRoller())
+	{
+		if (m_coefficientVitesse < MAX_SPEED)
+		{
+			m_coefficientVitesse++;	
+			m_vitesse = 0;	//A MODIFIER SELON LE CALCUL DE LA VITESSE
+		}
+	}
 
+	if (_objet.MIsMalus())
+	{
+		switch(sf::Randomizer::Random(1, NB_MALUS))	//Nombre aleatoire entre 1 et le nombre de Malus
+		{
+			case 1:
+			m_maladie = rapidite;
+			m_tmp = m_coefficientVitesse;
+			m_coefficientVitesse = MALUS_RAPIDITE;
+			break;
+
+			case 2:
+			m_maladie = lenteur;
+			m_tmp = m_coefficientVitesse;
+			m_coefficientVitesse = MALUS_LENTEUR;
+			break;
+		}
+	}
 
 	return true;
 }
