@@ -65,7 +65,7 @@ bool Client::MAttenteInstruction()
     return true;
 
 }
-bool Client::MIsStart( char *_buffer)
+bool Client::MIsStart( char const *_buffer)
 {
     bool retour = false;
     if ( _buffer[0]== '0' )
@@ -75,7 +75,7 @@ bool Client::MIsStart( char *_buffer)
     return retour;
 }
 
-bool Client::MIsStop( char *_buffer )
+bool Client::MIsStop( char const *_buffer )
 {
     bool retour = false;
     if ( _buffer[0]=='1' )
@@ -84,7 +84,7 @@ bool Client::MIsStop( char *_buffer )
     }
     return retour;
 }
-bool Client::MIsQuit( char *_buffer )
+bool Client::MIsQuit( char const *_buffer )
 {
     bool retour = false;
     if ( _buffer[0]=='2' )

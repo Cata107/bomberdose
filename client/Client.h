@@ -29,13 +29,13 @@ class Client {
         bool MAttenteInstruction();
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction STOP */
-        bool MIsStop( char *_buffer );
+        bool MIsStop( char const *_buffer );
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction START */
-        bool MIsStart( char *_buffer );
+        bool MIsStart( char const *_buffer );
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction QUIT */
-        bool MIsQuit( char *_buffer );
+        bool MIsQuit( char const *_buffer );
 
 
     protected :
