@@ -1,13 +1,13 @@
 #include "ThreadEnvoi.h"
 #include <iostream>
 
-ThreadEnvoi::ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress)
+ThreadEnvoi::ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress, volatile const bool *_pPartieEnCours)
 {
     m_portUDP = _portUDP;
     m_NumeroClient = _numClient;
     m_clientAddress = _clientAddress;
-    /* Par défaut, lorsqu'on construit un thread de communication, c'est parce qu'une partie a commencé */
-    m_PartieEnCours = true;
+    m_pPartieEnCours = _pPartieEnCours;
+
 }
 ThreadEnvoi::~ThreadEnvoi()
 {
@@ -15,16 +15,12 @@ ThreadEnvoi::~ThreadEnvoi()
 }
 void ThreadEnvoi::Run()
 {
-    std::cout << "THREAD ENVOI" << m_NumeroClient << std::endl;
-    while ( m_PartieEnCours )
+    std::cout << "THREAD ENVOI du client : " << m_NumeroClient << " créé" << std::endl;
+    while ( *m_pPartieEnCours )
     {
-        std::cout << "haha" << std::endl;
+        //pour dormir, le while true n'est pas bon, testé et approuvé, ça utilise 200% de mon cpu (jsais pas comment c'est possible, mais c'est possible)
+        usleep(10000000);
     }
-}
-bool ThreadEnvoi::MGameStop()
-{
-    m_PartieEnCours = false;
-    return true;
 }
 bool MEnvoiDonnees()
 {
