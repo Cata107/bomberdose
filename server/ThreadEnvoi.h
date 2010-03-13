@@ -6,22 +6,33 @@ class ThreadEnvoi : public sf::Thread
 {
     public :
 
-    ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress );
+    /* Constructeur */
+    ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress, volatile const bool *_pPartieEnCours );
+
+    /* Destructeur */
     ~ThreadEnvoi();
+
+    /* Run du thread */
     virtual void Run();
+
+    /* Envoie les données du jeu au client */
     bool MEnvoiDonnees();
-    bool MGameStop();
-
-
 
 
 
     protected :
 
+    /* Le port udp qui est utilisé pour communiquer avec le client */
     uint m_portUDP;
+
+    /* Le numéro du client en communication (utilisé pour débugger) */
     uint m_NumeroClient;
+
+    /* L'adresse ip du client */
     sf::IPAddress m_clientAddress;
-    /*volatile*/ bool m_PartieEnCours;
+
+    /* Le pointeur vers le bool m_PartieEnCours du serveur */
+    volatile const bool *m_pPartieEnCours;
 
 
 };

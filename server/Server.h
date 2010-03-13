@@ -21,9 +21,6 @@ public :
     /* Attend les connexions des clients, tant que la partie n'est pas commencée */
     void MAttenteConnexion();
 
-    /* Récupère un pointeur du serveur courant */
-    Server* MGetInstance();
-
     /* Récupère le status de la partie */
     bool MGetStatusPartie();
 
@@ -37,13 +34,15 @@ public :
     bool MNettoyerListeThreads();
 
     /* Envoie une instruction à tous les clients enregistrés dans la liste des threads principaux */
-    bool MEnvoiInstructionClients(std::string const _msg);
+    bool MEnvoiInstructionClients(int const _msg);
 
     /* Se charge de transmettre à tous les threads du programme qu'une partie va commencer */
     bool MGameStart();
 
     /* Se charge de transmettre à tous les threads du programme qu'une partie est terminée */
     bool MGameStop();
+
+
 
 
 protected :

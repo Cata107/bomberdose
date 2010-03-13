@@ -1,4 +1,5 @@
 #include "Client.h"
+#include "MacroClientServer.h"
 Client::Client(int const _portTCP, char const * _addressIpServer)
 {
     m_portTCP = _portTCP;
@@ -6,6 +7,7 @@ Client::Client(int const _portTCP, char const * _addressIpServer)
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
+    m_SocketTCP.SetBlocking(true);
 }
 Client::~Client()
 {
@@ -15,10 +17,6 @@ void Client::MAfficherStatus()
 {
     std::cout<< "Client, Adresse locale et port : " << m_localAddress.ToString() <<":"<< m_portTCP << std::endl;
     std::cout<< "Adresse serveur : "<< m_serverAddress << std::endl;
-}
-Client::Client* Client::MGetInstance()
-{
-    return this;
 }
 bool Client::MGetStatusPartie()
 {
@@ -42,20 +40,56 @@ void Client::MConnect()
     }
 
 }
-void Client::MAttenteInstruction()
+bool Client::MAttenteInstruction()
 {
-    while (true)
+    char Buffer [2];
+    while ( !MIsQuit( Buffer ) )
     {
-    char Buffer [5];
-    std::size_t Received;
-    if (m_SocketTCP.Receive(Buffer, sizeof(Buffer), Received) != sf::Socket::Done)
-    {
-        std::cout<< "Impossible de lire les messages entrants" << std::endl;
+        std::size_t Received;
+        if (m_SocketTCP.Receive(Buffer, sizeof(Buffer), Received) != sf::Socket::Done)
+        {
+            if (m_SocketTCP.Receive(Buffer, sizeof(Buffer), Received) == sf::Socket::Disconnected)
+            {
+                std::cout<<"Déconnection du serveur"<<std::endl;
+                return false;
+            }
+            else
+            std::cout<<"Problème de réception des données du serveur"<<std::endl;
+        }
+        else
+        {
+            std::cout<< "Instruction : " << Buffer << std::endl;
+        }
     }
-    else
-    {
-        std::cout<< "Instruction : " << Buffer << std::endl;
-    }
-    }
+    std::cout << "Fermeture du client" << std::endl;
+    return true;
 
+}
+bool Client::MIsStart( char *_buffer)
+{
+    bool retour = false;
+    if ( _buffer[0]== '0' )
+    {
+        retour = true;
+    }
+    return retour;
+}
+
+bool Client::MIsStop( char *_buffer )
+{
+    bool retour = false;
+    if ( _buffer[0]=='1' )
+    {
+        retour = true;
+    }
+    return retour;
+}
+bool Client::MIsQuit( char *_buffer )
+{
+    bool retour = false;
+    if ( _buffer[0]=='2' )
+    {
+        retour = true;
+    }
+    return retour;
 }

@@ -9,7 +9,7 @@ class ThreadPrincipal : public sf::Thread
 
 public :
     /* Constructeur */
-    ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient, uint _portUDP);
+    ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient, uint _portUDP, volatile const bool *_pPartieEnCours);
 
     /* Méthode run du thread */
     virtual void Run();
@@ -18,7 +18,7 @@ public :
     ~ThreadPrincipal();
 
     /* Envoie une instruction au client par TCP */
-    bool MEnvoiInstruction(std::string const _msg);
+    bool MEnvoiInstruction(int const _msg);
 
     /* Transmet au thread courant et aux sous threads que la partie va commencer */
     bool MGameStart();
@@ -32,16 +32,22 @@ public :
     /* Transmet au thread courant et aux sous threads que la partie va s'arrêter */
     bool MGameStop();
 
+    /* Supprime correctement le ThreadEnvoi correspondant à ce ThreadPrincipal. */
     bool MDeleteEnvoi();
 
+    /* Supprime correctement le ThreadEcoute correspondant à ce ThreadPrincipal. */
     bool MDeleteEcoute();
 
+    /* Crée le ThreadEnvoi correspondant à ce ThreadPrincipal */
     bool MCreateEnvoi();
 
+    /* Crée le ThreadEcoute correspondant à ce ThreadPrincipal */
     bool MCreateEcoute();
 
+    /* Attend la fin de la partie */
+    bool MAttenteFinPartie();
 
-private :
+    private :
     /* l'ordre d'arrivée du client sur le serveur */
     uint m_NumeroClient;
 
@@ -51,12 +57,8 @@ private :
     /* Socket TCP du client */
     sf::SocketTCP m_SocketTCPClient;
 
-    /* Pointeur vers le père, le serveur */
-    //Server const * m_pServer;
-
-    /* Etat de la partie en cours, true si elle est en cours, false sinon, copie de l'état du jeu dans le serveur */
-    /* Peut être modifiée par le thread pere, Server.h */
-    volatile bool m_PartieEnCours;
+    /* Etat de la partie en cours, pointe sur la valeur du père, m_PartieEnCours */
+    volatile bool const *m_pPartieEnCours;
 
     /* pointeur vers le thread fils d'envoi */
     ThreadEnvoi* m_pThreadEnvoi;

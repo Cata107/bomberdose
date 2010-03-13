@@ -16,9 +16,6 @@ class Client {
         /* Affiche les attributs du client */
         void MAfficherStatus();
 
-        /* Renvoie un pointeur vers lui même */
-        Client* MGetInstance();
-
         /* Retourne true si la partie est en cours, false sinon */
         bool MGetStatusPartie();
 
@@ -29,7 +26,16 @@ class Client {
         void MConnect();
 
         /* Attend une instruction du serveur */
-        void MAttenteInstruction();
+        bool MAttenteInstruction();
+
+        /* Renvoie true si le buffer envoyé correspond à l'instruction STOP */
+        bool MIsStop( char *_buffer );
+
+        /* Renvoie true si le buffer envoyé correspond à l'instruction START */
+        bool MIsStart( char *_buffer );
+
+        /* Renvoie true si le buffer envoyé correspond à l'instruction QUIT */
+        bool MIsQuit( char *_buffer );
 
 
     protected :

@@ -2,6 +2,7 @@
 #include "Server.h"
 #include "ThreadPrincipal.h"
 #include <sstream>
+#include "MacroClientServer.h"
 
 Server::Server(uint const _port)
 {
@@ -29,7 +30,7 @@ void Server::MAttenteConnexion()
         std::cout << "Erreur d'écoute de la socket TCP sur le port " << m_portTCP << std::endl;
     }
 
-    while (!m_PartieEnCours)
+    while ( m_nbClients < 2 )
     //tant qu'il n'y a pas une partie en cours
     {
         sf::IPAddress clientAddress;
@@ -41,20 +42,12 @@ void Server::MAttenteConnexion()
         else {
             std::cout<<"Connexion d'un nouveau client d'adresse : " << clientAddress.ToString() << std::endl;
             //création du thread principal
-            ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP);
+            ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP, &m_PartieEnCours);
             MAjouterThreadPrincipal( tp );
             tp->Launch();
-            //std::ostringstream oss;
-            //oss << m_nbClients;
-            //std::string str = oss.str();
-            //MEnvoiInstructionClients( str );
             m_nbClients++;
             }
     }
-}
-Server::Server* Server::MGetInstance()
-{
-    return this;
 }
 bool Server::MGetStatusPartie()
 {
@@ -64,6 +57,7 @@ void Server::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
+        usleep(1000000000);
     }
 }
 bool Server::MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal)
@@ -84,7 +78,7 @@ bool Server::MNettoyerListeThreads()
     return true;
 }
 
-bool Server::MEnvoiInstructionClients( std::string const _msg)
+bool Server::MEnvoiInstructionClients( int const _msg)
 {
     for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
     {
