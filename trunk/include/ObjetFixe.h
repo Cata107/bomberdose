@@ -2,6 +2,7 @@
 #define ObjetFixe_h
 
 #include <SFML/System.hpp>
+#include "Timer.h"
 
 class ObjetFixe {
 
@@ -44,6 +45,7 @@ protected:
 		};
 
 		TypeObjet		m_typeObjet;
+		Timer			m_timer;
 };
 
 #endif // ObjetFixe_h

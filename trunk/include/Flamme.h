@@ -2,7 +2,6 @@
 #define Flamme_h
 
 #include "ObjetFixe.h"
-#include "Timer.h"
 
 
 class Flamme : public ObjetFixe {
@@ -17,7 +16,7 @@ class Flamme : public ObjetFixe {
 
  public:
 
-				Timer	m_timer;
+				
 };
 
 #endif // Flamme_h

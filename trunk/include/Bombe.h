@@ -1,7 +1,6 @@
 #ifndef Bombe_h
 #define Bombe_h
 #include "ObjetFixe.h"
-#include "Timer.h"
 
 class Bombe : public ObjetFixe {
 
@@ -15,7 +14,6 @@ class Bombe : public ObjetFixe {
 
  protected:
 		int				m_puissance;
-		Timer			m_timer;
 };
 
 #endif // Bombe_h
