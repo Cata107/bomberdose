@@ -1,7 +1,7 @@
 #include "BonusRoller.h"
 
 //Constructeur
-BonusRoller::BonusRoller(const sf::Vector2i _coodonnees) : ObjetBonus(_coodonnees)
+BonusRoller::BonusRoller(const sf::Vector2i _coodonnees) : ObjetPrenable(_coodonnees)
 {
 	m_typeObjet = BONUSROLLER;
 }
