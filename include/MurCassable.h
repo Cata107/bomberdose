@@ -1,10 +1,10 @@
 #ifndef MurCassable_h
 #define MurCassable_h
 
-#include "Mur.h"
+#include "ObjetFixe.h"
 
 
-class MurCassable : public Mur {
+class MurCassable : public ObjetFixe {
 
  public:
 

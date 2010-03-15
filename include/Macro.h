@@ -6,11 +6,13 @@
 
 
 //nb de colonnes du plateau de jeu
-#define NB_COLONNES 10
+#define NB_COLONNES 15
 //nb de lignes du plateau de jeu
-#define NB_LIGNES 8
+#define NB_LIGNES 13
 //nb de case du plateau de jeu
 #define NB_CASE (NB_COLONNES*NB_LIGNES)
+
+#define POSITION_JOUEUR1 (NB_COLONNES+2)
 
 //Taille d'une Case
 #define LONGUEUR_CASE 1	//A remplacer par la vrai Longueur

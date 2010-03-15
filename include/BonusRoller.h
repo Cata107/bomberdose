@@ -2,10 +2,10 @@
 #define BonusRoller_h
 
 //#include "Joueur.h"
-#include "ObjetBonus.h"
+#include "ObjetPrenable.h"
 
 
-class BonusRoller : public ObjetBonus {
+class BonusRoller : public ObjetPrenable {
 
  public:
 	

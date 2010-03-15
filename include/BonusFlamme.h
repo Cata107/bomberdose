@@ -2,10 +2,10 @@
 #define BonusFlamme_h
 
 //#include "Joueur.h"
-#include "ObjetBonus.h"
+#include "ObjetPrenable.h"
 
 
-class BonusFlamme : public ObjetBonus {
+class BonusFlamme : public ObjetPrenable {
 
  public:
 	
