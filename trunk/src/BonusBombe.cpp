@@ -1,7 +1,7 @@
 #include "BonusBombe.h"
 
 //Constructeur
-BonusBombe::BonusBombe(const sf::Vector2i _coodonnees) : ObjetBonus(_coodonnees)
+BonusBombe::BonusBombe(const sf::Vector2i _coodonnees) : ObjetPrenable(_coodonnees)
 {
 	m_typeObjet = BONUSBOMBE;
 }

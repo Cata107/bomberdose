@@ -1,7 +1,7 @@
 #include "MurIncassable.h"
 
 //Constructeur
-MurIncassable::MurIncassable(sf::Vector2i _coordonnees) : Mur(_coordonnees)
+MurIncassable::MurIncassable(sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 {
 	m_typeObjet = MURINCASSABLE;
 }
