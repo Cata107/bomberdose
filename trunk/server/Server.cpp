@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Server.h"
-#include "ThreadPrincipal.h"
+#include "Sclient.h"
 #include <sstream>
 #include "MacroServer.h"
 
@@ -16,7 +16,7 @@ Server::Server(uint const _portTCP, uint const _portUDP)
 Server::~Server()
 {
     m_socketTCP.Close();
-    MNettoyerListeThreads();
+    MNettoyerListeClients();
 }
 void Server::MAfficherStatus()
 {
@@ -40,10 +40,8 @@ void Server::MAttenteConnexion()
             }
         else {
             std::cout<<"Connexion d'un nouveau client d'adresse : " << clientAddress.ToString() << std::endl;
-            //création du thread principal
-            ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP, &m_PartieEnCours);
-            MAjouterThreadPrincipal( tp );
-            //tp->Launch();
+            Sclient * client = new Sclient( m_nbClients, clientAddress, socketClient );
+            MAjouterClient( client );
             m_nbClients++;
             }
     }
@@ -59,20 +57,20 @@ void Server::MAttenteFinPartie()
         usleep( DODO );
     }
 }
-bool Server::MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal)
+bool Server::MAjouterClient( Sclient * _client )
 {
-    m_ListeThreadPrincipaux.push_back( _ThreadPrincipal );
+    m_ListeClients.push_back( _client );
     return true;
 }
 
-bool Server::MNettoyerListeThreads()
+bool Server::MNettoyerListeClients()
 {
-    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    for ( uint i = 0; i < m_ListeClients.size(); i++)
     {
-        ThreadPrincipal* tp = m_ListeThreadPrincipaux.back();
-        m_ListeThreadPrincipaux.pop_back();
+        Sclient * client = m_ListeClients.back();
+        m_ListeClients.pop_back();
         //tp->Wait();
-        delete tp;
+        delete client;
     }
 
     return true;
@@ -80,9 +78,9 @@ bool Server::MNettoyerListeThreads()
 
 bool Server::MEnvoiInstructionClients( int const _msg)
 {
-    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    for ( uint i = 0; i < m_ListeClients.size(); i++)
     {
-        m_ListeThreadPrincipaux[i]->MEnvoiInstruction(_msg);
+        m_ListeClients[i]->MEnvoiInstruction(_msg);
     }
     return true;
 }
@@ -90,9 +88,9 @@ bool Server::MEnvoiInstructionClients( int const _msg)
 bool Server::MGameStart()
 {
     m_PartieEnCours = true;
-    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    for ( uint i = 0; i < m_ListeClients.size(); i++)
     {
-        m_ListeThreadPrincipaux[i]->MGameStart();
+        m_ListeClients[i]->MGameStart();
     }
     return true;
 }
@@ -100,11 +98,43 @@ bool Server::MGameStart()
 bool Server::MGameStop()
 {
     m_PartieEnCours = false;
-    for ( uint i = 0; i < m_ListeThreadPrincipaux.size(); i++)
+    for ( uint i = 0; i < m_ListeClients.size(); i++)
     {
-        m_ListeThreadPrincipaux[i]->MGameStop();
+        m_ListeClients[i]->MGameStop();
     }
 
+    return true;
+}
+
+bool Server::MCreateFils()
+{
+    MCreateEnvoi();
+    MCreateEcoute();
+    return true;
+}
+bool Server::MDeleteFils()
+{
+    MDeleteEnvoi();
+    MDeleteEcoute();
+    return true;
+}
+bool Server::MCreateEnvoi()
+{
+    m_pThreadEnvoi = new ThreadEnvoi( m_portUDP, & m_PartieEnCours );
+    return true;
+}
+bool Server::MCreateEcoute()
+{
+    return true;
+}
+bool Server::MDeleteEcoute()
+{
+    return true;
+}
+bool Server::MDeleteEnvoi()
+{
+    m_pThreadEnvoi->Wait();
+    delete m_pThreadEnvoi;
     return true;
 }
 

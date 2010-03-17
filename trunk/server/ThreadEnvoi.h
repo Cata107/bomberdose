@@ -7,7 +7,7 @@ class ThreadEnvoi : public sf::Thread
     public :
 
     /* Constructeur */
-    ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress, volatile const bool *_pPartieEnCours );
+    ThreadEnvoi( uint const _portUDP, volatile const bool *_pPartieEnCours );
 
     /* Destructeur */
     ~ThreadEnvoi();
@@ -22,17 +22,11 @@ class ThreadEnvoi : public sf::Thread
 
     protected :
 
-    /* Le port udp qui est utilisé pour communiquer avec le client */
+    /* Le port udp qui est utilisé pour communiquer avec les clients */
     uint m_portUDP;
 
     /* Socket UDP */
     sf::SocketUDP m_SocketUdp;
-
-    /* Le numéro du client en communication (utilisé pour débugger) */
-    uint m_NumeroClient;
-
-    /* L'adresse ip du client */
-    sf::IPAddress m_clientAddress;
 
     /* Le pointeur vers le bool m_PartieEnCours du serveur */
     volatile const bool *m_pPartieEnCours;
