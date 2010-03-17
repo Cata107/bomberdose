@@ -24,7 +24,7 @@ class Client {
         void MAttenteFinPartie();
 
         /* Se connecte au serveur */
-        void MConnect();
+        bool MConnect();
 
         /* Attend une instruction du serveur */
         bool MAttenteInstruction();

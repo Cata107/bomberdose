@@ -2,7 +2,7 @@
 #define Server_h
 #include <SFML/Network.hpp>
 #include <vector>
-#include "ThreadPrincipal.h"
+#include "Sclient.h"
 
 class Server {
     /* gère l'inscription des clients au serveur, crée pour chaque client un thread principal */
@@ -28,10 +28,10 @@ public :
     void MAttenteFinPartie();
 
     /* Ajoute un thread principal à la liste de threads principaux */
-    bool MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal);
+    bool MAjouterClient(Sclient * _sclient);
 
-    /* Nettoie la liste des threads principaux */
-    bool MNettoyerListeThreads();
+    /* Nettoie la liste des clients */
+    bool MNettoyerListeClients();
 
     /* Envoie une instruction à tous les clients enregistrés dans la liste des threads principaux */
     bool MEnvoiInstructionClients(int const _msg);
@@ -41,6 +41,25 @@ public :
 
     /* Se charge de transmettre à tous les threads du programme qu'une partie est terminée */
     bool MGameStop();
+
+    /* Crée les threads fils */
+    bool MCreateFils();
+
+    /* tue les fils */
+    bool MDeleteFils();
+
+    /* Supprime correctement le ThreadEnvoi correspondant à ce ThreadPrincipal. */
+    bool MDeleteEnvoi();
+
+    /* Supprime correctement le ThreadEcoute correspondant à ce ThreadPrincipal. */
+    bool MDeleteEcoute();
+
+    /* Crée le ThreadEnvoi correspondant à ce ThreadPrincipal */
+    bool MCreateEnvoi();
+
+    /* Crée le ThreadEcoute correspondant à ce ThreadPrincipal */
+    bool MCreateEcoute();
+
 
 
 
@@ -65,8 +84,11 @@ protected :
     /* Permet de savoir si la partie a été lancée ou non */
     bool m_PartieEnCours;
 
-    /* Garde trace des threads principaux lancés, principalement afin de les nettoyer une fois le serveur éteint */
-    std::vector<ThreadPrincipal*> m_ListeThreadPrincipaux;
+    /* Stocke les clients connectés sur le serveur */
+    std::vector<Sclient*> m_ListeClients;
+
+    /* pointeur vers le thread fils d'envoi */
+    ThreadEnvoi* m_pThreadEnvoi;
 
 };
 

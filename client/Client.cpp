@@ -29,16 +29,18 @@ void Client::MAttenteFinPartie()
         usleep( DODO );
     }
 }
-void Client::MConnect()
+bool Client::MConnect()
 {
     if (m_SocketTCP.Connect(m_portTCP, m_serverAddress) != sf::Socket::Done)
     {
         std::cout<< "Erreur de connection au serveur" << std::endl;
+        return false;
     }
     else
     {
         std::cout << "Connection au serveur " << m_serverAddress.ToString() << " par le port " << m_portTCP << " effectuée"<< std::endl;
     }
+    return true;
 
 }
 bool Client::MAttenteInstruction()
