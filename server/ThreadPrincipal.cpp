@@ -1,6 +1,6 @@
 #include "ThreadPrincipal.h"
 #include <iostream>
-#include "MacroClientServer.h"
+#include "MacroServer.h"
 #include <stdio.h>
 
 ThreadPrincipal::ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient, uint _portUDP,  volatile const bool *_pPartieEnCours)
@@ -14,7 +14,8 @@ ThreadPrincipal::ThreadPrincipal(uint const _numeroClient, sf::IPAddress const _
 
 ThreadPrincipal::~ThreadPrincipal()
 {
-    delete m_pThreadEnvoi;
+    MDeleteFils();
+    m_SocketTCPClient.Close();
 }
 
 void ThreadPrincipal::Run()
@@ -76,13 +77,22 @@ bool ThreadPrincipal::MDeleteEcoute()
 }
 bool ThreadPrincipal::MDeleteEnvoi()
 {
+    m_pThreadEnvoi->Wait();
     delete m_pThreadEnvoi;
     return true;
 }
 bool ThreadPrincipal::MAttenteFinPartie()
 {
-    while ( *m_pPartieEnCours)
+    while ( *m_pPartieEnCours )
     {
+        usleep( DODO );
     }
+    return true;
+}
+bool ThreadPrincipal::MAttenteFils()
+{
+    m_pThreadEnvoi->Wait();
+    //m_PThreadEcoute->Wait();
+
     return true;
 }

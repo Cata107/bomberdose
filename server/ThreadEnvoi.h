@@ -1,7 +1,7 @@
 #ifndef ThreadEnvoi_h
 #define ThreadEnvoi_h
 #include <SFML/Network.hpp>
-/* Se charge d'envoyer uniquement des données par les sockets UDP */
+/* SERVEUR : Se charge d'envoyer uniquement des données au client par les sockets UDP */
 class ThreadEnvoi : public sf::Thread
 {
     public :
@@ -24,6 +24,9 @@ class ThreadEnvoi : public sf::Thread
 
     /* Le port udp qui est utilisé pour communiquer avec le client */
     uint m_portUDP;
+
+    /* Socket UDP */
+    sf::SocketUDP m_SocketUdp;
 
     /* Le numéro du client en communication (utilisé pour débugger) */
     uint m_NumeroClient;

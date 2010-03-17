@@ -3,8 +3,8 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include "ThreadEnvoi.h"
-class ThreadPrincipal : public sf::Thread
-/* Thread qui s'occupe d'envoyer des instructions par TCP au client, et se charge de la création des sous threads de communication */
+class ThreadPrincipal /*: public sf::Thread*/
+/* SERVEUR : Envoie des instructions par TCP au client, et se charge de la création des sous threads de communication par protocole UDP */
 {
 
 public :
@@ -47,7 +47,10 @@ public :
     /* Attend la fin de la partie */
     bool MAttenteFinPartie();
 
-    private :
+    /* Attend la fin de la méthode run des fils */
+    bool MAttenteFils();
+
+private :
     /* l'ordre d'arrivée du client sur le serveur */
     uint m_NumeroClient;
 

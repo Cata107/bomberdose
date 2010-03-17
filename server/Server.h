@@ -10,7 +10,7 @@ class Server {
 public :
 
     /* Constructeur */
-    Server (uint const _port);
+    Server (uint const _portTCP, uint const _portUDP);
 
     /* Destructeur */
     ~Server();
