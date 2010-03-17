@@ -2,14 +2,13 @@
 #include "Server.h"
 #include "ThreadPrincipal.h"
 #include <sstream>
-#include "MacroClientServer.h"
+#include "MacroServer.h"
 
-Server::Server(uint const _port)
+Server::Server(uint const _portTCP, uint const _portUDP)
 {
     m_localAdress = sf::IPAddress::GetLocalAddress();
-    m_portTCP = _port;
-    //On utilise le même port UDP et TCP ... pour l'instant.
-    m_portUDP = _port;
+    m_portTCP = _portTCP;
+    m_portUDP = _portUDP;
     m_nbClients = 0;
     m_socketTCP = sf::SocketTCP::SocketTCP();
     m_PartieEnCours = false;
@@ -30,7 +29,7 @@ void Server::MAttenteConnexion()
         std::cout << "Erreur d'écoute de la socket TCP sur le port " << m_portTCP << std::endl;
     }
 
-    while ( m_nbClients < 2 )
+    while ( m_nbClients < NB_CLIENTS_ATTENDUS )
     //tant qu'il n'y a pas une partie en cours
     {
         sf::IPAddress clientAddress;
@@ -44,7 +43,7 @@ void Server::MAttenteConnexion()
             //création du thread principal
             ThreadPrincipal* tp = new ThreadPrincipal(m_nbClients, clientAddress, socketClient, m_portUDP, &m_PartieEnCours);
             MAjouterThreadPrincipal( tp );
-            tp->Launch();
+            //tp->Launch();
             m_nbClients++;
             }
     }
@@ -57,7 +56,7 @@ void Server::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
-        usleep(1000000000);
+        usleep( DODO );
     }
 }
 bool Server::MAjouterThreadPrincipal(ThreadPrincipal * _ThreadPrincipal)
@@ -72,6 +71,7 @@ bool Server::MNettoyerListeThreads()
     {
         ThreadPrincipal* tp = m_ListeThreadPrincipaux.back();
         m_ListeThreadPrincipaux.pop_back();
+        //tp->Wait();
         delete tp;
     }
 

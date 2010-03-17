@@ -1,13 +1,13 @@
 #include "Client.h"
-#include "MacroClientServer.h"
-Client::Client(int const _portTCP, char const * _addressIpServer)
+#include "MacroClient.h"
+Client::Client(uint const _portTCP, uint const _portUDP, char const * _addressIpServer)
 {
     m_portTCP = _portTCP;
+    m_portUDP = _portUDP;
     m_localAddress = sf::IPAddress::GetLocalAddress();
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
-    m_SocketTCP.SetBlocking(true);
 }
 Client::~Client()
 {
@@ -26,6 +26,7 @@ void Client::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
+        usleep( DODO );
     }
 }
 void Client::MConnect()
@@ -59,6 +60,17 @@ bool Client::MAttenteInstruction()
         else
         {
             std::cout<< "Instruction : " << Buffer << std::endl;
+            if ( MIsStart( Buffer ) )
+            {
+                std::cout<<"La partie va commencer ..."<<std::endl;
+                MGameStart();
+            }
+            if ( MIsStop ( Buffer ) )
+            {
+                std::cout<<"La partie va s'arrêter ..."<<std::endl;
+                MGameStop();
+            }
+
         }
     }
     std::cout << "Fermeture du client" << std::endl;
@@ -92,4 +104,50 @@ bool Client::MIsQuit( char const *_buffer )
         retour = true;
     }
     return retour;
+}
+bool Client::MGameStart()
+{
+    m_PartieEnCours = true;
+    MCreateFils();
+    m_pThreadEcoute->Launch();
+    return true;
+}
+bool Client::MCreateFils()
+{
+    MCreateEcoute();
+    MCreateEnvoi();
+    return true;
+}
+bool Client::MCreateEcoute()
+{
+    m_pThreadEcoute = new ThreadEcoute( m_portUDP, &m_PartieEnCours );
+    //m_pThreadEcoute->Launch();
+    return true;
+}
+bool Client::MCreateEnvoi()
+{
+
+    return true;
+}
+bool Client::MGameStop()
+{
+    m_PartieEnCours = false;
+    MDeleteFils();
+    return true;
+}
+bool Client::MDeleteFils()
+{
+    MDeleteEcoute();
+    MDeleteEnvoi();
+    return true;
+}
+bool Client::MDeleteEnvoi()
+{
+    return true;
+}
+bool Client::MDeleteEcoute()
+{
+    m_pThreadEcoute->Wait();
+    delete m_pThreadEcoute;
+    return true;
 }

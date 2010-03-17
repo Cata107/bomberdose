@@ -1,5 +1,6 @@
-#include "ThreadEnvoi.h"
 #include <iostream>
+#include "ThreadEnvoi.h"
+#include "MacroServer.h"
 
 ThreadEnvoi::ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddress const _clientAddress, volatile const bool *_pPartieEnCours)
 {
@@ -7,23 +8,31 @@ ThreadEnvoi::ThreadEnvoi( uint const _portUDP, uint const _numClient, sf::IPAddr
     m_NumeroClient = _numClient;
     m_clientAddress = _clientAddress;
     m_pPartieEnCours = _pPartieEnCours;
-
+    m_SocketUdp = sf::SocketUDP::SocketUDP();
 }
 ThreadEnvoi::~ThreadEnvoi()
 {
-
+    m_SocketUdp.Close();
 }
 void ThreadEnvoi::Run()
 {
     std::cout << "THREAD ENVOI du client : " << m_NumeroClient << " créé" << std::endl;
     while ( *m_pPartieEnCours )
     {
-        //pour dormir, le while true n'est pas bon, testé et approuvé, ça utilise 200% de mon cpu (jsais pas comment c'est possible, mais c'est possible)
-        usleep(10000000);
+        std::cout<<"Boucle thread envoi "  << m_NumeroClient << std::endl;
+        usleep( DODO );
+        MEnvoiDonnees();
     }
 }
-bool MEnvoiDonnees()
+bool ThreadEnvoi::MEnvoiDonnees()
 {
-    std::cout << "haha" << std::endl;
+    char Buffer[] = "TEST";
+    std::cout << "données UDP Serveur > Client envoyées" << std::endl;
+    if ( m_SocketUdp.Send(Buffer, sizeof(Buffer), m_clientAddress, m_portUDP ) != sf::Socket::Done)
+    {
+        std::cout<<"Erreur envoi de données par UDP"<<std::endl;
+        return false;
+    }
+
     return true;
 }

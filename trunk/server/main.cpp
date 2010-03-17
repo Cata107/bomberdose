@@ -3,7 +3,7 @@
 
 int main()
 {
-    Server myServer(44444);
+    Server myServer(44444, 44444);
     myServer.MAfficherStatus();
     myServer.MAttenteConnexion();
     myServer.MGameStart();
