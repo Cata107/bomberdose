@@ -6,11 +6,11 @@ Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau _platea
 }
 
 //Permet de poser une bombe sur la case où est le joueur
-bool Joueur::MPoserBombe(int _puissance)
+bool Joueur::MPoserBombe()
 {
 	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau.MGetCase(m_coordonneesCase).MIsEmpty()))
 	{
-		m_plateau.MSetBombe(m_coordonneesCase);
+		m_plateau.MSetBombe(m_coordonneesCase, m_puissance);
 	}
     return true;
 }
@@ -110,6 +110,7 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 	{
 		if (m_nbBombes < MAX_BOMBE)
 			m_nbBombes++;
+			m_listBonus.push_back(&_objet);
 	}
 	
 	//Cas d'un Bonus Flamme
@@ -117,6 +118,7 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 	{
 		if (m_puissance < MAX_PUISSANCE)
 			m_puissance++;
+			m_listBonus.push_back(&_objet);
 	}
 	
 	//Case d'un Bonus Roller
@@ -126,6 +128,7 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 		{
 			m_coefficientVitesse++;	
 			m_vitesse = 0;	//A MODIFIER SELON LE CALCUL DE LA VITESSE
+			m_listBonus.push_back(&_objet);
 		}
 	}
 

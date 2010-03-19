@@ -13,6 +13,11 @@ bool BonusFlamme::MCreation()
 	return true;
 }
 
+ObjetFixe* BonusFlamme::MClone() const
+{
+	return new BonusFlamme(*this);
+}
+
 /*
 bool BonusFlamme::MAppliquerEffet(Joueur& _joueur)
 {

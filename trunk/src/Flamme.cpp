@@ -12,6 +12,11 @@ bool Flamme::MCreation()
     return false;
 }
 
+ObjetFixe* Flamme::MClone() const
+{
+	return new Flamme(*this);
+}
+
 //Faire disparaitre la flamme d'une Case
 bool Flamme::MDestruction()
 {

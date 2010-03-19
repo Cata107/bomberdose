@@ -13,6 +13,11 @@ bool ObjetMalus::MCreation()
 	return true;
 }
 
+ObjetFixe* ObjetMalus::MClone() const
+{
+	return new ObjetMalus(*this);
+}
+
 //Si un ObjetMalus est touche par une flamme, l'ObjetMalus change de place, sur une Case vide
 bool ObjetMalus::MDestruction()
 {

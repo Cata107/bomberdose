@@ -13,6 +13,10 @@ bool BonusRoller::MCreation()
 	return true;
 }
 
+ObjetFixe* BonusRoller::MClone() const
+{
+	return new BonusRoller(*this);
+}
 
 /*
 bool BonusRoller::MAppliquerEffet(Joueur& _joueur)

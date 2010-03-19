@@ -11,6 +11,12 @@ bool MurCassableAvecObjetPrenable::MCreation()
     return false;
 }
 
+ObjetFixe* MurCassableAvecObjetPrenable::MClone() const
+{
+	return new MurCassableAvecObjetPrenable(*this);
+}
+
+
 //Une fois detruit, un objet est cree sur la Case ou le mur etait. L'objet depend de la valeur de m_objetContenu
 bool MurCassableAvecObjetPrenable::MDestruction()
 {

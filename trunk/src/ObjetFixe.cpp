@@ -1,10 +1,16 @@
 #include "ObjetFixe.h"
 
+ObjetFixe::ObjetFixe()
+{
+	
+}
+
 //Constructeur d'un ObjetFixe. Initialise les coordonnees, et met le type de l'objet a false. Les constructeurs des classes filles mettront true a leur type.
 ObjetFixe::ObjetFixe(const sf::Vector2i _coordonnees) : m_coordonnees(_coordonnees)
 {
 
 }
+
 
 sf::Vector2i ObjetFixe::MGetCoordonnees()
 {
