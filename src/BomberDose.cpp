@@ -2,7 +2,7 @@
 
 
 //Creer les joueurs et le plateau
-bool BomberDose::MCreatePlayer(Joueur _joueurs, Plateau _plateau)
+bool BomberDose::MCreatePlayer(std::vector< Joueur* >& _joueurs, Plateau* _plateau)
 {
     return false;
 }
@@ -11,4 +11,8 @@ bool BomberDose::MCreatePlayer(Joueur _joueurs, Plateau _plateau)
 bool BomberDose::MGetJoueur(int _indice)
 {
     return false;
+}
+bool BomberDose::MCreateMursAvecObjet()
+{
+	return false;
 }

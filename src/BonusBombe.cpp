@@ -13,6 +13,11 @@ bool BonusBombe::MCreation()
 	return true;
 }
 
+ObjetFixe* BonusBombe::MClone() const
+{
+	return new BonusBombe(*this);
+}
+
 /*
 bool BonusBombe::MAppliquerEffet(Joueur& _joueur)
 {

@@ -38,7 +38,7 @@ bool Case::MIsEmpty()
 //Permet de mettre la variable m_vide a vrai si un objet est creer sur la Case
 bool Case::MFill(const ObjetFixe& _objetFixe)
 {
-	*m_pObjetFixe = _objetFixe;
+	m_pObjetFixe = _objetFixe.MClone();
 	m_vide = false;
     return true;
 }
@@ -54,6 +54,12 @@ bool Case::MClean()
 	m_vide = true;
 	return true;
 }
+
+ObjetFixe* Case::MGetObjetFixe() const
+{
+	return m_pObjetFixe;
+}
+
 //Converti une case en int en hexadécimal, utile pour communiquer le plateau par les sockets
 int Case::MConvertToInt()
 {

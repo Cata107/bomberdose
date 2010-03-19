@@ -17,3 +17,7 @@ bool ObjetPrenable::MAppliquerEffet(Joueur& _joueur)
 	return _joueur.MRamasserObjet(*this);
 }
 
+bool ObjetPrenable::MDestruction()
+{
+	return false;
+}

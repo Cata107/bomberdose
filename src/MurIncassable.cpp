@@ -12,6 +12,11 @@ bool MurIncassable::MCreation()
     return false;
 }
 
+ObjetFixe* MurIncassable::MClone() const
+{
+	return new MurIncassable(*this);
+}
+
 //Un mur ne peut pas etre detruit
 bool MurIncassable::MDestruction()
 {

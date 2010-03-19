@@ -12,6 +12,11 @@
 		m_timer.MStartTimer();
 		return true;
 	}
+
+	ObjetFixe* Bombe::MClone() const
+	{
+		return new Bombe(*this);
+	}
 	
 	//Detruit la bombe
 	bool Bombe::MDestruction()
