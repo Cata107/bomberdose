@@ -11,21 +11,23 @@ class Case {
 
  /*	Constructeur */	Case();
 
-			bool	MCreation();
+			bool		MCreation();
 
-			bool	MIsEmpty();
+			bool		MIsEmpty();
 
-			bool	MFill(const ObjetFixe& _objetFixe);
+			bool		MFill(const ObjetFixe& _objetFixe);
 
-			int		MConvertToInt();
+			int			MConvertToInt();
 
-			bool	MClean();
+			bool		MClean();
 
-			bool	MSetPosition(int _indiceCase);
+			bool		MSetPosition(int _indiceCase);
 
-			bool	MSetPosition(sf::Vector2i _coordonnees);
+			bool		MSetPosition(sf::Vector2i _coordonnees);
 
-	sf::Vector2i	MGetPosition();
+	sf::Vector2i		MGetPosition();
+
+	ObjetFixe*			MGetObjetFixe() const;
 
 
 

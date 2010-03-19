@@ -9,11 +9,14 @@ class BonusBombe : public ObjetPrenable {
 
  public:
 
-	/* Constructeur */	BonusBombe(const sf::Vector2i _coodonnees);
+	/* Constructeur */		BonusBombe(const sf::Vector2i _coodonnees);
 
-		virtual bool	MCreation();
+		virtual bool		MCreation();
 
-		//virtual bool	MAppliquerEffet(Joueur& _joueur);
+		virtual ObjetFixe*	MClone() const;
+
+
+		//virtual bool		MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // BonusBombe_h

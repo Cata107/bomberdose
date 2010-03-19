@@ -12,7 +12,24 @@
 //nb de case du plateau de jeu
 #define NB_CASE (NB_COLONNES*NB_LIGNES)
 
-#define POSITION_JOUEUR1 (NB_COLONNES+2)
+#define NB_MURSCASSABLES 80
+#define NB_MURSAVECBONUS 0
+
+//Position de départ des joueurs
+#define POSITION_JOUEUR1 (NB_COLONNES+1)
+#define POSITION_JOUEUR2 ((2*NB_COLONNES)-2)
+#define POSITION_JOUEUR3 (((NB_LIGNES-2)*NB_COLONNES)+1)
+#define POSITION_JOUEUR4 (((NB_LIGNES-1)*NB_COLONNES)-2)
+
+//Case interdite à la construction de case car ca bloquerait le joueur au départ
+#define CASE_INTERDITE1 (NB_COLONNES+2)
+#define CASE_INTERDITE2 ((2*NB_COLONNES)-3)
+#define CASE_INTERDITE3 ((2*NB_COLONNES)+1)
+#define CASE_INTERDITE4 ((3*NB_COLONNES)-2)
+#define CASE_INTERDITE5 (((NB_LIGNES-3)*NB_COLONNES)+1)
+#define CASE_INTERDITE6 (((NB_LIGNES-2)*NB_COLONNES)-2)
+#define CASE_INTERDITE7 (((NB_LIGNES-2)*NB_COLONNES)+2)
+#define CASE_INTERDITE8 (((NB_LIGNES-1)*NB_COLONNES)-3)
 
 //Taille d'une Case
 #define LONGUEUR_CASE 1	//A remplacer par la vrai Longueur

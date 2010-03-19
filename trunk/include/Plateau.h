@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <list>
+#include <set>
+#include <vector>
+#include <algorithm>
 #include "Case.h"
 #include "MurCassableAvecObjetPrenable.h"
 #include "MurIncassable.h"
@@ -14,13 +17,13 @@ class Plateau {
 
  public:
 
- /*	Constructeur */	Plateau();
+ /*	Constructeur */	Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable);
     
-			bool	MCreation(MurCassableAvecObjetPrenable _listeMurCassableAvecObjetPrenable);
+			bool	MCreation();
 
 			bool	MDestruction();
 
-			bool	MSetBombe(sf::Vector2i coordonnees);
+			bool	MSetBombe(sf::Vector2i _coordonnees, int _puissance);
 
 			bool	MPlacerMursIncassables();
 
@@ -28,24 +31,28 @@ class Plateau {
 
 			bool	MPlacerMursIncassablesMilieu();
 
-			bool	MPlacerMursCassables(MurCassableAvecObjetPrenable _listMurCassableAvecObjetPrenable);
+			bool	MPlacerMursCassables();
 
 			Case	MGetCase(sf::Vector2i _coordonnees);
 
 			Case	MGetCase(int _coordonneeUniDimensionelle);
 
-			Case	MGetPlateau();
+			Case*	MGetPlateau();
 
 			int*	MGetPlateauConverti();
 
 
  protected:
 
-			Case*				m_tCase;
+			Case*					m_tCase;
 
-			Timer				m_timer;
+			Timer					m_timer;
 
-			std::list<Bombe*>	m_listBombes;
+			std::list<Bombe*>		m_listPBombes;			//La liste de bombes posees par les joueurs
+
+			std::vector<MurCassable*>	m_listPMursCassables;	//La liste des murs cassables pour la construction du plateau
+
+			std::set<int>			m_setIndiceCaseVide;	//L'ensemble des cases vides
 };
 
 #endif // Plateau_h
