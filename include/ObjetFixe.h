@@ -8,23 +8,27 @@ class ObjetFixe {
 
  public:
 
-	/* Constructeur */	ObjetFixe(const sf::Vector2i _coordonnees);
-		
-		virtual bool			MCreation()  = 0;
-	
-		virtual sf::Vector2i	MGetCoordonnees();
+	/*Constructeur defaut*/					ObjetFixe();
 
-		virtual bool			MIsMurCassable();
+	/* Constructeur */						ObjetFixe(const sf::Vector2i _coordonnees);
+
+		virtual ObjetFixe*					MClone() const = 0 ;
+		
+		virtual bool						MCreation()  = 0;
 	
-		virtual bool			MIsMurIncassable();
+		virtual sf::Vector2i				MGetCoordonnees();
+
+		virtual bool						MIsMurCassable();
 	
-		virtual bool			MIsMalus();
+		virtual bool						MIsMurIncassable();
 	
-		virtual bool			MIsBonusFlamme();
+		virtual bool						MIsMalus();
 	
-		virtual bool			MIsBonusBombe();
+		virtual bool						MIsBonusFlamme();
 	
-		virtual bool			MIsBonusRoller();
+		virtual bool						MIsBonusBombe();
+	
+		virtual bool						MIsBonusRoller();
 
 		
 

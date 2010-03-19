@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Config.hpp>
+#include <vector>
 #include "Plateau.h"
 #include "Macro.h"
 #include "ObjetPrenable.h"
@@ -15,7 +16,7 @@ class Joueur {
 
 	/* Constructeur */	Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau _plateau);
 		
-		virtual	bool				MPoserBombe(int _puissance);
+		virtual	bool				MPoserBombe();
 
 		virtual bool				MUpdate();
 
@@ -64,10 +65,11 @@ class Joueur {
 			toujoursBouger,
 			toujoursPoserBombe
 		};
-		Maladie			m_maladie;
-		sf::Vector2i	m_coordonneesPixel;
-		sf::Vector2i	m_coordonneesCase;
-		Plateau			m_plateau;
+		Maladie							m_maladie;
+		std::vector<ObjetPrenable*>		m_listBonus;
+		sf::Vector2i					m_coordonneesPixel;
+		sf::Vector2i					m_coordonneesCase;
+		Plateau							m_plateau;
 
 };
 

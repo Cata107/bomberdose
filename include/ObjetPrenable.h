@@ -15,7 +15,7 @@ class ObjetPrenable : public ObjetFixe {
 
 		virtual bool	MObjetPris();
 
-		virtual bool	MDestruction()  = 0;
+		virtual bool	MDestruction();
 
 		virtual bool	MAppliquerEffet(Joueur& _joueur);
 };

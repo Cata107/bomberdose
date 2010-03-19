@@ -12,6 +12,8 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 
 		virtual bool	MCreation();
 
+		ObjetFixe*		MClone() const;
+
 		virtual bool	MDestruction();
 
 protected:

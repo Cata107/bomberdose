@@ -8,9 +8,11 @@ class Bombe : public ObjetFixe {
 
 	/* Constructeur */	Bombe(const sf::Vector2i _coordonnees);
 
-		virtual bool	MCreation();
+		virtual bool		MCreation();
 
-		virtual bool	MDestruction();
+		virtual ObjetFixe*	MClone() const;
+
+		virtual bool		MDestruction();
 
  protected:
 		int				m_puissance;
