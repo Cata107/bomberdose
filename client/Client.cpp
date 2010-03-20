@@ -1,9 +1,8 @@
 #include "Client.h"
 #include "MacroClient.h"
-Client::Client(uint const _portTCP, uint const _portUDP, char const * _addressIpServer)
+Client::Client(char const * _addressIpServer)
 {
-    m_portTCP = _portTCP;
-    m_portUDP = _portUDP;
+    m_portTCP = PORT_TCP;
     m_localAddress = sf::IPAddress::GetLocalAddress();
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
@@ -112,6 +111,7 @@ bool Client::MGameStart()
     m_PartieEnCours = true;
     MCreateFils();
     m_pThreadEcoute->Launch();
+    m_pThreadEnvoi->Launch();
     return true;
 }
 bool Client::MCreateFils()
@@ -122,13 +122,12 @@ bool Client::MCreateFils()
 }
 bool Client::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute( m_portUDP, &m_PartieEnCours );
-    //m_pThreadEcoute->Launch();
+    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours );
     return true;
 }
 bool Client::MCreateEnvoi()
 {
-
+    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_serverAddress );
     return true;
 }
 bool Client::MGameStop()
@@ -145,6 +144,8 @@ bool Client::MDeleteFils()
 }
 bool Client::MDeleteEnvoi()
 {
+    m_pThreadEnvoi->Wait();
+    delete m_pThreadEnvoi;
     return true;
 }
 bool Client::MDeleteEcoute()

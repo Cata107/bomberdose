@@ -4,14 +4,13 @@
 #include <sstream>
 #include "MacroServer.h"
 
-Server::Server(uint const _portTCP, uint const _portUDP)
+Server::Server()
 {
     m_localAdress = sf::IPAddress::GetLocalAddress();
-    m_portTCP = _portTCP;
-    m_portUDP = _portUDP;
     m_nbClients = 0;
     m_socketTCP = sf::SocketTCP::SocketTCP();
     m_PartieEnCours = false;
+    m_portTCP = PORT_TCP;
 }
 Server::~Server()
 {
@@ -69,7 +68,6 @@ bool Server::MNettoyerListeClients()
     {
         Sclient * client = m_ListeClients.back();
         m_ListeClients.pop_back();
-        //tp->Wait();
         delete client;
     }
 
@@ -92,6 +90,9 @@ bool Server::MGameStart()
     {
         m_ListeClients[i]->MGameStart();
     }
+    MCreateFils();
+    m_pThreadEnvoi->Launch();
+    m_pThreadEcoute->Launch();
     return true;
 }
 
@@ -120,15 +121,18 @@ bool Server::MDeleteFils()
 }
 bool Server::MCreateEnvoi()
 {
-    m_pThreadEnvoi = new ThreadEnvoi( m_portUDP, & m_PartieEnCours );
+    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_ListeClients );
     return true;
 }
 bool Server::MCreateEcoute()
 {
+    m_pThreadEcoute = new ThreadEcoute ( &m_PartieEnCours );
     return true;
 }
 bool Server::MDeleteEcoute()
 {
+    m_pThreadEcoute->Wait();
+    delete m_pThreadEnvoi;
     return true;
 }
 bool Server::MDeleteEnvoi()
