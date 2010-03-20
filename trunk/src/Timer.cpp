@@ -1,11 +1,19 @@
 #include "Timer.h"
 
+Timer::Timer()
+{
+	m_pTimer = new sf::Clock();
+}
 
+Timer::~Timer()
+{
+	delete m_pTimer;
+}
 
 //Demarre le Timer
 bool Timer::MStartTimer()
 {
-	m_timer.Reset();
+	m_pTimer->Reset();
     return true;
 }
 
@@ -13,5 +21,5 @@ bool Timer::MStartTimer()
 float Timer::MGetTime()
 
 {
-    return m_timer.GetElapsedTime();
+    return m_pTimer->GetElapsedTime();
 }

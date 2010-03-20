@@ -1,6 +1,6 @@
 #include "Joueur.h"
 
-Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau _plateau) : m_nom(_nom), m_coordonneesPixel(_coordonneesPixel), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau), m_nbBombesPosees(0)
+Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau* _plateau) : m_nom(_nom), m_coordonneesPixel(_coordonneesPixel), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau), m_nbBombesPosees(0)
 {
 	m_coordonneesCase = MConvertirPixelEnCase();
 }
@@ -8,9 +8,9 @@ Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau _platea
 //Permet de poser une bombe sur la case où est le joueur
 bool Joueur::MPoserBombe()
 {
-	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau.MGetCase(m_coordonneesCase).MIsEmpty()))
+	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau->MGetCase(m_coordonneesCase)->MIsEmpty()))
 	{
-		m_plateau.MSetBombe(m_coordonneesCase, m_puissance);
+		m_plateau->MSetBombe(m_coordonneesCase, m_puissance);
 	}
     return true;
 }
@@ -28,7 +28,7 @@ bool Joueur::MJouer()
 }
 
 //Retourne le plateau
-const Plateau& Joueur::MGetPlateau() const
+const Plateau* Joueur::MGetPlateau() const
 {
 	return m_plateau;
 }

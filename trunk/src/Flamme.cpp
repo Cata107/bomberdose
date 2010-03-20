@@ -8,7 +8,7 @@ Flamme::Flamme(const sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 //Creer une Case enflammee, qui tue le joueur
 bool Flamme::MCreation()
 {
-	m_timer.MStartTimer();
+	m_pTimer->MStartTimer();
     return false;
 }
 
