@@ -11,6 +11,8 @@ class BomberDose {
 
  public:
 
+	//				~BomberDose();
+
     virtual bool	MCreatePlayer(std::vector< Joueur* >& _joueurs, Plateau* _plateau);
 
 	virtual bool	MCreateMursAvecObjet();

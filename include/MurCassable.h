@@ -7,17 +7,18 @@
 class MurCassable : public ObjetFixe {
 
  public:
-							MurCassable();
+								MurCassable();
 
-	/*Constructeur */		MurCassable(sf::Vector2i _coordonnees);
+	/*Constructeur */			MurCassable(sf::Vector2i _coordonnees);
 
-		virtual ObjetFixe*	MClone() const;
+
+		virtual ObjetFixe*		MClone() const;
     
-		virtual bool		MCreation();
+		virtual bool			MCreation();
 
-		virtual bool		MDestruction();
+		virtual bool			MDestruction();
 
-		virtual bool		MSetCoordonnees(sf::Vector2i _coordonnees);
+		virtual bool			MSetCoordonnees(sf::Vector2i _coordonnees);
 };
 
 #endif // MurCassable_h

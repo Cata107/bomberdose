@@ -18,6 +18,8 @@ class Plateau {
  public:
 
  /*	Constructeur */	Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable);
+
+ /* Destructeur */ 	~Plateau();
     
 			bool	MCreation();
 
@@ -33,9 +35,9 @@ class Plateau {
 
 			bool	MPlacerMursCassables();
 
-			Case	MGetCase(sf::Vector2i _coordonnees);
+			Case*	MGetCase(sf::Vector2i _coordonnees);
 
-			Case	MGetCase(int _coordonneeUniDimensionelle);
+			Case*	MGetCase(int _coordonneeUniDimensionelle);
 
 			Case*	MGetPlateau();
 
@@ -46,7 +48,7 @@ class Plateau {
 
 			Case*					m_tCase;
 
-			Timer					m_timer;
+			Timer*					m_pTimer;
 
 			std::list<Bombe*>		m_listPBombes;			//La liste de bombes posees par les joueurs
 

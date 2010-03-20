@@ -14,7 +14,7 @@ class Joueur {
  public:
 
 
-	/* Constructeur */	Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau _plateau);
+	/* Constructeur */	Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau* _plateau);
 		
 		virtual	bool				MPoserBombe();
 
@@ -22,7 +22,7 @@ class Joueur {
 
 		virtual bool				MJouer();
 
-		virtual const Plateau&		MGetPlateau() const;
+		virtual const Plateau*		MGetPlateau() const;
 
 		virtual const sf::Vector2i	MGetPositionPixel() const;
 
@@ -69,7 +69,7 @@ class Joueur {
 		std::vector<ObjetPrenable*>		m_listBonus;
 		sf::Vector2i					m_coordonneesPixel;
 		sf::Vector2i					m_coordonneesCase;
-		Plateau							m_plateau;
+		Plateau*						m_plateau;
 
 };
 

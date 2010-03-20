@@ -6,16 +6,19 @@ class Bombe : public ObjetFixe {
 
  public:
 
-	/* Constructeur */	Bombe(const sf::Vector2i _coordonnees);
+	/* Constructeur */				Bombe(const sf::Vector2i _coordonnees);
 
-		virtual bool		MCreation();
+	/* Destructeur */ virtual		~Bombe();
 
-		virtual ObjetFixe*	MClone() const;
+		virtual bool				MCreation();
 
-		virtual bool		MDestruction();
+		virtual ObjetFixe*			MClone() const;
+
+		virtual bool				MDestruction();
 
  protected:
-		int				m_puissance;
+
+		int							m_puissance;
 };
 
 #endif // Bombe_h

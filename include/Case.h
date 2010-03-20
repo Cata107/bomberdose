@@ -9,7 +9,9 @@ class Case {
 
  public:
 
- /*	Constructeur */	Case();
+ /*	Constructeur */		Case();
+
+ /* Destructeur */		~Case();
 
 			bool		MCreation();
 
