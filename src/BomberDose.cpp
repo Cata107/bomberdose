@@ -1,5 +1,11 @@
 #include "BomberDose.h"
 
+/*
+BomberDose::~BomberDose()
+{
+	//delete m_pPlateau;
+}
+*/
 
 //Creer les joueurs et le plateau
 bool BomberDose::MCreatePlayer(std::vector< Joueur* >& _joueurs, Plateau* _plateau)

@@ -2,13 +2,18 @@
 
 ObjetFixe::ObjetFixe()
 {
-	
+	m_pTimer = new Timer();
 }
 
-//Constructeur d'un ObjetFixe. Initialise les coordonnees, et met le type de l'objet a false. Les constructeurs des classes filles mettront true a leur type.
+//Constructeur d'un ObjetFixe. Initialise les coordonnees
 ObjetFixe::ObjetFixe(const sf::Vector2i _coordonnees) : m_coordonnees(_coordonnees)
 {
+	m_pTimer = new Timer();
+}
 
+ObjetFixe::~ObjetFixe()
+{
+	delete m_pTimer;
 }
 
 

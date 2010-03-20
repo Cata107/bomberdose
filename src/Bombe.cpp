@@ -5,11 +5,16 @@
 	{
 		m_typeObjet = BOMBE;
 	}
+
+	Bombe::~Bombe()
+	{
+		
+	}
 	
 	//Creer la bombe
 	bool Bombe::MCreation()
 	{	
-		m_timer.MStartTimer();
+		m_pTimer->MStartTimer();
 		return true;
 	}
 

@@ -7,6 +7,11 @@ Case::Case() : m_vide(true), m_pObjetFixe(NULL)
 	
 }
 
+Case::~Case()
+{
+
+}
+
 //Fixer la position d'une case en ayant l'indice en parametre
 bool Case::MSetPosition(int _indiceCase)
 {

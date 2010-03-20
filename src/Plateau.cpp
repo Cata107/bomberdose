@@ -27,7 +27,28 @@ Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAve
 
 	//On place les murs cassables
 	MPlacerMursCassables();
+	m_pTimer = new Timer();
 }
+
+Plateau::~Plateau()
+{
+	
+	delete [] m_tCase;
+	delete m_pTimer;
+	while (!m_listPBombes.empty())
+	{
+		delete m_listPBombes.back();
+		m_listPBombes.pop_back();
+	}
+
+	while (!m_listPMursCassables.empty())
+	{
+		delete m_listPMursCassables.back();
+		m_listPMursCassables.pop_back();
+	}
+	
+}
+
 
 //Creer le Plateau
 bool Plateau::MCreation()
@@ -137,18 +158,18 @@ bool Plateau::MPlacerMursCassables()
 }
 
 //Retourne une case du plateau, selon les coordonnees donnees en parametre
-Case Plateau::MGetCase(sf::Vector2i _coordonnees)
+Case* Plateau::MGetCase(sf::Vector2i _coordonnees)
 {
     int accesColonne = _coordonnees.x;
     int accesLigne = _coordonnees.y * NB_COLONNES;
     int coordUniDimensionnelle = accesColonne + accesLigne;
 
-    return m_tCase[ coordUniDimensionnelle ];
+    return &(m_tCase[ coordUniDimensionnelle ]);
 }
 
-Case Plateau::MGetCase(int _coordonneeUniDimensionnelle)
+Case* Plateau::MGetCase(int _coordonneeUniDimensionnelle)
 {
-    return m_tCase[ _coordonneeUniDimensionnelle ];
+    return &(m_tCase[ _coordonneeUniDimensionnelle ]);
 }
 
 //Retourne le Plateau
@@ -163,7 +184,7 @@ int* Plateau::MGetPlateauConverti()
     int* tableau = new int[NB_LIGNES*NB_COLONNES];
     for (int i = 0; i < NB_LIGNES*NB_COLONNES; i++)
     {
-        tableau[i] = Plateau::MGetCase(i).MConvertToInt();
+        tableau[i] = Plateau::MGetCase(i)->MConvertToInt();
     }
     return tableau;
 }
