@@ -3,6 +3,7 @@
 #include <SFML/Network.hpp>
 #include <vector>
 #include "Sclient.h"
+#include "Plateau.h"
 class Sclient;
 
 /* SERVEUR : Se charge d'envoyer uniquement des données au client par les sockets UDP */
@@ -21,6 +22,8 @@ class ThreadEnvoi : public sf::Thread
 
     /* Envoie les données du jeu au client */
     bool MEnvoiDonnees();
+
+    bool MInitialise (Plateau& P);
 
 
 
