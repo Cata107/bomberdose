@@ -6,7 +6,7 @@ class ThreadEcoute : public sf::Thread
 {
     public :
         /* Constructeur */
-        ThreadEcoute( uint _portUdp, volatile bool const * _partieEnCours );
+        ThreadEcoute( volatile bool const * _partieEnCours );
 
         /* Destructeur */
         ~ThreadEcoute();
@@ -23,8 +23,8 @@ class ThreadEcoute : public sf::Thread
 
 
     private :
-        /* Port Udp utilisé pour bind la socket UDP */
-        uint m_PortUDP;
+        /* Port Udp utilisé pour bind la socket d'écoute UDP */
+        uint m_portUDPEcoute;
 
         /* Socket UDP */
         sf::SocketUDP m_SocketUdp;

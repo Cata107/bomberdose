@@ -1,13 +1,17 @@
 #ifndef ThreadEnvoi_h
 #define ThreadEnvoi_h
 #include <SFML/Network.hpp>
+#include <vector>
+#include "Sclient.h"
+class Sclient;
+
 /* SERVEUR : Se charge d'envoyer uniquement des données au client par les sockets UDP */
 class ThreadEnvoi : public sf::Thread
 {
     public :
 
     /* Constructeur */
-    ThreadEnvoi( uint const _portUDP, volatile const bool *_pPartieEnCours );
+    ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector< Sclient* >  _ListeClients );
 
     /* Destructeur */
     ~ThreadEnvoi();
@@ -22,14 +26,18 @@ class ThreadEnvoi : public sf::Thread
 
     protected :
 
-    /* Le port udp qui est utilisé pour communiquer avec les clients */
-    uint m_portUDP;
-
     /* Socket UDP */
     sf::SocketUDP m_SocketUdp;
 
     /* Le pointeur vers le bool m_PartieEnCours du serveur */
     volatile const bool *m_pPartieEnCours;
+
+    /* La liste des clients connectés au serveur */
+    std::vector<Sclient*> m_ListeClients;
+
+    /* PORT_UDP_ENVOI */
+    uint m_portUDPEnvoi;
+
 
 
 };

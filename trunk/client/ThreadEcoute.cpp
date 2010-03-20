@@ -1,9 +1,9 @@
 #include "ThreadEcoute.h"
 #include <iostream>
 #include "MacroClient.h"
-ThreadEcoute::ThreadEcoute( uint _portUdp, volatile bool const * _partieEnCours )
+ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours )
 {
-    m_PortUDP = _portUdp;
+    m_portUDPEcoute = PORT_UDP_ECOUTE;
     m_pPartieEnCours = _partieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
 }
@@ -26,7 +26,7 @@ void ThreadEcoute::Run()
 }
 bool ThreadEcoute::MBindSocket()
 {
-    if (!m_SocketUdp.Bind( m_PortUDP ))
+    if (!m_SocketUdp.Bind( m_portUDPEcoute ))
     {
         std::cout<<"Erreur de bind de la socket udp" << std::endl;
         return false;

@@ -2,11 +2,12 @@
 #include "ThreadEnvoi.h"
 #include "MacroServer.h"
 
-ThreadEnvoi::ThreadEnvoi( uint const _portUDP, volatile const bool *_pPartieEnCours)
+ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients)
 {
-    m_portUDP = _portUDP;
     m_pPartieEnCours = _pPartieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
+    m_ListeClients = _ListeClients;
+    m_portUDPEnvoi = PORT_UDP_ENVOI;
 }
 ThreadEnvoi::~ThreadEnvoi()
 {
@@ -24,13 +25,15 @@ void ThreadEnvoi::Run()
 }
 bool ThreadEnvoi::MEnvoiDonnees()
 {
-    char Buffer[] = "TEST";
+    char Buffer[] = "SERVEUR";
     std::cout << "données UDP Serveur > Clients envoyées" << std::endl;
-    /*if ( m_SocketUdp.Send(Buffer, sizeof(Buffer), m_clientAddress, m_portUDP ) != sf::Socket::Done)
+    for (uint i = 0; i < m_ListeClients.size(); i++)
     {
-        std::cout<<"Erreur envoi de données par UDP"<<std::endl;
-        return false;
-    }*/
-
+        if ( m_SocketUdp.Send(Buffer, sizeof(Buffer), m_ListeClients[i]->MGetIP(), m_portUDPEnvoi ) != sf::Socket::Done)
+        {
+            std::cout<<"Erreur envoi de données par UDP au client :"<< m_ListeClients[i]->MGetIP().ToString() <<std::endl;
+            return false;
+        }
+    }
     return true;
 }

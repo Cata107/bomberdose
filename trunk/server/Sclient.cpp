@@ -37,3 +37,8 @@ bool Sclient::MGameStop()
     MEnvoiInstruction( STOP );
     return true;
 }
+
+sf::IPAddress Sclient::MGetIP()
+{
+    return m_AdresseIpClient;
+}

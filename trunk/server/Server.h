@@ -3,6 +3,8 @@
 #include <SFML/Network.hpp>
 #include <vector>
 #include "Sclient.h"
+#include "ThreadEcoute.h"
+#include "ThreadEnvoi.h"
 
 class Server {
     /* gère l'inscription des clients au serveur, crée pour chaque client un thread principal */
@@ -10,7 +12,7 @@ class Server {
 public :
 
     /* Constructeur */
-    Server (uint const _portTCP, uint const _portUDP);
+    Server ();
 
     /* Destructeur */
     ~Server();
@@ -69,12 +71,6 @@ protected :
     /* Adresse locale telle qu'elle est vue sur le réseau local */
     sf::IPAddress m_localAdress;
 
-    /* Port nécessité pour la connexion sur la socket TCP */
-    uint m_portTCP;
-
-    /* Port de connexion socket UDP */
-    uint m_portUDP;
-
     /* Nombre de clients connectés à ce serveur */
     uint m_nbClients;
 
@@ -90,6 +86,11 @@ protected :
     /* pointeur vers le thread fils d'envoi */
     ThreadEnvoi* m_pThreadEnvoi;
 
+    /* pointeur vers le thread fils d'écoute */
+    ThreadEcoute* m_pThreadEcoute;
+
+    /* PORT_TCP */
+    uint m_portTCP;
 };
 
 #endif // Server_h

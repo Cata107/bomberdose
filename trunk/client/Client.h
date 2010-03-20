@@ -3,13 +3,13 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include "ThreadEcoute.h"
-
+#include "ThreadEnvoi.h"
 class Client {
     /* Client qui se connecte au serveur par TCP pour lui donner les informations importantes, notamment l'adresse ip ; se charge de créer les sous threads de communication avec le serveur */
     public :
 
         /* Constructeur */
-        Client(uint const _portTCP, uint const _portUDP, char const* _addressIpServer);
+        Client(char const* _addressIpServer);
 
         /* Destructeur */
         ~Client();
@@ -85,7 +85,10 @@ class Client {
         sf::SocketTCP m_SocketTCP;
 
         /* Thread fils d'écoute UDP */
-        ThreadEcoute::ThreadEcoute * m_pThreadEcoute;
+        ThreadEcoute * m_pThreadEcoute;
+
+        /* Thread fils d'envoi UDP */
+        ThreadEnvoi* m_pThreadEnvoi;
 
 };
 

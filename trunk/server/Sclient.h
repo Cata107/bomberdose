@@ -1,5 +1,5 @@
-#ifndef ThreadPrincipal_h
-#define ThreadPrincipal_h
+#ifndef Sclient_h
+#define Sclient_h
 #include <SFML/Network.hpp>
 #include <iostream>
 #include "ThreadEnvoi.h"
@@ -23,6 +23,9 @@ public :
     /* Transmet au client que la partie va s'arrêter */
     bool MGameStop();
 
+    /* Retourne l'adresse ip du client */
+    sf::IPAddress MGetIP();
+
 private :
     /* l'ordre d'arrivée du client sur le serveur */
     uint m_NumeroClient;
@@ -35,4 +38,4 @@ private :
 };
 
 
-#endif // ThreadPrincipal_h
+#endif // Sclient_h
