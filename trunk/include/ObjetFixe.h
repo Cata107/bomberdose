@@ -12,6 +12,8 @@ class ObjetFixe {
 
 	/* Constructeur */						ObjetFixe(const sf::Vector2i _coordonnees);
 
+	/* Destructeur */	virtual				~ObjetFixe();
+
 		virtual ObjetFixe*					MClone() const = 0 ;
 		
 		virtual bool						MCreation()  = 0;
@@ -49,7 +51,7 @@ protected:
 		};
 
 		TypeObjet		m_typeObjet;
-		Timer			m_timer;
+		Timer*			m_pTimer;
 };
 
 #endif // ObjetFixe_h

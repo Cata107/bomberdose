@@ -7,14 +7,18 @@ class Timer {
 
  public:
 
-    virtual bool	MStartTimer();
+	/* Constructeur */			Timer();
 
-    virtual float	MGetTime();
+	/* Destructeur */			~Timer();
+
+    virtual bool				MStartTimer();
+
+    virtual float				MGetTime();
 
 
  protected:
 
-		sf::Clock	m_timer;
+		sf::Clock*	m_pTimer;
 
 };
 
