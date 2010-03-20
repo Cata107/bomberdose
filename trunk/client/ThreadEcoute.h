@@ -1,6 +1,8 @@
 #ifndef ThreadEcoute_h
 #define ThreadEcoute_h
 #include <SFML/Network.hpp>
+#include "Plateau.h"
+
 /* CLIENT : Ecoute par le protocole UDP par le port défini lors de la construction du Thread tant qu'une partie est en cours */
 class ThreadEcoute : public sf::Thread
 {
@@ -19,6 +21,8 @@ class ThreadEcoute : public sf::Thread
 
         /* Bind la socket au port udp correspondant */
         bool MBindSocket();
+
+        void MPrintPlateau(Plateau const P);
 
 
 
