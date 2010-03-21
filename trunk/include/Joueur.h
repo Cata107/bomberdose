@@ -14,9 +14,11 @@ class Joueur {
  public:
 
 
-	/* Constructeur */	Joueur(std::string _nom, sf::Vector2i _coordonnees, Plateau* _plateau);
+	/* Constructeur */	Joueur(int _indice, sf::Vector2i _coordonnees, Plateau* _plateau);
 		
 		virtual	bool				MPoserBombe();
+
+		virtual bool				MIsDead();
 
 		virtual bool				MUpdate();
 
@@ -44,8 +46,9 @@ class Joueur {
 
 
  protected:
-		std::string		m_nom;
+		int				m_indice;
 		int				m_score;
+		bool			m_mort;
 		int				m_nbBombes;
 		int				m_puissance;
 		int				m_coefficientVitesse;

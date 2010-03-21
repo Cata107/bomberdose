@@ -10,6 +10,8 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 
 	/*Constructeur */	MurCassableAvecObjetPrenable(sf::Vector2i _coordonnees);
 
+						MurCassableAvecObjetPrenable(int _typeObjet);
+
 		virtual bool	MCreation();
 
 		ObjetFixe*		MClone() const;
