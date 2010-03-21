@@ -1,7 +1,7 @@
 #ifndef ThreadEnvoi_h
 #define ThreadEnvoi_h
 #include <SFML/Network.hpp>
-
+#include "ToServer.h"
 class ThreadEnvoi : public sf::Thread
 {
     public :
@@ -17,6 +17,9 @@ class ThreadEnvoi : public sf::Thread
 
     /* Envoie les données du jeu au client */
     bool MEnvoiDonnees();
+
+    bool MInitialise (ToServer& T);
+
 
 
 

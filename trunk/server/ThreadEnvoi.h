@@ -23,7 +23,7 @@ class ThreadEnvoi : public sf::Thread
     /* Envoie les données du jeu au client */
     bool MEnvoiDonnees();
 
-    bool MInitialise (ToClient& P);
+    bool MInitialise (ToClient& T);
 
 
 
