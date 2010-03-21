@@ -19,7 +19,7 @@ class Case {
 
 			bool		MFill(const ObjetFixe& _objetFixe);
 
-			int			MConvertToInt();
+			char			MConvertToChar();
 
 			bool		MClean();
 

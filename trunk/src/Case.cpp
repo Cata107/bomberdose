@@ -4,7 +4,7 @@
 //Constructeur par defaut. Est appele lors de la creation du tableau de Case dans le Plateau
 Case::Case() : m_vide(true), m_pObjetFixe(NULL)
 {
-	
+
 }
 
 Case::~Case()
@@ -66,7 +66,7 @@ ObjetFixe* Case::MGetObjetFixe() const
 }
 
 //Converti une case en int en hexadécimal, utile pour communiquer le plateau par les sockets
-int Case::MConvertToInt()
+char Case::MConvertToChar()
 {
     if (Case::MIsEmpty())
     {
@@ -82,12 +82,12 @@ int Case::MConvertToInt()
     {
         return CASE_AVECMURINCASSABLE;
     }
-	
+
 	if (m_pObjetFixe->MIsMalus())
 	{
 		return CASE_AVECMALUS;
 	}
-	
+
     if (m_pObjetFixe->MIsBonusFlamme())
     {
         return CASE_AVECBONUS_FLAMME;
