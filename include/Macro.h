@@ -13,7 +13,6 @@
 #define NB_CASE (NB_COLONNES*NB_LIGNES)
 
 #define NB_MURSCASSABLES 80
-#define NB_MURSAVECBONUS 0
 
 //Position de départ des joueurs
 #define POSITION_JOUEUR1 (NB_COLONNES+1)

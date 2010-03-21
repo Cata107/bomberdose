@@ -17,7 +17,7 @@ class Plateau {
 
  public:
 
- /*	Constructeur */	Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable);
+ /*	Constructeur */	Plateau(std::vector<MurCassableAvecObjetPrenable*>& _listeMurCassableAvecObjetPrenable, int _nbBonus);
 
  /* Destructeur */ 	~Plateau();
 
