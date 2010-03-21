@@ -1,7 +1,9 @@
 #include "Joueur.h"
 
-Joueur::Joueur(std::string _nom, sf::Vector2i _coordonneesPixel, Plateau* _plateau) : m_nom(_nom), m_coordonneesPixel(_coordonneesPixel), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau), m_nbBombesPosees(0)
+Joueur::Joueur(int _indice, sf::Vector2i _coordonneesPixel, Plateau* _plateau) : m_indice(_indice), m_mort(false), m_score(DEFAUT_SCORE), m_nbBombes(DEFAUT_BOMBE), m_puissance(DEFAUT_PUISSANCE), m_coefficientVitesse(DEFAUT_SPEED), m_maladie(aucune), m_plateau(_plateau), m_nbBombesPosees(0)
 {
+	m_coordonneesPixel.x = _coordonneesPixel.x;
+	m_coordonneesPixel.y = _coordonneesPixel.y;
 	m_coordonneesCase = MConvertirPixelEnCase();
 }
 
@@ -13,6 +15,11 @@ bool Joueur::MPoserBombe()
 		m_plateau->MSetBombe(m_coordonneesCase, m_puissance);
 	}
     return true;
+}
+
+bool Joueur::MIsDead()
+{
+	return m_mort;
 }
 
 //Met a jour le joueur après une action
