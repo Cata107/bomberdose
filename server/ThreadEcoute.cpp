@@ -1,6 +1,10 @@
 #include "ThreadEcoute.h"
 #include "MacroServer.h"
 #include <iostream>
+sf::Packet& operator >>(sf::Packet& Packet, ToServer& T)
+{
+    return Packet >> T.str >>T.up >> T.down >> T.right>>T.left>>T.bomb;
+}
 ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours )
 {
     m_pPartieEnCours = _pPartieEnCours;
@@ -15,27 +19,37 @@ void ThreadEcoute::Run()
 {
     std::cout << "THREAD ECOUTE créé" << std::endl;
     MBindSocket();
+    int i = 0;
     while ( *m_pPartieEnCours )
     {
-        usleep( DODO );
         MReceptionDonnees();
+        i++;
+        std::cout<<"Bouclage écoute " << i <<std::endl;
     }
 }
 
 bool ThreadEcoute::MReceptionDonnees()
 {
-    char Buffer[128];
-    std::size_t Received;
+    sf::Packet packetReceived;
+    ToServer received;
     sf::IPAddress Sender;
     unsigned short Port;
-    if ( m_SocketUdp.Receive(Buffer, sizeof(Buffer), Received, Sender, Port) != sf::Socket::Done)
+    if ( m_SocketUdp.Receive(packetReceived, Sender, Port) != sf::Socket::Done)
     {
         std::cout<<"Erreur de réception des données UDP "<<std::endl;
     }
     else
     {
         std::cout<<Sender <<":"<<Port<<std::endl;
-        std::cout<<Buffer<<std::endl;
+        if (!(packetReceived >> received))
+        {
+            std::cout<<"MERDE"<<std::endl;
+        }
+        else
+        {
+            MPrintToServer( received );
+        }
+
     }
     return true;
 }
@@ -47,4 +61,8 @@ bool ThreadEcoute::MBindSocket()
         return false;
     }
     return true;
+}
+void ThreadEcoute::MPrintToServer( ToServer const T )
+{
+std::cout<<T.str<<std::endl<<T.up<<T.down<<T.right<<T.left<<T.bomb<<std::endl;
 }

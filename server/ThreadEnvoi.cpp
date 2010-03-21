@@ -1,9 +1,9 @@
 #include <iostream>
 #include "ThreadEnvoi.h"
 #include "MacroServer.h"
-sf::Packet& operator <<(sf::Packet& Packet, const ToClient& P)
+sf::Packet& operator <<(sf::Packet& Packet, const ToClient& T)
 {
-    return Packet << P.tab[0] << P.str << P.tab;
+    return Packet << T.str <<T.plateau << T.j1 << T.x1 << T.y1 << T.j2 << T.x2 << T.y2 << T.j3 << T.x3 << T.y3 << T.j4 << T.x4 << T.y4;
 }
 
 ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients)
@@ -20,19 +20,21 @@ ThreadEnvoi::~ThreadEnvoi()
 void ThreadEnvoi::Run()
 {
     std::cout << "THREAD ENVOI créé" << std::endl;
+    int i = 0;
     while ( *m_pPartieEnCours )
     {
-        std::cout<<"Boucle thread envoi "<< std::endl;
         usleep( DODO );
         MEnvoiDonnees();
+        i++;
+        std::cout<<"Bouclage envoi " <<i <<std::endl;
     }
 }
 bool ThreadEnvoi::MEnvoiDonnees()
 {
     sf::Packet toSend;
-    ToClient P;
-    MInitialise(P);
-    toSend << P;
+    ToClient T;
+    MInitialise(T);
+    toSend << T;
     std::cout << "données UDP Serveur > Clients envoyées" << std::endl;
     for (uint i = 0; i < m_ListeClients.size(); i++)
     {
@@ -44,10 +46,27 @@ bool ThreadEnvoi::MEnvoiDonnees()
     }
     return true;
 }
-bool ThreadEnvoi::MInitialise( ToClient& P )
+bool ThreadEnvoi::MInitialise( ToClient& T )
 {
-    P.str = "Serveur";
-    P.tab[0]=1;
+    T.str = std::string("Serveur");
+    int i;
+    for (i = 0; i < 195; i++)
+    {
+        T.plateau[i]='h';
+    }
+    T.plateau[196]='\0';
+    T.j1=true;
+    T.x1=65000;
+    T.y1=60000;
+    T.j2=true;
+    T.x2=65000;
+    T.y2=60000;
+    T.j3=true;
+    T.x3=65000;
+    T.y3=60000;
+    T.j4=true;
+    T.x4=60000;
+    T.y4=44444;
     return true;
 }
 

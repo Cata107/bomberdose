@@ -1,9 +1,9 @@
 #include "ThreadEcoute.h"
 #include <iostream>
 #include "MacroClient.h"
-sf::Packet& operator >>(sf::Packet& Packet, ToClient& P)
+sf::Packet& operator >>(sf::Packet& Packet, ToClient& T)
 {
-    return Packet >> P.tab >> P.str;
+    return Packet >> T.str >> T.plateau >> T.j1 >> T.x1 >> T.y1 >> T.j2 >> T.x2 >> T.y2 >> T.j3 >> T.x3 >> T.y3 >> T.j4 >> T.x4 >> T.y4;
 }
 
 ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours )
@@ -22,10 +22,12 @@ void ThreadEcoute::Run()
 {
     std::cout << "Thread écoute du client créé." << std::endl;
     MBindSocket();
+    int i = 0;
      while ( *m_pPartieEnCours )
     {
-        usleep( DODO );
         MReceptionDonnees();
+        i++;
+        std::cout<<"Bouclage ecoute " <<i<<std::endl;
     }
 
 }
@@ -43,7 +45,7 @@ bool ThreadEcoute::MReceptionDonnees()
     sf::IPAddress Sender;
     unsigned short Port;
     sf::Packet packetReceived;
-    ToClient P;
+    ToClient received;
     if ( m_SocketUdp.Receive(packetReceived, Sender, Port) != sf::Socket::Done)
     {
         std::cout<<"Erreur de réception des données UDP "<<std::endl;
@@ -51,19 +53,20 @@ bool ThreadEcoute::MReceptionDonnees()
     else
     {
         std::cout<<Sender <<":"<<Port<<std::endl;
-        if (!(packetReceived >> P))
+        if (!(packetReceived >> received))
         {
             std::cout<<"MERDE"<<std::endl;
         }
         else
         {
-            MPrintToClient( P );
+            MPrintToClient( received );
         }
 
     }
     return true;
 }
-void ThreadEcoute::MPrintToClient(ToClient const P)
+void ThreadEcoute::MPrintToClient(ToClient const T)
 {
-    std::cout<<P.str<<std::endl<<P.tab[0]<<std::endl;
+    std::cout<< T.str<<std::endl<<T.plateau;
+    std::cout<<std::endl<< T.j1 << T.x1 << T.y1 <<std::endl<< T.j2 << T.x2 << T.y2 <<std::endl<< T.j3 << T.x3 << T.y3 <<std::endl<< T.j4 << T.x4 << T.y4<<std::endl;
 }

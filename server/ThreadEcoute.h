@@ -1,6 +1,7 @@
 #ifndef ThreadEcoute_h
 #define ThreadEcoute_h
 #include <SFML/Network.hpp>
+#include "ToServer.h"
 class ThreadEcoute : public sf::Thread
 {
     public :
@@ -18,6 +19,9 @@ class ThreadEcoute : public sf::Thread
 
         /* Permet de bind la socket au port passé par le constructeur du ThreadEcoute */
         bool MBindSocket();
+
+        void MPrintToServer(ToServer const T);
+
 
     private :
 
