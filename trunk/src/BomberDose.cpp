@@ -86,9 +86,9 @@ bool BomberDose::MCreateMursAvecObjet(int _nbBonusBombe, int _nbBonusFlamme, int
 	return true;
 }
 
-void BomberDose::MStart()
+bool BomberDose::MStart()
 {
 
 	std::set<int> indiceJoueursPerdant;
-
+	return true;
 }
