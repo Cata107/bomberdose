@@ -1,9 +1,9 @@
 #include "ThreadEcoute.h"
 #include <iostream>
 #include "MacroClient.h"
-sf::Packet& operator >>(sf::Packet& Packet, Plateau& P)
+sf::Packet& operator >>(sf::Packet& Packet, ToClient& P)
 {
-    return Packet >> P.tab[0] >> P.str;
+    return Packet >> P.tab >> P.str;
 }
 
 ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours )
@@ -40,22 +40,10 @@ bool ThreadEcoute::MBindSocket()
 }
 bool ThreadEcoute::MReceptionDonnees()
 {
-    char Buffer[128];
-    std::size_t Received;
     sf::IPAddress Sender;
     unsigned short Port;
     sf::Packet packetReceived;
-    Plateau P;
-    /*
-    if ( m_SocketUdp.Receive(Buffer, sizeof(Buffer), Received, Sender, Port) != sf::Socket::Done)
-    {
-        std::cout<<"Erreur de réception des données UDP "<<std::endl;
-    }
-    else
-    {
-        std::cout<<Sender <<":"<<Port<<std::endl;
-        std::cout<<Buffer<<std::endl;
-    }*/
+    ToClient P;
     if ( m_SocketUdp.Receive(packetReceived, Sender, Port) != sf::Socket::Done)
     {
         std::cout<<"Erreur de réception des données UDP "<<std::endl;
@@ -63,20 +51,19 @@ bool ThreadEcoute::MReceptionDonnees()
     else
     {
         std::cout<<Sender <<":"<<Port<<std::endl;
-        //std::cout<<Buffer<<std::endl;
         if (!(packetReceived >> P))
         {
             std::cout<<"MERDE"<<std::endl;
         }
         else
         {
-            MPrintPlateau( P );
+            MPrintToClient( P );
         }
 
     }
     return true;
 }
-void ThreadEcoute::MPrintPlateau(Plateau const P)
+void ThreadEcoute::MPrintToClient(ToClient const P)
 {
     std::cout<<P.str<<std::endl<<P.tab[0]<<std::endl;
 }
