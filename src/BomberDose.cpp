@@ -1,24 +1,94 @@
 #include "BomberDose.h"
 
-/*
+
+BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score): m_score(_score)
+{
+
+	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
+	m_pPlateau = new Plateau(m_tPMursCassables, (_nbBonusBombe + _nbBonusRoller + _nbBonusFlamme + _nbMalus));
+	MCreatePlayer(_nbJoueur);
+	
+}
+
+
 BomberDose::~BomberDose()
 {
-	//delete m_pPlateau;
+	delete m_pPlateau;
+	
+	while (!m_tPJoueurs.empty())
+	{
+		delete m_tPJoueurs.back();
+		m_tPJoueurs.pop_back();
+	}
+
+	while (!m_tPMursCassables.empty())
+	{
+		delete m_tPMursCassables.back();
+		m_tPMursCassables.pop_back();
+	}
 }
-*/
+
 
 //Creer les joueurs et le plateau
-bool BomberDose::MCreatePlayer(std::vector< Joueur* >& _joueurs, Plateau* _plateau)
+bool BomberDose::MCreatePlayer(int _nbJoueur)
 {
-    return false;
+    for (int i = 0; i < _nbJoueur; i++)
+	{
+		switch(i)
+		{
+		case 0:
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 20), m_pPlateau));
+			
+			break;
+		case 1:
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(500, 20), m_pPlateau));
+			break;
+		
+		case 2:
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 500), m_pPlateau));
+			break;
+
+		case 3:
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(500, 500), m_pPlateau));
+			break;
+		}
+	}
+	return true;
 }
 
 //Recupere le joueur selon son indice
-bool BomberDose::MGetJoueur(int _indice)
+Joueur* BomberDose::MGetJoueur(int _indice)
 {
-    return false;
+    return m_tPJoueurs[_indice];
 }
-bool BomberDose::MCreateMursAvecObjet()
+bool BomberDose::MCreateMursAvecObjet(int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus)
 {
-	return false;
+	for (int i = 0; i < _nbMalus; i++)
+	{
+		m_tPMursCassables.push_back(new MurCassableAvecObjetPrenable(0));
+	}
+
+	for (int j = 0; j < _nbBonusBombe; j++)
+	{
+		m_tPMursCassables.push_back(new MurCassableAvecObjetPrenable(1));
+	}
+
+	for (int i = 0; i < _nbBonusFlamme; i++)
+	{
+		m_tPMursCassables.push_back(new MurCassableAvecObjetPrenable(2));
+	}
+
+	for (int j = 0; j < _nbBonusRoller; j++)
+	{
+		m_tPMursCassables.push_back(new MurCassableAvecObjetPrenable(3));
+	}
+
+	return true;
+}
+
+void BomberDose::MStart()
+{
+
+	std::set<int> indiceJoueursPerdant;
+
 }

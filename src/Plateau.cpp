@@ -1,6 +1,6 @@
 #include "Plateau.h"
 
-Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable)
+Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable*>& _listeMurCassableAvecObjetPrenable, int _nbBonus)
 {
 	m_tCase = new Case[NB_CASE];
 
@@ -11,13 +11,13 @@ Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAve
 	}
 
 	//On met dans la list des murs cassables, les murs avec objet ramener en parametre
-	for (std::vector<MurCassableAvecObjetPrenable>::iterator it = _listeMurCassableAvecObjetPrenable.begin(); it != _listeMurCassableAvecObjetPrenable.end(); it++)
+	for (std::vector<MurCassableAvecObjetPrenable*>::iterator it = _listeMurCassableAvecObjetPrenable.begin(); it != _listeMurCassableAvecObjetPrenable.end(); it++)
 	{
-		m_listPMursCassables.push_back(&(*it));
+		m_listPMursCassables.push_back(*it);
 	}
 
 	//On remplit la liste de mur cassable de nouveaux murs
-	for (int i = 0; i < NB_MURSCASSABLES-NB_MURSAVECBONUS; i++)
+	for (int i = 0; i < NB_MURSCASSABLES-_nbBonus; i++)
 	{
 		m_listPMursCassables.push_back(new MurCassable());
 	}
