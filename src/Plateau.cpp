@@ -3,7 +3,7 @@
 Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable)
 {
 	m_tCase = new Case[NB_CASE];
-	
+
 	for (int i = 0; i < NB_CASE; i++)		//On remplit le plateau de Case
 	{
 		m_tCase[i].MSetPosition(i);
@@ -21,7 +21,7 @@ Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAve
 	{
 		m_listPMursCassables.push_back(new MurCassable());
 	}
-	
+
 	//On place les murs incassables
 	MPlacerMursIncassables();
 
@@ -32,7 +32,7 @@ Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAve
 
 Plateau::~Plateau()
 {
-	
+
 	delete [] m_tCase;
 	delete m_pTimer;
 	while (!m_listPBombes.empty())
@@ -46,7 +46,7 @@ Plateau::~Plateau()
 		delete m_listPMursCassables.back();
 		m_listPMursCassables.pop_back();
 	}
-	
+
 }
 
 
@@ -123,8 +123,8 @@ bool Plateau::MPlacerMursIncassablesMilieu()
 bool Plateau::MPlacerMursCassables()
 {
 	//On met dans des variables les cases interdites pour accelerer les verifications
-	
-	static const int tableau[12] = 
+
+	static const int tableau[12] =
 	{
 		POSITION_JOUEUR1,
 		CASE_INTERDITE1,
@@ -147,7 +147,7 @@ bool Plateau::MPlacerMursCassables()
 		random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);	//On genere un nombre pseudo aleatoire
 		if (!std::binary_search(tableau, tableau+12, random) && ((m_setIndiceCaseVide.find(random)) != m_setIndiceCaseVide.end()))					//Si il n'est pas interdit
 		{
-			
+
 			m_listPMursCassables[i]->MSetCoordonnees(((m_tCase[*m_setIndiceCaseVide.find(random)]).MGetPosition()));	//On fixe les coordonnees du mur avec la position de la case
 			m_tCase[*m_setIndiceCaseVide.find(random)].MFill(*m_listPMursCassables[i]);							//Et on rempli la Case du MurCassable
 			m_setIndiceCaseVide.erase(random);		//On efface la case du tableau des cases vides.
@@ -179,12 +179,12 @@ Case* Plateau::MGetPlateau()
 	return &*m_tCase;
 }
 
-int* Plateau::MGetPlateauConverti()
+char* Plateau::MGetPlateauConverti()
 {
-    int* tableau = new int[NB_LIGNES*NB_COLONNES];
+    char* tableau = new char[NB_LIGNES*NB_COLONNES];
     for (int i = 0; i < NB_LIGNES*NB_COLONNES; i++)
     {
-        tableau[i] = Plateau::MGetCase(i)->MConvertToInt();
+        tableau[i] = Plateau::MGetCase(i)->MConvertToChar();
     }
     return tableau;
 }

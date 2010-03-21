@@ -20,7 +20,7 @@ class Plateau {
  /*	Constructeur */	Plateau(std::vector<MurCassableAvecObjetPrenable>& _listeMurCassableAvecObjetPrenable);
 
  /* Destructeur */ 	~Plateau();
-    
+
 			bool	MCreation();
 
 			bool	MDestruction();
@@ -41,7 +41,7 @@ class Plateau {
 
 			Case*	MGetPlateau();
 
-			int*	MGetPlateauConverti();
+			char*	MGetPlateauConverti();
 
 
  protected:
