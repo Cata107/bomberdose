@@ -15,29 +15,29 @@ class Case {
 
 			bool		MCreation();
 
-			bool		MIsEmpty();
+			bool		MIsEmpty();	//retourne true si la case est vide
 
-			bool		MFill(const ObjetFixe& _objetFixe);
+			bool		MFill(const ObjetFixe& _objetFixe);	//remplit la Case de l'objet en parametre
 
-			char			MConvertToChar();
+			char		MConvertToChar();
 
-			bool		MClean();
+			bool		MClean();	//Vider la Case
 
-			bool		MSetPosition(int _indiceCase);
+			bool		MSetPosition(int _indiceCase);	//Fixer la position de la case
 
-			bool		MSetPosition(sf::Vector2i _coordonnees);
+			bool		MSetPosition(sf::Vector2i _coordonnees);	//Fixer la position de la case grâce a des coordonnees
 
-	sf::Vector2i		MGetPosition();
+	sf::Vector2i		MGetPosition();								//Retourne la position de la case, sous forme de coordonnees
 
-	ObjetFixe*			MGetObjetFixe() const;
+	ObjetFixe*			MGetObjetFixe() const;						//Retourne l'objet que la case contient
 
 
 
  protected:
 
 	sf::Vector2i	m_coordonnees;
-	bool			m_vide;
-	ObjetFixe*		m_pObjetFixe;
+	bool			m_vide;			//vrai si la case est vide
+	ObjetFixe*		m_pObjetFixe;	//un pointeur vers l'objet contenu
 };
 
 #endif // Case_h

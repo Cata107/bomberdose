@@ -25,7 +25,7 @@ class Plateau {
 
 			bool	MDestruction();
 
-			bool	MSetBombe(sf::Vector2i _coordonnees, int _puissance);
+			bool	MSetBombe(sf::Vector2i _coordonnees, int _puissance);	//Permet de placer une bombe sur les coordonnees de la case en parametre
 
 			bool	MPlacerMursIncassables();
 
@@ -35,11 +35,11 @@ class Plateau {
 
 			bool	MPlacerMursCassables();
 
-			Case*	MGetCase(sf::Vector2i _coordonnees);
+			Case*	MGetCase(sf::Vector2i _coordonnees);				//Renvoi un poiteur sur la case, dont les coordonnees sont en parametre
 
 			Case*	MGetCase(int _coordonneeUniDimensionelle);
 
-			Case*	MGetPlateau();
+			Case*	MGetPlateau();										
 
 			char*	MGetPlateauConverti();
 
