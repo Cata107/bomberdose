@@ -12,13 +12,13 @@ class Bombe : public ObjetFixe {
 
 		virtual bool				MCreation();
 
-		virtual ObjetFixe*			MClone() const;
+		virtual ObjetFixe*			MClone() const;	//Permet de cloner une bombe
 
 		virtual bool				MDestruction();
 
  protected:
 
-		int							m_puissance;
+		int							m_puissance;	//La puissance de la bombe
 };
 
 #endif // Bombe_h

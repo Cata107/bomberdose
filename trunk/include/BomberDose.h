@@ -14,13 +14,13 @@ class BomberDose {
 
 	/* Constructeur */	BomberDose(int _nbJoueur,int _nbBonusBombe, int nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score);
 
-						~BomberDose();
+	/* Destructeur */	~BomberDose();
 
-    virtual bool		MCreatePlayer(int _nbJoueur);
+    virtual bool		MCreatePlayer(int _nbJoueur);	
 
 	virtual bool		MCreateMursAvecObjet(int _nbBonusBombe, int nbBonusFlamme, int _nbBonusRoller, int _nbMalus);
 		
-    virtual Joueur*		MGetJoueur(int _indice);
+    virtual Joueur*		MGetJoueur(int _indice);	//Retourne le joueur a l'indice passe en parametre
 
 			bool		MFinPartie();
 
@@ -28,11 +28,11 @@ class BomberDose {
 
  public:
 
-	Plateau*										m_pPlateau;
+	Plateau*										m_pPlateau;		//Plateau de jeu
 
-    std::vector< Joueur* >							m_tPJoueurs;
+    std::vector< Joueur* >							m_tPJoueurs;	//Un vector qui contient les pointeurs sur les joueurs
 
-	std::vector< MurCassableAvecObjetPrenable* >	m_tPMursCassables;
+	std::vector< MurCassableAvecObjetPrenable* >	m_tPMursCassables;	//Un vector qui contient les murs avec des objets
 
 	int												m_score;	//Score a atteindre pour gagner
 };
