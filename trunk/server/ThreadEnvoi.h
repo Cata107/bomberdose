@@ -40,7 +40,7 @@ class ThreadEnvoi : public sf::Thread
     std::vector<Sclient*> m_ListeClients;
 
     /* PORT_UDP_ENVOI */
-    uint m_portUDPEnvoi;
+    UINT m_portUDPEnvoi;
 
     /** Pointeur vers le BOMBERDOSE **/
     BomberDose* m_pBomberdose;

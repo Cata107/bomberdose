@@ -7,16 +7,16 @@ struct ToClient
     std::string str;
     char* plateau;
     bool j1;
-    uint16_t x1;
-    uint16_t y1;
+	UINT16 x1;
+    UINT16 y1;
     bool j2;
-    uint16_t x2;
-    uint16_t y2;
+    UINT16 x2;
+    UINT16 y2;
     bool j3;
-    uint16_t x3;
-    uint16_t y3;
+    UINT16 x3;
+    UINT16 y3;
     bool j4;
-    uint16_t x4;
-    uint16_t y4;
+    UINT16 x4;
+    UINT16 y4;
 };
 #endif //ToClient_h
