@@ -1,10 +1,11 @@
 #include "BomberDose.h"
 
 
-BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score): m_score(_score)
+BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score, int _temps): m_score(_score)
 {
 
 	m_nbBonus = _nbBonusBombe + _nbBonusRoller + _nbBonusFlamme + _nbMalus;
+	m_temps = _temps * 60;
 	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 	MCreatePlayer(_nbJoueur);
@@ -92,16 +93,37 @@ bool BomberDose::MRecreerPlateau()
 	delete m_pPlateau;
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 	
-	for (int i = 0; i < m_tPJoueurs.size(); i++)
+	for (unsigned int i = 0; i < m_tPJoueurs.size(); i++)
 	{
+		m_tPJoueurs[i]->MReborn();
 		m_tPJoueurs[i]->MSetPlateau(m_pPlateau);
 	}
 	return true;
 }
 
+int BomberDose::MFinMatch()
+{
+	int nbVivant = 4;
+	if (m_pPlateau->MGetTimer()->MGetTime() > m_temps)
+	{
+		return 0;
+	}
+	else 
+	{
+		for (unsigned int i = 0; i < m_tPJoueurs.size(); i++)
+		{
+			if (m_tPJoueurs[i]->MIsDead())
+			{
+				nbVivant--;
+			}
+		}
+		return nbVivant;
+	}
+}
+	
+
 bool BomberDose::MStart()
 {
 
-	std::set<int> indiceJoueursPerdant;
 	return true;
 }
