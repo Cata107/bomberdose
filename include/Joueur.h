@@ -24,6 +24,8 @@ class Joueur {
 
 		virtual bool				MJouer();
 
+				bool				MSetPlateau(Plateau* _plateau);
+
 		virtual const Plateau*		MGetPlateau() const;	//retourne le plateau
 
 		virtual const sf::Vector2i	MGetPositionPixel() const;	//retourne les coordonnees pixel
