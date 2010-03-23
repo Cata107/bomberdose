@@ -46,6 +46,12 @@ bool Joueur::MReborn()
 	return true;
 }
 
+bool Joueur::MAugmenterScore()
+{
+	m_score++;
+	return true;
+}
+
 bool Joueur::MSetPlateau(Plateau* _plateau)
 {
 	m_plateau = _plateau;

@@ -120,7 +120,19 @@ int BomberDose::MFinMatch()
 		return nbVivant;
 	}
 }
-	
+
+Joueur* BomberDose::MGetGagnant()
+{
+	int i = 0;
+	for (unsigned int j = 0; j < m_tPJoueurs.size(); j++)
+	{
+		if (!m_tPJoueurs[j]->MIsDead())
+		{
+			i = j;
+		}
+	}
+	return m_tPJoueurs[i];
+}
 
 bool BomberDose::MStart()
 {
