@@ -34,6 +34,12 @@ bool Joueur::MJouer()
     return false;
 }
 
+bool Joueur::MSetPlateau(Plateau* _plateau)
+{
+	m_plateau = _plateau;
+	return true;
+}
+
 //Retourne le plateau
 const Plateau* Joueur::MGetPlateau() const
 {

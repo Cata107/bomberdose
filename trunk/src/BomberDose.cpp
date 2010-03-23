@@ -4,8 +4,9 @@
 BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score): m_score(_score)
 {
 
+	m_nbBonus = _nbBonusBombe + _nbBonusRoller + _nbBonusFlamme + _nbMalus;
 	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
-	m_pPlateau = new Plateau(m_tPMursCassables, (_nbBonusBombe + _nbBonusRoller + _nbBonusFlamme + _nbMalus));
+	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 	MCreatePlayer(_nbJoueur);
 	
 }
@@ -83,6 +84,18 @@ bool BomberDose::MCreateMursAvecObjet(int _nbBonusBombe, int _nbBonusFlamme, int
 		m_tPMursCassables.push_back(new MurCassableAvecObjetPrenable(3));
 	}
 
+	return true;
+}
+
+bool BomberDose::MRecreerPlateau()
+{
+	delete m_pPlateau;
+	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
+	
+	for (int i = 0; i < m_tPJoueurs.size(); i++)
+	{
+		m_tPJoueurs[i]->MSetPlateau(m_pPlateau);
+	}
 	return true;
 }
 
