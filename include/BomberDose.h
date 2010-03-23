@@ -25,6 +25,8 @@ class BomberDose {
 			bool		MRecreerPlateau();			//Permet de recreer le plateau a chaque partie
 
 			int			MFinMatch();				//Renvoi 1 si le match est gagné par un joueur, 0 si match nul(tous mort, ou temps ecoule)
+			
+			Joueur*		MGetGagnant();				//Renvoi le pointeur sur le joueur Gagnant, uniquement si MFinMatch retourne 1 
 
 			bool		MStart();
 
