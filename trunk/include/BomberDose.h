@@ -22,6 +22,8 @@ class BomberDose {
 		
     virtual Joueur*		MGetJoueur(int _indice);	//Retourne le joueur a l'indice passe en parametre
 
+			bool		MRecreerPlateau();			//Permet de recreer le plateau a chaque partie
+
 			bool		MFinPartie();
 
 			bool		MStart();
@@ -34,7 +36,10 @@ class BomberDose {
 
 	std::vector< MurCassableAvecObjetPrenable* >	m_tPMursCassables;	//Un vector qui contient les murs avec des objets
 
+	int												m_nbBonus;
+
 	int												m_score;	//Score a atteindre pour gagner
+
 };
 
 #endif // BomberDose_h
