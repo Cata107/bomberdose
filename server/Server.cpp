@@ -56,7 +56,7 @@ void Server::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
-        usleep( DODO );
+        Sleep( DODO );
     }
 }
 bool Server::MAjouterClient( Sclient * _client )
@@ -67,7 +67,7 @@ bool Server::MAjouterClient( Sclient * _client )
 
 bool Server::MNettoyerListeClients()
 {
-    for ( uint i = 0; i < m_ListeClients.size(); i++)
+    for ( UINT i = 0; i < m_ListeClients.size(); i++)
     {
         Sclient * client = m_ListeClients.back();
         m_ListeClients.pop_back();
@@ -79,7 +79,7 @@ bool Server::MNettoyerListeClients()
 
 bool Server::MEnvoiInstructionClients( int const _msg)
 {
-    for ( uint i = 0; i < m_ListeClients.size(); i++)
+    for ( UINT i = 0; i < m_ListeClients.size(); i++)
     {
         m_ListeClients[i]->MEnvoiInstruction(_msg);
     }
@@ -89,7 +89,7 @@ bool Server::MEnvoiInstructionClients( int const _msg)
 bool Server::MGameStart()
 {
     m_PartieEnCours = true;
-    for ( uint i = 0; i < m_ListeClients.size(); i++)
+    for ( UINT i = 0; i < m_ListeClients.size(); i++)
     {
         m_ListeClients[i]->MGameStart();
     }
@@ -102,7 +102,7 @@ bool Server::MGameStart()
 bool Server::MGameStop()
 {
     m_PartieEnCours = false;
-    for ( uint i = 0; i < m_ListeClients.size(); i++)
+    for ( UINT i = 0; i < m_ListeClients.size(); i++)
     {
         m_ListeClients[i]->MGameStop();
     }
