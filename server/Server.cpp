@@ -3,11 +3,13 @@
 #include "Sclient.h"
 #include <sstream>
 #include "MacroServer.h"
+#include <BomberDose.h>
 
-Server::Server()
+Server::Server( int const _nbClientsAttendus )
 {
     m_localAdress = sf::IPAddress::GetLocalAddress();
     m_nbClients = 0;
+    m_nbClientsAttendus = _nbClientsAttendus;
     m_socketTCP = sf::SocketTCP::SocketTCP();
     m_PartieEnCours = false;
     m_portTCP = PORT_TCP;
@@ -16,6 +18,7 @@ Server::~Server()
 {
     m_socketTCP.Close();
     MNettoyerListeClients();
+    delete m_pBomberdose;
 }
 void Server::MAfficherStatus()
 {
@@ -28,7 +31,7 @@ void Server::MAttenteConnexion()
         std::cout << "Erreur d'écoute de la socket TCP sur le port " << m_portTCP << std::endl;
     }
 
-    while ( m_nbClients < NB_CLIENTS_ATTENDUS )
+    while ( m_nbClients < m_nbClientsAttendus )
     //tant qu'il n'y a pas une partie en cours
     {
         sf::IPAddress clientAddress;
@@ -121,12 +124,12 @@ bool Server::MDeleteFils()
 }
 bool Server::MCreateEnvoi()
 {
-    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_ListeClients );
+    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_ListeClients, m_pBomberdose );
     return true;
 }
 bool Server::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute ( &m_PartieEnCours );
+    m_pThreadEcoute = new ThreadEcoute ( &m_PartieEnCours, MGetTableauIP(), m_pBomberdose);
     return true;
 }
 bool Server::MDeleteEcoute()
@@ -141,4 +144,35 @@ bool Server::MDeleteEnvoi()
     delete m_pThreadEnvoi;
     return true;
 }
-
+bool Server::MCreateBomberdose()
+{
+    int nbJoueurs = m_nbClientsAttendus;
+    int nbBonusBombe=0,nbBonusFlamme=0,nbBonusRoller=0,nbMalus=0, score=0;
+    do
+    {
+        std::cout<<"Entrez le nombre de bonus et malus que vous souhaitez avoir en jeu (le total ne doit pas dépasser 80) :";
+        std::cout<<std::endl<<"Entrez le nombre de bonus de bombe :";
+        std::cin>>nbBonusBombe;
+        std::cout<<std::endl<<"Entrez le nombre de bonus de flamme : ";
+        std::cin>>nbBonusFlamme;
+        std::cout<<std::endl<<"Entrez le nombre de bonus roller : ";
+        std::cin>>nbBonusRoller;
+        std::cout<<std::endl<<"Entrez le nombre de malus : ";
+        std::cin>>nbMalus;
+        std::cout<<std::endl;
+    } while (nbBonusBombe+nbBonusFlamme+nbBonusRoller+nbMalus>80);
+        std::cout<<"Entrez le score à atteindre par le joueur pour gagner :";
+        std::cin>>score;
+        std::cout<<std::endl;
+    m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score);
+    return true;
+}
+int* Server::MGetTableauIP()
+{
+    int * tab = new int [ m_nbClientsAttendus ];
+    for ( int i = 0; i < m_ListeClients.size(); i++ )
+    {
+        tab[i] = m_ListeClients[i]->MGetIP().ToInteger();
+    }
+    return tab;
+}

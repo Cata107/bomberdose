@@ -3,7 +3,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include "ThreadEcoute.h"
-#include "ThreadEnvoi.h"
+#include "Envoi.h"
 class Client {
     /* Client qui se connecte au serveur par TCP pour lui donner les informations importantes, notamment l'adresse ip ; se charge de créer les sous threads de communication avec le serveur */
     public :
@@ -30,13 +30,13 @@ class Client {
         bool MAttenteInstruction();
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction STOP */
-        bool MIsStop( char const *_buffer );
+        bool MInstructionIsStop( char const *_buffer );
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction START */
-        bool MIsStart( char const *_buffer );
+        bool MInstructionIsStart( char const *_buffer );
 
         /* Renvoie true si le buffer envoyé correspond à l'instruction QUIT */
-        bool MIsQuit( char const *_buffer );
+        bool MInstructionIsQuit( char const *_buffer );
 
         /* Déclare qu'une partie va commencer */
         bool MGameStart();
@@ -62,15 +62,10 @@ class Client {
         /* Supprime le ThreadEnvoi */
         bool MDeleteEnvoi();
 
-
-
     protected :
 
         /* Port utilisé pour la socket TCP */
         uint m_portTCP;
-
-        /* Port utilisé pour les fils qui communiquent sur le protocole UDP */
-        uint m_portUDP;
 
         /* Adresse ip locale vue sur le réseau local */
         sf::IPAddress m_localAddress;
@@ -88,7 +83,7 @@ class Client {
         ThreadEcoute * m_pThreadEcoute;
 
         /* Thread fils d'envoi UDP */
-        ThreadEnvoi* m_pThreadEnvoi;
+        Envoi* m_pEnvoi;
 
 };
 

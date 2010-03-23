@@ -5,7 +5,7 @@
 struct ToClient
 {
     std::string str;
-    char plateau [ NB_CASE + 1];
+    char* plateau;
     bool j1;
     uint16_t x1;
     uint16_t y1;

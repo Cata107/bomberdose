@@ -6,12 +6,14 @@ sf::Packet& operator <<(sf::Packet& Packet, const ToClient& T)
     return Packet << T.str <<T.plateau << T.j1 << T.x1 << T.y1 << T.j2 << T.x2 << T.y2 << T.j3 << T.x3 << T.y3 << T.j4 << T.x4 << T.y4;
 }
 
-ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients)
+ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients, BomberDose* _pointeurBomberdose)
 {
     m_pPartieEnCours = _pPartieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
     m_ListeClients = _ListeClients;
     m_portUDPEnvoi = PORT_UDP_ENVOI;
+    m_pBomberdose = _pointeurBomberdose;
+
 }
 ThreadEnvoi::~ThreadEnvoi()
 {
@@ -49,24 +51,61 @@ bool ThreadEnvoi::MEnvoiDonnees()
 bool ThreadEnvoi::MInitialise( ToClient& T )
 {
     T.str = std::string("Serveur");
-    int i;
-    for (i = 0; i < 195; i++)
+    T.plateau = m_pBomberdose->m_pPlateau->MGetPlateauConverti();
+    int nbJoueurs = m_ListeClients.size();
+
+
+
+    if (!m_pBomberdose->MGetJoueur(0)->MIsDead())
+        //penser au pointeur null
     {
-        T.plateau[i]='h';
+        T.j1= true ;
+        T.x1= m_pBomberdose->MGetJoueur(0)->MGetPositionPixel().x ;
+        T.y1= m_pBomberdose->MGetJoueur(0)->MGetPositionPixel().y ;
     }
-    T.plateau[196]='\0';
-    T.j1=true;
-    T.x1=65000;
-    T.y1=60000;
-    T.j2=true;
-    T.x2=65000;
-    T.y2=60000;
-    T.j3=true;
-    T.x3=65000;
-    T.y3=60000;
-    T.j4=true;
-    T.x4=60000;
-    T.y4=44444;
+    else
+    {
+        T.j1 = false ;
+    }
+    if ( nbJoueurs > 1 )
+    {
+        if (!m_pBomberdose->MGetJoueur(1)->MIsDead())
+        {
+            T.j2= true;
+            T.x2= m_pBomberdose->MGetJoueur(1)->MGetPositionPixel().x ;
+            T.y2= m_pBomberdose->MGetJoueur(1)->MGetPositionPixel().y ;
+        }
+        else
+        {
+            T.j2=false;
+        }
+        if(nbJoueurs > 2)
+        {
+            if (!m_pBomberdose->MGetJoueur(2)->MIsDead())
+            {
+                T.j3= true;
+                T.x3= m_pBomberdose->MGetJoueur(2)->MGetPositionPixel().x ;
+                T.y3= m_pBomberdose->MGetJoueur(2)->MGetPositionPixel().y ;
+            }
+            else
+            {
+                T.j3=false;
+            }
+            if (nbJoueurs >3 )
+            {
+                if (!m_pBomberdose->MGetJoueur(3)->MIsDead())
+                {
+                    T.j4=true;
+                    T.x4=m_pBomberdose->MGetJoueur(3)->MGetPositionPixel().x ;
+                    T.y4=m_pBomberdose->MGetJoueur(3)->MGetPositionPixel().y ;
+                    }
+                else
+                {
+                    T.j4=false;
+                }
+            }
+        }
+    }
     return true;
 }
 

@@ -5,14 +5,14 @@
 #include "Sclient.h"
 #include "ThreadEcoute.h"
 #include "ThreadEnvoi.h"
-
+#include <BomberDose.h>
 class Server {
     /* gère l'inscription des clients au serveur, crée pour chaque client un thread principal */
 
 public :
 
     /* Constructeur */
-    Server ();
+    Server ( int const _nbClientsAttendus );
 
     /* Destructeur */
     ~Server();
@@ -62,6 +62,11 @@ public :
     /* Crée le ThreadEcoute correspondant à ce ThreadPrincipal */
     bool MCreateEcoute();
 
+    /* Récupère les addresses ip des clients connectés sous forme d'un tableau d'int */
+    int* MGetTableauIP();
+
+    /** Méthodes agissant sur les attributs du moteur du jeu **/
+    bool MCreateBomberdose();
 
 
 
@@ -73,6 +78,9 @@ protected :
 
     /* Nombre de clients connectés à ce serveur */
     uint m_nbClients;
+
+    /* Nombre de clients attendus à la connexion */
+    uint m_nbClientsAttendus;
 
     /* Socket TCP du serveur */
     sf::SocketTCP m_socketTCP;
@@ -91,6 +99,11 @@ protected :
 
     /* PORT_TCP */
     uint m_portTCP;
+
+    /** Attributs concernant la partie moteur du jeu **/
+
+    /* Pointeur vers le Bomberdose */
+    BomberDose* m_pBomberdose;
 };
 
 #endif // Server_h
