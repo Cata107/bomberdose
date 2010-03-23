@@ -188,3 +188,8 @@ char* Plateau::MGetPlateauConverti()
     }
     return tableau;
 }
+
+Timer* Plateau::MGetTimer()
+{
+	return m_pTimer;
+}

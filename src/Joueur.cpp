@@ -34,6 +34,18 @@ bool Joueur::MJouer()
     return false;
 }
 
+bool Joueur::MDie()
+{
+	m_mort = true;
+	return true;
+}
+
+bool Joueur::MReborn()
+{
+	m_mort = false;
+	return true;
+}
+
 bool Joueur::MSetPlateau(Plateau* _plateau)
 {
 	m_plateau = _plateau;
