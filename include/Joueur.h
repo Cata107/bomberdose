@@ -23,6 +23,10 @@ class Joueur {
 		virtual bool				MUpdate();
 
 		virtual bool				MJouer();
+				
+				bool				MDie();
+
+				bool				MReborn();
 
 				bool				MSetPlateau(Plateau* _plateau);
 

@@ -12,7 +12,7 @@ class BomberDose {
 
  public:
 
-	/* Constructeur */	BomberDose(int _nbJoueur,int _nbBonusBombe, int nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score);
+	/* Constructeur */	BomberDose(int _nbJoueur,int _nbBonusBombe, int nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score, int _temps);
 
 	/* Destructeur */	~BomberDose();
 
@@ -24,7 +24,7 @@ class BomberDose {
 
 			bool		MRecreerPlateau();			//Permet de recreer le plateau a chaque partie
 
-			bool		MFinPartie();
+			int			MFinMatch();				//Renvoi 1 si le match est gagné par un joueur, 0 si match nul(tous mort, ou temps ecoule)
 
 			bool		MStart();
 
@@ -37,6 +37,8 @@ class BomberDose {
 	std::vector< MurCassableAvecObjetPrenable* >	m_tPMursCassables;	//Un vector qui contient les murs avec des objets
 
 	int												m_nbBonus;
+
+	int												m_temps;			//Temps limite d'un match
 
 	int												m_score;	//Score a atteindre pour gagner
 

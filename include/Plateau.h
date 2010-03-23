@@ -43,6 +43,8 @@ class Plateau {
 
 			char*	MGetPlateauConverti();
 
+			Timer*	MGetTimer();
+
 
  protected:
 
