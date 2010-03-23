@@ -4,6 +4,7 @@
 #include <vector>
 #include "Sclient.h"
 #include "ToClient.h"
+#include <BomberDose.h>
 class Sclient;
 
 /* SERVEUR : Se charge d'envoyer uniquement des données au client par les sockets UDP */
@@ -12,7 +13,7 @@ class ThreadEnvoi : public sf::Thread
     public :
 
     /* Constructeur */
-    ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector< Sclient* >  _ListeClients );
+    ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector< Sclient* >  _ListeClients, BomberDose* _pointeurBomberdose );
 
     /* Destructeur */
     ~ThreadEnvoi();
@@ -40,6 +41,9 @@ class ThreadEnvoi : public sf::Thread
 
     /* PORT_UDP_ENVOI */
     uint m_portUDPEnvoi;
+
+    /** Pointeur vers le BOMBERDOSE **/
+    BomberDose* m_pBomberdose;
 
 
 

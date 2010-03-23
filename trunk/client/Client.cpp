@@ -45,7 +45,7 @@ bool Client::MConnect()
 bool Client::MAttenteInstruction()
 {
     char Buffer [2];
-    while ( !MIsQuit( Buffer ) )
+    while ( !MInstructionIsQuit( Buffer ) )
     {
         std::size_t Received;
         if (m_SocketTCP.Receive(Buffer, sizeof(Buffer), Received) != sf::Socket::Done)
@@ -61,12 +61,14 @@ bool Client::MAttenteInstruction()
         else
         {
             std::cout<< "Instruction : " << Buffer << std::endl;
-            if ( MIsStart( Buffer ) )
+            if ( MInstructionIsStart( Buffer ) )
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
+                usleep ( 10000000 );
+                m_pEnvoi->MEnvoiPoseBombe();
             }
-            if ( MIsStop ( Buffer ) )
+            if ( MInstructionIsStop ( Buffer ) )
             {
                 std::cout<<"La partie va s'arrêter ..."<<std::endl;
                 MGameStop();
@@ -78,7 +80,7 @@ bool Client::MAttenteInstruction()
     return true;
 
 }
-bool Client::MIsStart( char const *_buffer)
+bool Client::MInstructionIsStart( char const *_buffer)
 {
     bool retour = false;
     if ( _buffer[0]== '0' )
@@ -88,7 +90,7 @@ bool Client::MIsStart( char const *_buffer)
     return retour;
 }
 
-bool Client::MIsStop( char const *_buffer )
+bool Client::MInstructionIsStop( char const *_buffer )
 {
     bool retour = false;
     if ( _buffer[0]=='1' )
@@ -97,7 +99,7 @@ bool Client::MIsStop( char const *_buffer )
     }
     return retour;
 }
-bool Client::MIsQuit( char const *_buffer )
+bool Client::MInstructionIsQuit( char const *_buffer )
 {
     bool retour = false;
     if ( _buffer[0]=='2' )
@@ -111,7 +113,7 @@ bool Client::MGameStart()
     m_PartieEnCours = true;
     MCreateFils();
     m_pThreadEcoute->Launch();
-    m_pThreadEnvoi->Launch();
+    //m_pThreadEnvoi->Launch();
     return true;
 }
 bool Client::MCreateFils()
@@ -127,7 +129,7 @@ bool Client::MCreateEcoute()
 }
 bool Client::MCreateEnvoi()
 {
-    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_serverAddress );
+    m_pEnvoi = new Envoi( m_serverAddress );
     return true;
 }
 bool Client::MGameStop()
@@ -144,8 +146,7 @@ bool Client::MDeleteFils()
 }
 bool Client::MDeleteEnvoi()
 {
-    m_pThreadEnvoi->Wait();
-    delete m_pThreadEnvoi;
+    delete m_pEnvoi;
     return true;
 }
 bool Client::MDeleteEcoute()
