@@ -28,6 +28,8 @@ class Joueur {
 
 				bool				MReborn();
 
+				bool				MAugmenterScore();
+
 				bool				MSetPlateau(Plateau* _plateau);
 
 		virtual const Plateau*		MGetPlateau() const;	//retourne le plateau
