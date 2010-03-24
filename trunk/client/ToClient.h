@@ -1,22 +1,20 @@
 #ifndef ToClient_h
 #define ToClient_h
 #include <iostream>
-#include "../include/Macro.h"
 struct ToClient
 {
-    std::string str;
-    char plateau [ NB_CASE + 1 ];
+    char plateau[196];
     bool j1;
-    uint16_t x1;
-    uint16_t y1;
+    unsigned int x1;
+    unsigned int y1;
     bool j2;
-    uint16_t x2;
-    uint16_t y2;
+    unsigned int x2;
+    unsigned int y2;
     bool j3;
-    uint16_t x3;
-    uint16_t y3;
+    unsigned int x3;
+    unsigned int y3;
     bool j4;
-    uint16_t x4;
-    uint16_t y4;
+    unsigned int x4;
+    unsigned int y4;
 };
 #endif //ToClient_h

@@ -4,7 +4,7 @@
 #include "Server.h"
 sf::Packet& operator >>(sf::Packet& Packet, ToServer& T)
 {
-    return Packet >> T.str >>T.up >> T.down >> T.right>>T.left>>T.bomb;
+    return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb;
 }
 ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose )
 {
@@ -66,7 +66,7 @@ bool ThreadEcoute::MBindSocket()
 }
 void ThreadEcoute::MPrintToServer( ToServer const T )
 {
-std::cout<<T.str<<std::endl<<T.up<<T.down<<T.right<<T.left<<T.bomb<<std::endl;
+std::cout<<T.up<<T.down<<T.right<<T.left<<T.bomb<<std::endl;
 }
 int ThreadEcoute::MGetNumJoueur ( int const _addresseIP )
 {

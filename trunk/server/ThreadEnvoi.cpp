@@ -3,7 +3,7 @@
 #include "MacroServer.h"
 sf::Packet& operator <<(sf::Packet& Packet, const ToClient& T)
 {
-    return Packet << T.str <<T.plateau << T.j1 << T.x1 << T.y1 << T.j2 << T.x2 << T.y2 << T.j3 << T.x3 << T.y3 << T.j4 << T.x4 << T.y4;
+    return Packet <<T.plateau << T.j1 << T.x1 << T.y1 << T.j2 << T.x2 << T.y2 << T.j3 << T.x3 << T.y3 << T.j4 << T.x4 << T.y4;
 }
 
 ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients, BomberDose* _pointeurBomberdose)
@@ -50,7 +50,6 @@ bool ThreadEnvoi::MEnvoiDonnees()
 }
 bool ThreadEnvoi::MInitialise( ToClient& T )
 {
-    T.str = std::string("Serveur");
     T.plateau = m_pBomberdose->m_pPlateau->MGetPlateauConverti();
     int nbJoueurs = m_ListeClients.size();
 

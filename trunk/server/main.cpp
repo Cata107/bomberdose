@@ -9,7 +9,7 @@ int main(int argc, char ** argv)
     myServer.MCreateBomberdose();
     myServer.MAfficherStatus();
     myServer.MAttenteConnexion();
-    myServer.MGameStart();
-    myServer.MAttenteFinPartie();
+    myServer.MBoucleJeu();
+    myServer.MDisconnect();
 	return 1;
 }

@@ -3,7 +3,7 @@
 #include "MacroClient.h"
 sf::Packet& operator >>(sf::Packet& Packet, ToClient& T)
 {
-    return Packet >> T.str >> T.plateau >> T.j1 >> T.x1 >> T.y1 >> T.j2 >> T.x2 >> T.y2 >> T.j3 >> T.x3 >> T.y3 >> T.j4 >> T.x4 >> T.y4;
+    return Packet >> T.plateau >> T.j1 >> T.x1 >> T.y1 >> T.j2 >> T.x2 >> T.y2 >> T.j3 >> T.x3 >> T.y3 >> T.j4 >> T.x4 >> T.y4;
 }
 
 ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours )
@@ -67,6 +67,6 @@ bool ThreadEcoute::MReceptionDonnees()
 }
 void ThreadEcoute::MPrintToClient(ToClient const T)
 {
-    std::cout<< T.str<<std::endl<<T.plateau;
+    std::cout<<T.plateau;
     std::cout<<std::endl<< T.j1 << T.x1 << T.y1 <<std::endl<< T.j2 << T.x2 << T.y2 <<std::endl<< T.j3 << T.x3 << T.y3 <<std::endl<< T.j4 << T.x4 << T.y4<<std::endl;
 }

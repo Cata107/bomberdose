@@ -9,14 +9,14 @@ BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int 
 	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 	MCreatePlayer(_nbJoueur);
-	
+
 }
 
 
 BomberDose::~BomberDose()
 {
 	delete m_pPlateau;
-	
+
 	while (!m_tPJoueurs.empty())
 	{
 		delete m_tPJoueurs.back();
@@ -40,12 +40,12 @@ bool BomberDose::MCreatePlayer(int _nbJoueur)
 		{
 		case 0:
 			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 20), m_pPlateau));
-			
+
 			break;
 		case 1:
 			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(500, 20), m_pPlateau));
 			break;
-		
+
 		case 2:
 			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 500), m_pPlateau));
 			break;
@@ -92,7 +92,7 @@ bool BomberDose::MRecreerPlateau()
 {
 	delete m_pPlateau;
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
-	
+
 	for (unsigned int i = 0; i < m_tPJoueurs.size(); i++)
 	{
 		m_tPJoueurs[i]->MReborn();
@@ -103,12 +103,12 @@ bool BomberDose::MRecreerPlateau()
 
 int BomberDose::MFinMatch()
 {
-	int nbVivant = 4;
+	int nbVivant = m_tPJoueurs.size();
 	if (m_pPlateau->MGetTimer()->MGetTime() > m_temps)
 	{
 		return 0;
 	}
-	else 
+	else
 	{
 		for (unsigned int i = 0; i < m_tPJoueurs.size(); i++)
 		{

@@ -19,6 +19,7 @@ Server::~Server()
     m_socketTCP.Close();
     MNettoyerListeClients();
     delete m_pBomberdose;
+    MDeleteFils();
 }
 void Server::MAfficherStatus()
 {
@@ -52,11 +53,30 @@ bool Server::MGetStatusPartie()
 {
     return m_PartieEnCours;
 }
-void Server::MAttenteFinPartie()
+int Server::MAttenteFinPartie()
 {
+    int nbJoueursEnJeu;
     while (m_PartieEnCours)
     {
         usleep( DODO );
+        nbJoueursEnJeu = m_pBomberdose->MFinMatch();
+        std::cout<<nbJoueursEnJeu<<std::endl;
+        if ( nbJoueursEnJeu < 2 )
+        {
+            std::cout<<"Fin partie"<<std::endl;
+            //fin de partie, il y a moins de 2 joueurs en jeu
+            m_PartieEnCours = false;
+            if ( nbJoueursEnJeu = 1)
+            {
+                //le nb de joueur en jeu est 1
+                m_pBomberdose->MGetGagnant()->MAugmenterScore();
+                /**return m_pBomberdose->MGetGagnant()->MGetScore();**/
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
 bool Server::MAjouterClient( Sclient * _client )
@@ -88,6 +108,9 @@ bool Server::MEnvoiInstructionClients( int const _msg)
 
 bool Server::MGameStart()
 {
+    std::cout<<"UNE NOUVELLE PARTIE VA COMMENCER"<<std::endl;
+
+    /**m_pBomberdose->MRecreerPlateau();**/
     m_PartieEnCours = true;
     for ( unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
@@ -101,12 +124,14 @@ bool Server::MGameStart()
 
 bool Server::MGameStop()
 {
+    std::cout<<"FIN DE LA PARTIE"<<std::endl;
+
     m_PartieEnCours = false;
     for ( unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
         m_ListeClients[i]->MGameStop();
     }
-
+    MDeleteFils();
     return true;
 }
 
@@ -134,14 +159,19 @@ bool Server::MCreateEcoute()
 }
 bool Server::MDeleteEcoute()
 {
+    std::cout<<"Suppression thread écoute en cours"<<std::endl;
     m_pThreadEcoute->Wait();
-    delete m_pThreadEnvoi;
+    delete m_pThreadEcoute;
+    std::cout<<"THREAD ECOUTE SUPPRIME"<<std::endl;
     return true;
 }
 bool Server::MDeleteEnvoi()
 {
+    std::cout<<"Suppression thread envoi en cours"<<std::endl;
     m_pThreadEnvoi->Wait();
     delete m_pThreadEnvoi;
+    std::cout<<"THREAD ENVOI SUPPRIME"<<std::endl;
+
     return true;
 }
 bool Server::MCreateBomberdose()
@@ -179,4 +209,22 @@ int* Server::MGetTableauIP()
         tab[i] = m_ListeClients[i]->MGetIP().ToInteger();
     }
     return tab;
+}
+bool Server::MBoucleJeu()
+{
+    int scoreGagnant=0;
+    do
+    {
+        MGameStart();
+        scoreGagnant = MAttenteFinPartie();
+        MGameStop();
+        usleep( 10000000 );
+    } while (true);/**while (gagnant != m_pBomberdose->MGetScore());**/
+    return true;
+}
+bool Server::MDisconnect()
+{
+    std::cout<<"Déconnection des clients en cours"<<std::endl;
+    MEnvoiInstructionClients( QUIT );
+    return true;
 }
