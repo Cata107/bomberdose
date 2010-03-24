@@ -44,6 +44,8 @@ class BomberDose {
 
 	int												m_score;	//Score a atteindre pour gagner
 
+	unsigned int									m_nbJoueur;
+
 };
 
 #endif // BomberDose_h
