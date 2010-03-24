@@ -1,3 +1,19 @@
+#ifndef WINDOWS
+#define WINDOWS
+
+#ifdef WINDOWS
+#define SLEEP10 Sleep(10) 
+#define SLEEPDODO Sleep(DODO)
+#endif
+
+#ifdef LINUX
+#define SLEEP10 usleep(10000000)
+#define SLEEPDODO usleep(DODO)
+#endif
+
+#endif
+
+
 #include <iostream>
 #include "ThreadEnvoi.h"
 #include "MacroServer.h"
@@ -25,7 +41,7 @@ void ThreadEnvoi::Run()
     int i = 0;
     while ( *m_pPartieEnCours )
     {
-        usleep( DODO );
+        SLEEPDODO;
         MEnvoiDonnees();
         i++;
         std::cout<<"Bouclage envoi " <<i <<std::endl;
