@@ -1,3 +1,19 @@
+#ifndef WINDOWS
+#define WINDOWS
+
+#ifdef WINDOWS
+#define SLEEP10 Sleep(10) 
+#define SLEEPDODO Sleep(DODO)
+#endif
+
+#ifdef LINUX
+#define SLEEP10 usleep(10000000)
+#define SLEEPDODO usleep(DODO)
+#endif
+
+#endif
+
+
 #include <iostream>
 #include "Server.h"
 #include "Sclient.h"
@@ -15,7 +31,7 @@ Server::Server( int const _nbClientsAttendus )
     m_portTCP = PORT_TCP;
 }
 Server::~Server()
-{
+{	
     m_socketTCP.Close();
     MNettoyerListeClients();
     delete m_pBomberdose;
@@ -58,7 +74,7 @@ int Server::MAttenteFinPartie()
     int nbJoueursEnJeu;
     while (m_PartieEnCours)
     {
-        usleep( DODO );
+        SLEEPDODO;
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
         std::cout<<nbJoueursEnJeu<<std::endl;
         if ( nbJoueursEnJeu < 2 )
@@ -218,7 +234,7 @@ bool Server::MBoucleJeu()
         MGameStart();
         scoreGagnant = MAttenteFinPartie();
         MGameStop();
-        usleep( 10000000 );
+        SLEEP10;
     } while (true);/**while (gagnant != m_pBomberdose->MGetScore());**/
     return true;
 }
