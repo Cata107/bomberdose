@@ -30,6 +30,8 @@ class Joueur {
 
 				bool				MAugmenterScore();
 
+	unsigned	int					MGetScore();
+
 				bool				MSetPlateau(Plateau* _plateau);
 
 		virtual const Plateau*		MGetPlateau() const;	//retourne le plateau
