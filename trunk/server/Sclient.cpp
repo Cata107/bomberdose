@@ -3,7 +3,7 @@
 #include "MacroServer.h"
 #include <stdio.h>
 
-Sclient::Sclient( UINT const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient )
+Sclient::Sclient( unsigned int const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient )
 {
     m_NumeroClient = _numeroClient;
     m_AdresseIpClient = _adresseIpClient;

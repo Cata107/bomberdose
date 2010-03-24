@@ -25,7 +25,7 @@ void ThreadEnvoi::Run()
     int i = 0;
     while ( *m_pPartieEnCours )
     {
-        Sleep( DODO );
+        usleep( DODO );
         MEnvoiDonnees();
         i++;
         std::cout<<"Bouclage envoi " <<i <<std::endl;
@@ -38,7 +38,7 @@ bool ThreadEnvoi::MEnvoiDonnees()
     MInitialise(T);
     toSend << T;
     std::cout << "données UDP Serveur > Clients envoyées" << std::endl;
-    for (UINT i = 0; i < m_ListeClients.size(); i++)
+    for (unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
         if ( m_SocketUdp.Send(toSend, m_ListeClients[i]->MGetIP(), m_portUDPEnvoi ) != sf::Socket::Done)
         {

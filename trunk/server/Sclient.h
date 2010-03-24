@@ -9,7 +9,7 @@ class Sclient
 
 public :
     /* Constructeur */
-    Sclient( UINT const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient );
+    Sclient( unsigned int const _numeroClient, sf::IPAddress const _adresseIpClient, sf::SocketTCP const _socketTCPClient );
 
     /* Destructeur */
     ~Sclient();
@@ -28,7 +28,7 @@ public :
 
 private :
     /* l'ordre d'arrivée du client sur le serveur */
-    UINT m_NumeroClient;
+    unsigned int m_NumeroClient;
 
     /* Adresse ip du client */
     sf::IPAddress m_AdresseIpClient;

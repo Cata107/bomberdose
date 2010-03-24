@@ -77,10 +77,10 @@ protected :
     sf::IPAddress m_localAdress;
 
     /* Nombre de clients connectés à ce serveur */
-    UINT m_nbClients;
+    unsigned int m_nbClients;
 
     /* Nombre de clients attendus à la connexion */
-    UINT m_nbClientsAttendus;
+    unsigned int m_nbClientsAttendus;
 
     /* Socket TCP du serveur */
     sf::SocketTCP m_socketTCP;
@@ -98,7 +98,7 @@ protected :
     ThreadEcoute* m_pThreadEcoute;
 
     /* PORT_TCP */
-    UINT m_portTCP;
+    unsigned int m_portTCP;
 
     /** Attributs concernant la partie moteur du jeu **/
 
