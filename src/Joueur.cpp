@@ -52,6 +52,10 @@ bool Joueur::MAugmenterScore()
 	return true;
 }
 
+unsigned int Joueur::MGetScore()
+{
+	return m_score;
+}
 bool Joueur::MSetPlateau(Plateau* _plateau)
 {
 	m_plateau = _plateau;
