@@ -38,7 +38,7 @@ class ThreadEcoute : public sf::Thread
         volatile const bool *m_pPartieEnCours;
 
         /* PORT_UDP_ECOUTE */
-        UINT m_portUDPEcoute;
+        unsigned int m_portUDPEcoute;
 
         /* Tableau de LUT pour savoir à qui correspond quelle adresse ip */
         int * m_tableauIP;
