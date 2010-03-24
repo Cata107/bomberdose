@@ -3,13 +3,14 @@
 #include <iostream>
 sf::Packet& operator <<(sf::Packet& Packet, const ToServer& T)
 {
-    return Packet << T.str <<T.up << T.down << T.right<< T.left<< T.bomb;
+    return Packet <<T.up << T.down << T.right<< T.left<< T.bomb;
 }
 Envoi::Envoi( sf::IPAddress const _IPAddressServer )
 {
     m_portUDPEnvoi = PORT_UDP_ENVOI;
     m_IPAddressServer = _IPAddressServer;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
+    //std::cout<<"Je suis là"<<std::endl;
 }
 Envoi::~Envoi()
 {
@@ -36,7 +37,6 @@ bool Envoi::MEnvoiPacket(ToServer const T)
 }
 bool Envoi::MInitialiseToServer( ToServer& T, bool const _up, bool const _down, bool const _right, bool const _left, bool const _bomb)
 {
-    T.str = std::string("Client");
     T.up = _up;
     T.down = _down;
     T.right = _right;

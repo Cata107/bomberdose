@@ -4,7 +4,6 @@
 #include "../include/Macro.h"
 struct ToClient
 {
-    std::string str;
     char* plateau;
     bool j1;
 	unsigned int x1;

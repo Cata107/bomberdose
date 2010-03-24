@@ -26,8 +26,8 @@ public :
     /* Récupère le status de la partie */
     bool MGetStatusPartie();
 
-    /* Ne fait rien tant que la partie n'est pas terminée */
-    void MAttenteFinPartie();
+    /* Attend qu'il ne reste qu'un (ou 0 joueurs, en cas d'égalité), et renvoie le score du gagnant (renvoie 0 en cas d'égalité) */
+    int MAttenteFinPartie();
 
     /* Ajoute un thread principal à la liste de threads principaux */
     bool MAjouterClient(Sclient * _sclient);
@@ -64,6 +64,12 @@ public :
 
     /* Récupère les addresses ip des clients connectés sous forme d'un tableau d'int */
     int* MGetTableauIP();
+
+    /* Boucle qui gère les parties (création, arrêt) en fonction du score du bomberdose */
+    bool MBoucleJeu();
+
+    /* Envoie les instructions nécéssaires à la déconnection des clients */
+    bool MDisconnect();
 
     /** Méthodes agissant sur les attributs du moteur du jeu **/
     bool MCreateBomberdose();

@@ -83,7 +83,7 @@ bool Client::MAttenteInstruction()
 bool Client::MInstructionIsStart( char const *_buffer)
 {
     bool retour = false;
-    if ( _buffer[0]== '0' )
+    if ( _buffer[0]== CHARSTART )
     {
         retour = true;
     }
@@ -93,7 +93,7 @@ bool Client::MInstructionIsStart( char const *_buffer)
 bool Client::MInstructionIsStop( char const *_buffer )
 {
     bool retour = false;
-    if ( _buffer[0]=='1' )
+    if ( _buffer[0]== CHARSTOP )
     {
         retour = true;
     }
@@ -102,7 +102,7 @@ bool Client::MInstructionIsStop( char const *_buffer )
 bool Client::MInstructionIsQuit( char const *_buffer )
 {
     bool retour = false;
-    if ( _buffer[0]=='2' )
+    if ( _buffer[0]== CHARQUIT )
     {
         retour = true;
     }
@@ -113,7 +113,6 @@ bool Client::MGameStart()
     m_PartieEnCours = true;
     MCreateFils();
     m_pThreadEcoute->Launch();
-    //m_pThreadEnvoi->Launch();
     return true;
 }
 bool Client::MCreateFils()
@@ -147,11 +146,14 @@ bool Client::MDeleteFils()
 bool Client::MDeleteEnvoi()
 {
     delete m_pEnvoi;
+    std::cout<<"SUPPRESSION ENVOI EFFECTUEE"<<std::endl;
     return true;
 }
 bool Client::MDeleteEcoute()
 {
+    std::cout<<"SUPPRESSION THREAD ECOUTE EN COURS"<<std::endl;
     m_pThreadEcoute->Wait();
     delete m_pThreadEcoute;
+    std::cout<<"SUPPRESSION THREAD ECOUTE EFFECTUEE"<<std::endl;
     return true;
 }

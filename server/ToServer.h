@@ -4,7 +4,6 @@
 #include "../include/Macro.h"
 struct ToServer
 {
-    std::string str;
     bool up;
     bool down;
     bool right;

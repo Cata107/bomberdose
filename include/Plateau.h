@@ -39,7 +39,7 @@ class Plateau {
 
 			Case*	MGetCase(int _coordonneeUniDimensionelle);
 
-			Case*	MGetPlateau();										
+			Case*	MGetPlateau();
 
 			char*	MGetPlateauConverti();
 
