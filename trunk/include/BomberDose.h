@@ -40,6 +40,14 @@ class BomberDose {
 
 	int												m_nbBonus;
 
+	int												m_nbFlamme;
+
+	int												m_nbBombe;
+
+	int												m_nbRoller;
+
+	int												m_nbMalus;
+
 	int												m_temps;			//Temps limite d'un match
 
 	int												m_score;	//Score a atteindre pour gagner
