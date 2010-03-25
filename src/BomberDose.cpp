@@ -4,6 +4,10 @@
 BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int _nbBonusRoller, int _nbMalus, int _score, int _temps): m_score(_score)
 {
 	m_nbJoueur = _nbJoueur;
+	m_nbFlamme = _nbBonusFlamme;
+	m_nbRoller = _nbBonusRoller;
+	m_nbBombe = _nbBonusBombe;
+	m_nbMalus = _nbMalus;
 	m_nbBonus = _nbBonusBombe + _nbBonusRoller + _nbBonusFlamme + _nbMalus;
 	m_temps = _temps * 60;
 	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
@@ -90,7 +94,9 @@ bool BomberDose::MCreateMursAvecObjet(int _nbBonusBombe, int _nbBonusFlamme, int
 
 bool BomberDose::MRecreerPlateau()
 {
-	delete m_pPlateau;
+	delete m_pPlateau;	//On efface le plateau
+	m_tPMursCassables.clear();
+	MCreateMursAvecObjet(m_nbBombe,m_nbFlamme,m_nbRoller,m_nbMalus);
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 
 	for (unsigned int i = 0; i < m_nbJoueur; i++)
