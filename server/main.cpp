@@ -3,6 +3,7 @@
 
 int main(int argc, char ** argv)
 {
+	
     //Transformation du char du premier argument en int
     int n = argv[1][0] -'0';
     Server myServer = Server::Server(n);
