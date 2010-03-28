@@ -23,6 +23,8 @@ class ObjetFixe {
 		virtual Timer*						MGetTimer();
 
 		virtual bool						MIsMurCassable();
+
+		virtual bool						MIsMurAvecObjet();
 	
 		virtual bool						MIsMurIncassable();
 	
@@ -43,6 +45,7 @@ protected:
 		enum TypeObjet
 		{
 						MURCASSABLE,
+						MURCASSABLEAVECOBJET,
 						MURINCASSABLE,
 						BONUSFLAMME,
 						BONUSBOMBE,

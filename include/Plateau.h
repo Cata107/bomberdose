@@ -13,6 +13,10 @@
 #include "Macro.h"
 #include "Bombe.h"
 #include "Flamme.h"
+#include "BonusBombe.h"
+#include "BonusFlamme.h"
+#include "BonusRoller.h"
+#include "ObjetMalus.h"
 class Joueur;
 
 class Plateau {
@@ -49,7 +53,17 @@ class Plateau {
 
 			bool	MSetJoueurs(std::vector< Joueur* >& _listJoueur);
 
-			bool	MCreerFlamme(sf::Vector2i _coordonnees, int _puissance);
+			bool	MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance);
+
+			bool	MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance);
+
+			bool	MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance);
+
+			bool	MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance);
+
+			bool	MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance);
+
+			bool	MDestructionObjetFixe(ObjetFixe* _objetFixe);
 
 			bool	MUpdate();
 

@@ -4,6 +4,8 @@
 #include "MurCassable.h"
 
 
+
+
 class MurCassableAvecObjetPrenable : public MurCassable {
 
  public:
@@ -18,17 +20,21 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 
 		virtual bool	MDestruction();
 
+		enum ObjetContenu
+		{
+			MALUS = 0,
+			BONUSBOMBE = 1,
+			BONUSFLAMME = 2,
+			BONUSROLLER = 3,
+		};
+
+		ObjetContenu	m_objetContenu;	
+
 protected:
 		
-			enum ObjetContenu
-			{
-				MALUS,
-				BONUSBOMBE,
-				BONUSFLAMME,
-				BONUSROLLER,
-			};
-
-			ObjetContenu m_objetContenu;
+			
+	
+				
 				
 };
 
