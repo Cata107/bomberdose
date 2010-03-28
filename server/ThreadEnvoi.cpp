@@ -19,7 +19,7 @@
 #include "MacroServer.h"
 sf::Packet& operator <<(sf::Packet& Packet, const ToClient& T)
 {
-    return Packet <<T.plateau << T.j1 << T.x1 << T.y1 <<T.t1<< T.j2 << T.x2 << T.y2 << T.t2 << T.j3 << T.x3 << T.y3 <<T.t3<< T.j4 << T.x4 << T.y4<<T.t4;
+    return Packet <<T.plateau << T.j1 << T.x1 << T.y1 <<T.t1<<T.l1<< T.j2 << T.x2 << T.y2 << T.t2 <<T.l2<< T.j3 << T.x3 << T.y3 <<T.t3<<T.l3<< T.j4 << T.x4 << T.y4<<T.t4<<T.l4;
 }
 
 ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients, BomberDose* _pointeurBomberdose)
@@ -78,6 +78,7 @@ bool ThreadEnvoi::MInitialise( ToClient& T )
         T.x1= m_pBomberdose->MGetJoueur(0)->MGetPositionPixel().x ;
         T.y1= m_pBomberdose->MGetJoueur(0)->MGetPositionPixel().y;
         //T.t1= m_pBomberdose->MGetJoueur(0)->MGetElapsedTime();
+        //T.l1 = m_pBomberdose->MGetJoueur(0)->MGetRegard();
     }
     else
     {
@@ -91,7 +92,7 @@ bool ThreadEnvoi::MInitialise( ToClient& T )
             T.x2= m_pBomberdose->MGetJoueur(1)->MGetPositionPixel().x ;
             T.y2= m_pBomberdose->MGetJoueur(1)->MGetPositionPixel().y ;
             //T.t2= m_pBomberdose->MGetJoueur(1)->MGetElapsedTime();
-
+            //T.l2 = m_pBomberdose->MGetJoueur(1)->MGetRegard();
         }
         else
         {
@@ -105,6 +106,7 @@ bool ThreadEnvoi::MInitialise( ToClient& T )
                 T.x3= m_pBomberdose->MGetJoueur(2)->MGetPositionPixel().x ;
                 T.y3= m_pBomberdose->MGetJoueur(2)->MGetPositionPixel().y ;
                 //T.t3= m_pBomberdose->MGetJoueur(2)->MGetElapsedTime();
+                //T.l3 = m_pBomberdose->MGetJoueur(2)->MGetRegard();
             }
             else
             {
@@ -118,7 +120,7 @@ bool ThreadEnvoi::MInitialise( ToClient& T )
                     T.x4=m_pBomberdose->MGetJoueur(3)->MGetPositionPixel().x ;
                     T.y4=m_pBomberdose->MGetJoueur(3)->MGetPositionPixel().y ;
                     //T.t4= m_pBomberdose->MGetJoueur(3)->MGetElapsedTime();
-
+                    //T.l4 = m_pBomberdose->MGetJoueur(3)->MGetRegard();
                     }
                 else
                 {
