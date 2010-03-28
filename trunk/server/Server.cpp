@@ -1,8 +1,8 @@
-#ifndef WINDOWS
-#define WINDOWS
+#ifndef LINUX
+#define LINUX
 
 #ifdef WINDOWS
-#define SLEEP10 Sleep(10) 
+#define SLEEP10 Sleep(10)
 #define SLEEPDODO Sleep(DODO)
 #endif
 
@@ -31,7 +31,7 @@ Server::Server( int const _nbClientsAttendus )
     m_portTCP = PORT_TCP;
 }
 Server::~Server()
-{	
+{
     m_socketTCP.Close();
     MNettoyerListeClients();
     delete m_pBomberdose;

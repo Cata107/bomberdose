@@ -9,5 +9,6 @@ struct ToServer
     bool right;
     bool left;
     bool bomb;
+    unsigned int elapsed_time;
 };
 #endif //ToServer_h
