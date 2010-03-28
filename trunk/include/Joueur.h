@@ -52,15 +52,17 @@ class Joueur {
 
 		virtual bool				MAugmenterVitesse();		//Permet d'augmenter la vitesse du joueur
 
+		bool						MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
+
 		
 
 
  protected:
-		int				m_indice;
+		int				m_indice;				//Indice du joueur
 		int				m_score;
-		bool			m_mort;
-		int				m_nbBombes;
-		int				m_puissance;
+		bool			m_mort;					//Savoir si le joueur est mort
+		int				m_nbBombes;				//Nombre de bombe maximum que le joueur peut poser
+		int				m_puissance;			//Puissance de ses bombes
 		int				m_coefficientVitesse;	//Coefficient de vitesse, incrementer quand le joueur ramasse un BonusRoller
 		float			m_vitesse;				//Vitesse du joueur apres calcul
 		int				m_nbBombesPosees;

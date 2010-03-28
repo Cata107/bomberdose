@@ -12,6 +12,8 @@
 #include "Timer.h"
 #include "Macro.h"
 #include "Bombe.h"
+#include "Flamme.h"
+class Joueur;
 
 class Plateau {
 
@@ -24,8 +26,6 @@ class Plateau {
 			bool	MCreation();
 
 			bool	MDestruction();
-
-			bool	MSetBombe(sf::Vector2i _coordonnees, int _puissance);	//Permet de placer une bombe sur les coordonnees de la case en parametre
 
 			bool	MPlacerMursIncassables();
 
@@ -45,6 +45,14 @@ class Plateau {
 
 			Timer*	MGetTimer();
 
+			bool	MSetBombe(sf::Vector2i _coordonnees, int _puissance, int indiceJoueur, int _maladie = 0);	//Permet de placer une bombe sur les coordonnees de la case en parametre
+
+			bool	MSetJoueurs(std::vector< Joueur* >& _listJoueur);
+
+			bool	MCreerFlamme(sf::Vector2i _coordonnees, int _puissance);
+
+			bool	MUpdate();
+
 
  protected:
 
@@ -54,9 +62,13 @@ class Plateau {
 
 			std::list<Bombe*>		m_listPBombes;			//La liste de bombes posees par les joueurs
 
+			std::list<Flamme*>		m_listPFlammes;			//Liste des cases enflammee
+
 			std::vector<MurCassable*>	m_listPMursCassables;	//La liste des murs cassables pour la construction du plateau
 
 			std::set<int>			m_setIndiceCaseVide;	//L'ensemble des cases vides
+
+			std::vector<Joueur*>	m_listJoueurs;
 };
 
 #endif // Plateau_h

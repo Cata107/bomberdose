@@ -69,4 +69,15 @@
 #define MALUS_RAPIDITE 15
 #define MALUS_LENTEUR 1
 
+
+
+/*------------------------------------------TEMPS----------------------------------------------------*/
+
+#define TEMPS_BOMBE_DEFAUT 2.5
+#define TEMPS_BOMBE_RAPIDE 1.5
+#define TEMPS_BOMBE_LENTE 5
+
+#define TEMPS_FLAMME 1.5
+
+
 #endif //Macro_h

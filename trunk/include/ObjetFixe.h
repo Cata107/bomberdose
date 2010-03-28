@@ -20,6 +20,8 @@ class ObjetFixe {
 	
 		virtual sf::Vector2i				MGetCoordonnees();
 
+		virtual Timer*						MGetTimer();
+
 		virtual bool						MIsMurCassable();
 	
 		virtual bool						MIsMurIncassable();
