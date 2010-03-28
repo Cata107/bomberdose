@@ -2,7 +2,7 @@
 
 MurCassableAvecObjetPrenable::MurCassableAvecObjetPrenable(sf::Vector2i _coordonnees) : MurCassable(_coordonnees)
 {
-	
+	m_typeObjet = MURCASSABLEAVECOBJET;
 }
 
 MurCassableAvecObjetPrenable::MurCassableAvecObjetPrenable(int _typeObjet)
@@ -25,6 +25,7 @@ MurCassableAvecObjetPrenable::MurCassableAvecObjetPrenable(int _typeObjet)
 		m_objetContenu = BONUSROLLER;
 		break;
 	}
+	m_typeObjet = MURCASSABLEAVECOBJET;
 }
 
 
