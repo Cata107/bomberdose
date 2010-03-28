@@ -22,6 +22,11 @@ sf::Vector2i ObjetFixe::MGetCoordonnees()
 	return m_coordonnees;
 }
 
+Timer* ObjetFixe::MGetTimer()
+{
+	return m_pTimer;
+}
+
 bool ObjetFixe::MIsMurCassable()
 {
 	return (m_typeObjet == MURCASSABLE);

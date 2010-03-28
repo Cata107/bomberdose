@@ -13,6 +13,7 @@ BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int 
 	MCreateMursAvecObjet(_nbBonusBombe, _nbBonusFlamme, _nbBonusRoller, _nbMalus);
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);
 	MCreatePlayer(_nbJoueur);
+	m_pPlateau->MSetJoueurs(m_tPJoueurs);
 
 }
 

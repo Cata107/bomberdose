@@ -10,9 +10,27 @@ Joueur::Joueur(int _indice, sf::Vector2i _coordonneesPixel, Plateau* _plateau) :
 //Permet de poser une bombe sur la case où est le joueur
 bool Joueur::MPoserBombe()
 {
-	if ((m_nbBombesPosees < m_nbBombes) && (m_plateau->MGetCase(m_coordonneesCase)->MIsEmpty()))
+	if (m_maladie != pasDeBombe)
 	{
-		m_plateau->MSetBombe(m_coordonneesCase, m_puissance);
+		if ((m_nbBombesPosees < m_nbBombes) && (m_plateau->MGetCase(m_coordonneesCase)->MIsEmpty()))
+		{
+			switch (m_maladie)
+			{
+			case (explosionRapide):
+				m_plateau->MSetBombe(m_coordonneesCase, m_puissance, m_indice, 1);
+				m_nbBombesPosees++;
+				break;
+
+			case (explosionLente):
+				m_plateau->MSetBombe(m_coordonneesCase, m_puissance, m_indice, 2);
+				m_nbBombesPosees++;
+				break;
+			default:
+				m_plateau->MSetBombe(m_coordonneesCase, m_puissance, m_indice);
+				m_nbBombesPosees++;
+				break;
+			}
+		}
 	}
     return true;
 }
@@ -221,5 +239,11 @@ bool Joueur::MAugmenterVitesse()
 	{
 		m_coefficientVitesse++;
 	}
+	return true;
+}
+
+bool Joueur::MDiminuerNbBombesPosees()
+{
+	m_nbBombesPosees--;
 	return true;
 }
