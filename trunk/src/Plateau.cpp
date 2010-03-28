@@ -1,4 +1,5 @@
 #include "Plateau.h"
+#include "Joueur.h"
 
 Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable*>& _listeMurCassableAvecObjetPrenable, int _nbBonus)
 {
@@ -62,12 +63,6 @@ bool Plateau::MDestruction()
     return false;
 }
 
-//Place une bombe a la case aux coordonnees passees en parametre
-bool Plateau::MSetBombe(sf::Vector2i _coordonnees, int _puissance)
-{
-	m_listPBombes.push_back(new Bombe(_coordonnees));
-    return true;
-}
 
 //Place les MursIncassables, qui sont fixes
 bool Plateau::MPlacerMursIncassables()
@@ -192,4 +187,57 @@ char* Plateau::MGetPlateauConverti()
 Timer* Plateau::MGetTimer()
 {
 	return m_pTimer;
+}
+
+//Place une bombe a la case aux coordonnees passees en parametre
+bool Plateau::MSetBombe(sf::Vector2i _coordonnees, int _puissance, int _indiceJoueur, int _maladie)
+{
+	m_listPBombes.push_back(new Bombe(_coordonnees, _puissance, _indiceJoueur, _maladie));
+	m_setIndiceCaseVide.insert(_coordonnees.x+(_coordonnees.y * NB_COLONNES));
+	return true;
+}
+
+bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
+{
+	m_listJoueurs = _listJoueur;
+	return true;
+}
+
+bool Plateau::MCreerFlamme(sf::Vector2i _coordonnees, int _puissance)
+{
+	return true;
+}
+
+bool Plateau::MUpdate()
+{
+	//On verifie le timer de toutes les bombes
+	for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end(); it++)
+	{	
+		
+		if ((((*it)->MGetMaladie() == 0) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_DEFAUT)) ||	//Si aucune maladie affectant les bombes et temps supérieur au temps par defaut d'une bombe
+			(((*it)->MGetMaladie() == 1) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_RAPIDE)) ||	//Ou si maladie de la bombe qui explose vite et depassement du temps fixe pour cette maladie
+			(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
+		{
+			(*it)->MDestruction();		//La bombe explose
+			MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
+			m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
+
+			delete *it;					//On supprime la bombe en question de la memoire
+			m_listPBombes.erase(it);	//On supprime la bombe de la liste
+			it--;						//On remet l'iterateur a l'element juste avant pour ne pas sauter des bombes
+		}
+	}
+
+	//On verifie le timer de toutes les flammes
+	for (std::list<Flamme*>::iterator it = m_listPFlammes.begin(); it != m_listPFlammes.end(); it++)
+	{
+		if ((*it)->MGetTimer()->MGetTime() > TEMPS_FLAMME)	//Si le temps de la flamme est ecoule
+		{
+			(*it)->MDestruction();							//On detruit la flamme
+			delete *it;										//On efface la flamme de la memoire
+			m_listPFlammes.erase(it);						//On supprime la flamme du tableau
+			it--;											//On recule l'iterateur pour ne pas sauter un element de la liste
+		}
+	}
+	return true;
 }

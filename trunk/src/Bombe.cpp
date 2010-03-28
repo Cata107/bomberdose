@@ -1,7 +1,7 @@
 #include "Bombe.h"
 
 	//Constructeur. Appelle le constructeur de la classe ObjetFixe, et appel la methode de creation de bombe.
-	Bombe::Bombe(const sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
+	Bombe::Bombe(const sf::Vector2i _coordonnees,int _puissance, int _indiceJoueur, int _maladie) : ObjetFixe(_coordonnees), m_puissance(_puissance), m_indiceJoueur(_indiceJoueur), m_maladie(_maladie)
 	{
 		m_typeObjet = BOMBE;
 	}
@@ -27,4 +27,19 @@
 	bool Bombe::MDestruction()
 	{
 		return false;
+	}
+
+	int Bombe::MGetPuissance()
+	{
+		return m_puissance;
+	}
+
+	int Bombe::MGetIndice()
+	{
+		return m_indiceJoueur;
+	}
+
+	int Bombe::MGetMaladie()
+	{
+		return m_maladie;
 	}
