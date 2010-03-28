@@ -37,7 +37,7 @@ bool Case::MCreation()
 //Retourne true si la case est vide, c'est-a-dire qu'il ne possede aucun objet
 bool Case::MIsEmpty()
 {
-    return m_pObjetFixe==NULL ;
+    return m_vide ;
 }
 
 //Permet de mettre la variable m_vide a vrai si un objet est creer sur la Case

@@ -57,3 +57,7 @@ bool ObjetFixe::MIsBonusRoller()
 	return (m_typeObjet == BONUSROLLER);
 }
 
+bool ObjetFixe::MIsMurAvecObjet()
+{
+	return (m_typeObjet == MURCASSABLEAVECOBJET);
+}

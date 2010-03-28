@@ -192,8 +192,9 @@ Timer* Plateau::MGetTimer()
 //Place une bombe a la case aux coordonnees passees en parametre
 bool Plateau::MSetBombe(sf::Vector2i _coordonnees, int _puissance, int _indiceJoueur, int _maladie)
 {
-	m_listPBombes.push_back(new Bombe(_coordonnees, _puissance, _indiceJoueur, _maladie));
-	m_setIndiceCaseVide.insert(_coordonnees.x+(_coordonnees.y * NB_COLONNES));
+	m_listPBombes.push_back(new Bombe(_coordonnees, _puissance, _indiceJoueur, _maladie));	//On ajoute la bombe dans la liste des bombes
+	MGetCase(_coordonnees)->MFill(*(m_listPBombes.back()));		//On remplit la case d'une bombe
+	m_setIndiceCaseVide.erase(_coordonnees.x+(_coordonnees.y * NB_COLONNES));	//On efface l'indice de la case ou est la bombe de l'ensemble des indices de case vide
 	return true;
 }
 
@@ -203,8 +204,75 @@ bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
 	return true;
 }
 
-bool Plateau::MCreerFlamme(sf::Vector2i _coordonnees, int _puissance)
+bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
 {
+	MGetCase(_coordonnees)->MFill(Flamme(_coordonnees));
+	MCreerFlammeHaut(_coordonnees, _puissance);
+	MCreerFlammeBas(_coordonnees, _puissance);
+	MCreerFlammeGauche(_coordonnees, _puissance);
+	MCreerFlammeDroite(_coordonnees, _puissance);
+	return true;
+}
+
+bool Plateau::MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance)
+{
+	return true;
+}
+
+bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
+{
+	return true;
+}
+
+bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
+{
+	return true;
+}
+
+bool Plateau::MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance)
+{
+	return true;
+}
+
+bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
+{
+	if(!_objetFixe->MIsMurIncassable())	//Si l'objet n'a rien de particulier lors de la destruction
+	{
+		if(_objetFixe->MIsMurCassable() || _objetFixe->MIsBonusBombe() || _objetFixe->MIsBonusFlamme() || _objetFixe->MIsBonusRoller())	//Cas du mur cassable
+		{
+			MGetCase(_objetFixe->MGetCoordonnees())->MClean();		//On vide la case
+			m_setIndiceCaseVide.insert(_objetFixe->MGetCoordonnees().x + ((_objetFixe->MGetCoordonnees().y)* NB_COLONNES ));	//On met l'indice de la case maintenant vide dans l'ensemble des indices des cases vides
+			delete _objetFixe;
+		}
+
+		else if(_objetFixe->MIsMurAvecObjet())	//Si il y a un objet dans le mur cassable
+		{
+			 switch((dynamic_cast<MurCassableAvecObjetPrenable*>(_objetFixe))->m_objetContenu)	//On verifie l'objet contenu
+			 {
+				case 1:		//Cas d'un bonus bombe
+					MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+					MGetCase(_objetFixe->MGetCoordonnees())->MFill(BonusBombe(_objetFixe->MGetCoordonnees()));
+					break;
+				case 2:		//Cas d'un Bonus Flamme
+					MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+					MGetCase(_objetFixe->MGetCoordonnees())->MFill(BonusFlamme(_objetFixe->MGetCoordonnees()));
+					break;
+				case 3:		//Cas d'un Bonus Roller
+					MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+					MGetCase(_objetFixe->MGetCoordonnees())->MFill(BonusRoller(_objetFixe->MGetCoordonnees()));
+					break;
+				case 0:		//Cas d'un malus
+					MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+					MGetCase(_objetFixe->MGetCoordonnees())->MFill(ObjetMalus(_objetFixe->MGetCoordonnees()));
+					break;
+			 }
+		}
+
+		else if (_objetFixe->MIsMalus())	//Si on detruit un malus, il se teleporte sur une case vide
+		{
+
+		}
+	}
 	return true;
 }
 
@@ -218,7 +286,8 @@ bool Plateau::MUpdate()
 			(((*it)->MGetMaladie() == 1) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_RAPIDE)) ||	//Ou si maladie de la bombe qui explose vite et depassement du temps fixe pour cette maladie
 			(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
 		{
-			(*it)->MDestruction();		//La bombe explose
+			MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
+
 			MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
 			m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
 
@@ -233,10 +302,12 @@ bool Plateau::MUpdate()
 	{
 		if ((*it)->MGetTimer()->MGetTime() > TEMPS_FLAMME)	//Si le temps de la flamme est ecoule
 		{
-			(*it)->MDestruction();							//On detruit la flamme
+			m_setIndiceCaseVide.insert((*it)->MGetCoordonnees().x * ((*it)->MGetCoordonnees().y * NB_COLONNES) );	//On rajoute l'indice de la case ou la flamme a disparu dans l'ensemble des indices des cases vides
+			MGetCase((*it)->MGetCoordonnees())->MClean();	//On detruit la flamme
 			delete *it;										//On efface la flamme de la memoire
 			m_listPFlammes.erase(it);						//On supprime la flamme du tableau
 			it--;											//On recule l'iterateur pour ne pas sauter un element de la liste
+			
 		}
 	}
 	return true;
