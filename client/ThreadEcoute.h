@@ -28,7 +28,7 @@ class ThreadEcoute : public sf::Thread
 
     private :
         /* Port Udp utilisé pour bind la socket d'écoute UDP */
-        uint m_portUDPEcoute;
+        unsigned int m_portUDPEcoute;
 
         /* Socket UDP */
         sf::SocketUDP m_SocketUdp;

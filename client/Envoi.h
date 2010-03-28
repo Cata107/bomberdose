@@ -41,7 +41,7 @@ class Envoi
     protected :
 
     /* Le port udp qui est utilisé pour communiquer avec le serveur */
-    uint m_portUDPEnvoi;
+    unsigned int m_portUDPEnvoi;
 
     /* L'addresse ip du serveur */
     sf::IPAddress m_IPAddressServer;

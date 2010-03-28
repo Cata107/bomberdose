@@ -65,7 +65,7 @@ class Client {
     protected :
 
         /* Port utilisé pour la socket TCP */
-        uint m_portTCP;
+        unsigned int m_portTCP;
 
         /* Adresse ip locale vue sur le réseau local */
         sf::IPAddress m_localAddress;
