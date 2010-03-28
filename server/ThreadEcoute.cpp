@@ -4,7 +4,7 @@
 #include "Server.h"
 sf::Packet& operator >>(sf::Packet& Packet, ToServer& T)
 {
-    return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb;
+    return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb>>T.elapsed_time;
 }
 ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose )
 {
@@ -80,26 +80,27 @@ int ThreadEcoute::MGetNumJoueur ( int const _addresseIP )
 }
 bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
 {
+    unsigned int time = T.elapsed_time;
     if ( T.up )
     {
 
         std::cout<<"Joueur "<< _numJoueur << "MOVE UP "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveUp();
+        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveUp(time);
     }
     else if ( T.down )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE DOWN "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveDown();
+        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveDown(time);
     }
     else if ( T.right )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE RIGHT "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveRight();
+        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveRight(time);
     }
     else if ( T.left )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE LEFT "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveLeft();
+        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveLeft(time);
     }
     else if ( T.bomb )
     {
