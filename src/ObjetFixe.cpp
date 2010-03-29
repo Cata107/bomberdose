@@ -61,3 +61,8 @@ bool ObjetFixe::MIsMurAvecObjet()
 {
 	return (m_typeObjet == MURCASSABLEAVECOBJET);
 }
+
+bool ObjetFixe::MIsBombe()
+{
+	return (m_typeObjet == BOMBE);
+}

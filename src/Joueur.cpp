@@ -52,6 +52,30 @@ bool Joueur::MJouer()
     return false;
 }
 
+bool Joueur::MMoveUp()
+{
+	m_coordonneesPixel.y -= 32;
+	return true
+}
+
+bool Joueur::MMoveDown()
+{
+	m_coordonneesPixel.y += 32;
+	return true
+}
+
+bool Joueur::MMoveLeft()
+{
+	m_coordonneesPixel.x -= 32;
+	return true
+}
+
+bool Joueur::MMoveRight()
+{	
+	m_coordonneesPixel.x += 32;
+	return true
+}
+
 bool Joueur::MDie()
 {
 	m_mort = true;
