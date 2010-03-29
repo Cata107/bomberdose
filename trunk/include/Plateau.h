@@ -39,7 +39,7 @@ class Plateau {
 
 			bool	MPlacerMursCassables();
 
-			Case*	MGetCase(sf::Vector2i _coordonnees);				//Renvoi un poiteur sur la case, dont les coordonnees sont en parametre
+			Case*	MGetCase(const sf::Vector2i _coordonnees);				//Renvoi un poiteur sur la case, dont les coordonnees sont en parametre
 
 			Case*	MGetCase(int _coordonneeUniDimensionelle);
 
