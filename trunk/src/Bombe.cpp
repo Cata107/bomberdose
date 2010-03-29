@@ -4,6 +4,7 @@
 	Bombe::Bombe(const sf::Vector2i _coordonnees,int _puissance, int _indiceJoueur, int _maladie) : ObjetFixe(_coordonnees), m_puissance(_puissance), m_indiceJoueur(_indiceJoueur), m_maladie(_maladie)
 	{
 		m_typeObjet = BOMBE;
+		m_pTimer->MStartTimer();
 	}
 
 	Bombe::~Bombe()
@@ -14,7 +15,7 @@
 	//Creer la bombe
 	bool Bombe::MCreation()
 	{	
-		m_pTimer->MStartTimer();
+		
 		return true;
 	}
 

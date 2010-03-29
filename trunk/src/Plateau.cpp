@@ -153,7 +153,7 @@ bool Plateau::MPlacerMursCassables()
 }
 
 //Retourne une case du plateau, selon les coordonnees donnees en parametre
-Case* Plateau::MGetCase(sf::Vector2i _coordonnees)
+Case* Plateau::MGetCase(const sf::Vector2i _coordonnees)
 {
     int accesColonne = _coordonnees.x;
     int accesLigne = _coordonnees.y * NB_COLONNES;
@@ -206,7 +206,8 @@ bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
 
 bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
 {
-	MGetCase(_coordonnees)->MFill(Flamme(_coordonnees));
+	m_listPFlammes.push_back(new Flamme(_coordonnees));
+	MGetCase(_coordonnees)->MFill(*(m_listPFlammes.back()));
 	MCreerFlammeHaut(_coordonnees, _puissance);
 	MCreerFlammeBas(_coordonnees, _puissance);
 	MCreerFlammeGauche(_coordonnees, _puissance);
@@ -216,21 +217,89 @@ bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
 
 bool Plateau::MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance)
 {
+	int i = _puissance;
+	int y = _coordonnees.y;
+	while (i > 0 && MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty())
+	{
+		sf::Vector2i coordonnees(_coordonnees.x, (y -1));
+		m_listPFlammes.push_back(new Flamme(coordonnees));
+		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));
+		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));
+		y--;
+		i--;
+	}
+	if (i > 0 && !(MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty()))
+	{
+		sf::Vector2i coordonnees(_coordonnees.x, (y-1));		
+		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());
+	}
+
 	return true;
 }
 
 bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
 {
+	int i = _puissance;
+	int y = _coordonnees.y;
+	while (i > 0 && MGetCase(sf::Vector2i(_coordonnees.x, (y +1)))->MIsEmpty())
+	{
+		sf::Vector2i coordonnees(_coordonnees.x, (y +1));
+		m_listPFlammes.push_back(new Flamme(coordonnees));
+		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));
+		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));
+		y++;
+		i--;
+	}
+	if (i > 0 && !(MGetCase(sf::Vector2i(_coordonnees.x, (y +1)))->MIsEmpty()))
+	{
+		sf::Vector2i coordonnees(_coordonnees.x, (y+1));		
+		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());
+	}
+
 	return true;
 }
 
 bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
 {
+	int i = _puissance;
+	int x = _coordonnees.x;
+	while (i > 0 && MGetCase(sf::Vector2i( (x-1), _coordonnees.y))->MIsEmpty())
+	{
+		sf::Vector2i coordonnees((x-1), _coordonnees.y);
+		m_listPFlammes.push_back(new Flamme(coordonnees));
+		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));
+		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));
+		x--;
+		i--;
+	}
+	if (i > 0 && !(MGetCase(sf::Vector2i((x-1), _coordonnees.y))->MIsEmpty()))
+	{
+		sf::Vector2i coordonnees((x-1), _coordonnees.y);		
+		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());
+	}
+
 	return true;
 }
 
 bool Plateau::MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance)
 {
+	int i = _puissance;
+	int x = _coordonnees.x;
+	while (i > 0 && MGetCase(sf::Vector2i( (x+1), _coordonnees.y))->MIsEmpty())
+	{
+		sf::Vector2i coordonnees((x+1), _coordonnees.y);
+		m_listPFlammes.push_back(new Flamme(coordonnees));
+		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));
+		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));
+		x++;
+		i--;
+	}
+	if (i > 0 && !(MGetCase(sf::Vector2i((x+1), _coordonnees.y))->MIsEmpty()))
+	{
+		sf::Vector2i coordonnees((x+1), _coordonnees.y);		
+		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());
+	}
+
 	return true;
 }
 
@@ -270,7 +339,25 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 
 		else if (_objetFixe->MIsMalus())	//Si on detruit un malus, il se teleporte sur une case vide
 		{
+			std::set<int>::iterator it = m_setIndiceCaseVide.end();
+			int random;
+			while (it == m_setIndiceCaseVide.end())
+			{
+				random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);
+				it = m_setIndiceCaseVide.find(random);
+			}
+			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+			m_setIndiceCaseVide.insert(_objetFixe->MGetCoordonnees().x + (_objetFixe->MGetCoordonnees().y * NB_COLONNES));
+			MGetCase(*it)->MFill(ObjetMalus(_objetFixe->MGetCoordonnees()));
+			delete _objetFixe;
+		}
 
+		else if (_objetFixe->MIsBombe())	//Si c'est une bombe, elle explose
+		{
+			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
+			MCreerFlamme( _objetFixe->MGetCoordonnees(), dynamic_cast<Bombe*>(_objetFixe)->MGetPuissance());
+			m_listJoueurs[(dynamic_cast<Bombe*>(_objetFixe)->MGetIndice())-1]->MDiminuerNbBombesPosees();
+			delete _objetFixe;
 		}
 	}
 	return true;
