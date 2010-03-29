@@ -36,6 +36,8 @@ class ObjetFixe {
 	
 		virtual bool						MIsBonusRoller();
 
+		virtual bool						MIsBombe();
+
 		
 
 

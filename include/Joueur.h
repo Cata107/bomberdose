@@ -23,6 +23,14 @@ class Joueur {
 		virtual bool				MUpdate();
 
 		virtual bool				MJouer();
+
+				bool				MMoveUp();
+
+				bool				MMoveDown();
+
+				bool				MMoveLeft();
+
+				bool				MMoveRight();
 				
 				bool				MDie();
 
