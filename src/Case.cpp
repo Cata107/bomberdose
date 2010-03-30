@@ -12,6 +12,18 @@ Case::~Case()
 
 }
 
+bool Case::operator==(const Case& _case)
+{
+	if (m_coordonnees == _case.m_coordonnees)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 //Fixer la position d'une case en ayant l'indice en parametre
 bool Case::MSetPosition(int _indiceCase)
 {
