@@ -162,7 +162,7 @@ Case* Plateau::MGetCase(const sf::Vector2i _coordonnees)
     return &(m_tCase[ coordUniDimensionnelle ]);
 }
 
-Case* Plateau::MGetCase(int _coordonneeUniDimensionnelle)
+Case* Plateau::MGetCase(const int _coordonneeUniDimensionnelle)
 {
     return &(m_tCase[ _coordonneeUniDimensionnelle ]);
 }
@@ -395,6 +395,46 @@ bool Plateau::MUpdate()
 			m_listPFlammes.erase(it);						//On supprime la flamme du tableau
 			it--;											//On recule l'iterateur pour ne pas sauter un element de la liste
 			
+		}
+	}
+
+	//On regarde si les joueurs ne sont pas sur une case avec un objet
+	for (std::vector<Joueur*>::iterator it = m_listJoueurs.begin(); it != m_listJoueurs.end(); it++)
+	{
+		if (!(*it)->MIsDead())	//Si le joueur est mort, on ne verifie pas
+		{
+			if (!MGetCase((*it)->MGetPositionCase())->MIsEmpty())	//On verifie si la case n'est pas vide, sinan, il ne se passe rien
+			{
+				if (MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsFlamme())	//Si le joueur est sur une case enflammee
+				{
+					(*it)->MDie();	//Il meurt
+					MPlacerObjetBonusApresMort((*it)->MGetListBonus());
+				}
+
+				else if (!(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsBombe()))	//On verifie que le joueur n'est pas sur une bombe, car ce n'est pas un objet prenable
+				{
+					(*it)->MRamasserObjet(dynamic_cast<ObjetPrenable*>(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()));	//Le joueur ramasse l'objet et on applique l'effet
+					m_setIndiceCaseVide.insert((*it)->MGetPositionCase().x + ((*it)->MGetPositionCase().y)*NB_COLONNES);			//On met l'indice ou etait l'objet dans l'ensemble des indices des cases vides
+				}
+			}
+		}
+	}
+
+
+	return true;
+}
+
+bool Plateau::MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet)
+{
+	int random;
+
+	while(!(_listObjet.empty()))	//On parcours la liste des objets que le joueur avait ramasse
+	{
+		random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);
+		if (m_setIndiceCaseVide.find(random) != m_setIndiceCaseVide.end())
+		{
+			MGetCase(random)->MFill(*(_listObjet.front()));
+			m_setIndiceCaseVide.erase(random);
 		}
 	}
 	return true;

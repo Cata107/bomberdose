@@ -54,26 +54,47 @@ bool Joueur::MJouer()
 
 bool Joueur::MMoveUp()
 {
-	m_coordonneesPixel.y -= 32;
-	return true
+	 
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x/LONGUEUR_CASE), ((m_coordonneesPixel.y-(m_vitesse))/LARGEUR_CASE)));
+	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
+	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	{
+		m_coordonneesPixel.y -= m_vitesse;
+	}
+	return true;
 }
 
 bool Joueur::MMoveDown()
 {
-	m_coordonneesPixel.y += 32;
-	return true
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x/LONGUEUR_CASE), ((m_coordonneesPixel.y+m_vitesse)/LARGEUR_CASE)));
+	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
+	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	{
+		m_coordonneesPixel.y += m_vitesse;
+	}
+	return true;
 }
 
 bool Joueur::MMoveLeft()
 {
-	m_coordonneesPixel.x -= 32;
-	return true
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x-m_vitesse)/LONGUEUR_CASE), (m_coordonneesPixel.y/LARGEUR_CASE)));
+	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
+	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	{
+		m_coordonneesPixel.x -= m_vitesse;
+	}
+	return true;
 }
 
 bool Joueur::MMoveRight()
 {	
-	m_coordonneesPixel.x += 32;
-	return true
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x+m_vitesse)/LONGUEUR_CASE), (m_coordonneesPixel.y/LARGEUR_CASE)));
+	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
+	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase));
+	{
+		m_coordonneesPixel.x += m_vitesse;	
+	}
+	return true;
 }
 
 bool Joueur::MDie()
@@ -82,9 +103,10 @@ bool Joueur::MDie()
 	return true;
 }
 
-bool Joueur::MReborn()
+bool Joueur::MReborn(const sf::Vector2i _coordonnees)
 {
 	m_mort = false;
+	m_coordonneesPixel = _coordonnees;
 	return true;
 }
 
@@ -129,7 +151,7 @@ const sf::Vector2i Joueur::MConvertirPixelEnCase() const
 	return temp;
 }
 
-bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
+bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 {
 	if (m_maladie != aucune)
 	{
@@ -138,11 +160,13 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 			case (rapidite):
 			m_coefficientVitesse = m_tmp;
 			m_maladie = aucune;
+			MAjusterVitesse();
 			break;
 
 			case (lenteur):
 			m_coefficientVitesse = m_tmp;
 			m_maladie = aucune;
+			MAjusterVitesse();
 			break;
 
 			case flamme1:
@@ -183,33 +207,34 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 	}
 	
 	//Cas d'un Bonus Bombe
-	if (_objet.MIsBonusBombe())
+	if (_objet->MIsBonusBombe())
 	{
 		if (m_nbBombes < MAX_BOMBE)
 			m_nbBombes++;
-			m_listBonus.push_back(&_objet);
+			m_listBonus.push_back(_objet);
+			m_plateau->MGetCase(m_coordonneesCase)->MClean();
 	}
 	
 	//Cas d'un Bonus Flamme
-	if (_objet.MIsBonusFlamme())
+	if (_objet->MIsBonusFlamme())
 	{
 		if (m_puissance < MAX_PUISSANCE)
 			m_puissance++;
-			m_listBonus.push_back(&_objet);
+			m_listBonus.push_back(_objet);
 	}
 	
 	//Case d'un Bonus Roller
-	if (_objet.MIsBonusRoller())
+	if (_objet->MIsBonusRoller())
 	{
 		if (m_coefficientVitesse < MAX_SPEED)
 		{
-			m_coefficientVitesse++;	
-			m_vitesse = 0;	//A MODIFIER SELON LE CALCUL DE LA VITESSE
-			m_listBonus.push_back(&_objet);
+			m_coefficientVitesse++;
+			m_listBonus.push_back(_objet);
 		}
+		MAjusterVitesse();
 	}
 
-	if (_objet.MIsMalus())
+	if (_objet->MIsMalus())
 	{
 		switch(sf::Randomizer::Random(1, NB_MALUS))	//Nombre aleatoire entre 1 et le nombre de Malus
 		{
@@ -217,12 +242,14 @@ bool Joueur::MRamasserObjet(ObjetPrenable& _objet)
 			m_maladie = rapidite;
 			m_tmp = m_coefficientVitesse;
 			m_coefficientVitesse = MALUS_RAPIDITE;
+			MAjusterVitesse();
 			break;
 
 			case 2:
 			m_maladie = lenteur;
 			m_tmp = m_coefficientVitesse;
 			m_coefficientVitesse = MALUS_LENTEUR;
+			MAjusterVitesse();
 			break;
 		}
 	}
@@ -263,11 +290,52 @@ bool Joueur::MAugmenterVitesse()
 	{
 		m_coefficientVitesse++;
 	}
+	MAjusterVitesse();
 	return true;
 }
 
 bool Joueur::MDiminuerNbBombesPosees()
 {
 	m_nbBombesPosees--;
+	return true;
+}
+
+std::vector<ObjetPrenable*>& Joueur::MGetListBonus()
+{
+	return m_listBonus;
+}
+
+bool Joueur::MAjusterVitesse()
+{
+	switch(m_coefficientVitesse)
+	{
+		case 1:
+			m_vitesse = 0;
+			break;
+		case 2:
+			m_vitesse = 1;
+			break;
+		case 3:
+			m_vitesse = 2;
+			break;
+		case 4:
+			m_vitesse = 3;
+			break;
+		case 5:
+			m_vitesse = DEFAUT_SPEED;
+			break;
+		case 6:
+			m_vitesse = 5;
+			break;
+		case 7:
+			m_vitesse = 6;
+			break;
+		case 8:
+			m_vitesse = 7;
+			break;
+		case 9:
+			m_vitesse = 8;
+			break;
+	}
 	return true;
 }

@@ -66,3 +66,8 @@ bool ObjetFixe::MIsBombe()
 {
 	return (m_typeObjet == BOMBE);
 }
+
+bool ObjetFixe::MIsFlamme()
+{
+	return (m_typeObjet==FLAMME);
+}

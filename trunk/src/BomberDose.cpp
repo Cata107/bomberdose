@@ -44,19 +44,19 @@ bool BomberDose::MCreatePlayer(int _nbJoueur)
 		switch(i)
 		{
 		case 0:
-			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 20), m_pPlateau));
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE1, ORDONNEE_ORIGINE1), m_pPlateau));
 
 			break;
 		case 1:
-			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(500, 20), m_pPlateau));
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE1), m_pPlateau));
 			break;
 
 		case 2:
-			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(20, 500), m_pPlateau));
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE1, ORDONNEE_ORIGINE2), m_pPlateau));
 			break;
 
 		case 3:
-			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(500, 500), m_pPlateau));
+			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE2), m_pPlateau));
 			break;
 		}
 	}
@@ -102,8 +102,26 @@ bool BomberDose::MRecreerPlateau()
 
 	for (unsigned int i = 0; i < m_nbJoueur; i++)
 	{
-		m_tPJoueurs[i]->MReborn();
 		m_tPJoueurs[i]->MSetPlateau(m_pPlateau);
+		switch (i)
+		{
+			case 0:
+				m_tPJoueurs[i]->MReborn(sf::Vector2i(ABSCISSE_ORIGINE1, ORDONNEE_ORIGINE1));
+				break;
+
+			case 1:
+				m_tPJoueurs[i]->MReborn(sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE1));
+				break;
+
+			case 2:
+				m_tPJoueurs[i]->MReborn(sf::Vector2i(ABSCISSE_ORIGINE1, ORDONNEE_ORIGINE2));
+				break;
+
+			case 3:
+				m_tPJoueurs[i]->MReborn(sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE2));
+				break;
+		}
+		
 	}
 	return true;
 }
