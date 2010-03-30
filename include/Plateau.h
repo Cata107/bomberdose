@@ -41,7 +41,7 @@ class Plateau {
 
 			Case*	MGetCase(const sf::Vector2i _coordonnees);				//Renvoi un poiteur sur la case, dont les coordonnees sont en parametre
 
-			Case*	MGetCase(int _coordonneeUniDimensionelle);
+			Case*	MGetCase(const int _coordonneeUniDimensionelle);
 
 			Case*	MGetPlateau();
 
@@ -66,6 +66,8 @@ class Plateau {
 			bool	MDestructionObjetFixe(ObjetFixe* _objetFixe);
 
 			bool	MUpdate();
+
+			bool	MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet);
 
 
  protected:

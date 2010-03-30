@@ -38,6 +38,8 @@ class ObjetFixe {
 
 		virtual bool						MIsBombe();
 
+		virtual bool						MIsFlamme();
+
 		
 
 

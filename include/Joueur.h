@@ -16,52 +16,55 @@ class Joueur {
 
 	/* Constructeur */	Joueur(int _indice, sf::Vector2i _coordonnees, Plateau* _plateau);
 		
-		virtual	bool				MPoserBombe();	//Methode appellee quand le joueur veut poser une bombe.
+		virtual	bool					MPoserBombe();	//Methode appellee quand le joueur veut poser une bombe.
 
-		virtual bool				MIsDead();		//retourne true si le joueur est mort
+		virtual bool					MIsDead();		//retourne true si le joueur est mort
 
-		virtual bool				MUpdate();
+		virtual bool					MUpdate();
 
-		virtual bool				MJouer();
+		virtual bool					MJouer();
 
-				bool				MMoveUp();
+				bool					MMoveUp();
 
-				bool				MMoveDown();
+				bool					MMoveDown();
 
-				bool				MMoveLeft();
+				bool					MMoveLeft();
 
-				bool				MMoveRight();
+				bool					MMoveRight();
 				
-				bool				MDie();
+				bool					MDie();
 
-				bool				MReborn();
+				bool					MReborn(const sf::Vector2i _coordonnees);
 
-				bool				MAugmenterScore();
+				bool					MAugmenterScore();
 
-	unsigned	int					MGetScore();
+	unsigned	int						MGetScore();
 
-				bool				MSetPlateau(Plateau* _plateau);
+				bool					MSetPlateau(Plateau* _plateau);
 
-		virtual const Plateau*		MGetPlateau() const;	//retourne le plateau
+		virtual const Plateau*			MGetPlateau() const;	//retourne le plateau
 
-		virtual const sf::Vector2i	MGetPositionPixel() const;	//retourne les coordonnees pixel
+		virtual const sf::Vector2i		MGetPositionPixel() const;	//retourne les coordonnees pixel
 
-		virtual const sf::Vector2i	MGetPositionCase() const;	//retourne les coordonnes de la case ou se situe le joueur
+		virtual const sf::Vector2i		MGetPositionCase() const;	//retourne les coordonnes de la case ou se situe le joueur
 
-		virtual const sf::Vector2i	MConvertirPixelEnCase()const;	//Converti la position pixel en position Case
+		virtual const sf::Vector2i		MConvertirPixelEnCase()const;	//Converti la position pixel en position Case
 
-		virtual	bool				MRamasserObjet(ObjetPrenable& _objet);	//Methode appellee quand le joueur ramasse un objet
+		virtual	bool					MRamasserObjet(ObjetPrenable* _objet);	//Methode appellee quand le joueur ramasse un objet
 
-		virtual bool				MSetPosition(const sf::Vector2i& _coordonnees);	
+				bool					MAjusterVitesse();
+
+		virtual bool					MSetPosition(const sf::Vector2i& _coordonnees);	
 	
-		virtual bool				MAugmenterNombreBombe();	//Permet d'incrementer le nombre de bombe maximum
+		virtual bool					MAugmenterNombreBombe();	//Permet d'incrementer le nombre de bombe maximum
 
-		virtual bool				MAugmenterPuissance();		//Permet d'augmenter la puissance de la bombe
+		virtual bool					MAugmenterPuissance();		//Permet d'augmenter la puissance de la bombe
 
-		virtual bool				MAugmenterVitesse();		//Permet d'augmenter la vitesse du joueur
+		virtual bool					MAugmenterVitesse();		//Permet d'augmenter la vitesse du joueur
 
-		bool						MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
+		bool							MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
 
+		std::vector<ObjetPrenable*>&		MGetListBonus();			//Retourne la liste de bonus recolte par le joueur. Ils sont eparpilles sur le terrain quand le joueur meurt
 		
 
 
