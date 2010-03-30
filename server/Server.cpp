@@ -1,5 +1,5 @@
-#ifndef LINUX
-#define LINUX
+#ifndef WINDOWS
+#define WINDOWS
 
 #ifdef WINDOWS
 #define SLEEP10 Sleep(10)
