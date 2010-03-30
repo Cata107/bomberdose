@@ -15,6 +15,8 @@ class Case {
 
 			bool		MCreation();
 
+			bool		operator==(const Case& _case);
+
 			bool		MIsEmpty();	//retourne true si la case est vide
 
 			bool		MFill(const ObjetFixe& _objetFixe);	//remplit la Case de l'objet en parametre

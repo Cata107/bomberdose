@@ -14,11 +14,18 @@
 
 #define NB_MURSCASSABLES 80
 
-//Position de départ des joueurs
+//Position des Cases de départ des joueurs
 #define POSITION_JOUEUR1 (NB_COLONNES+1)
 #define POSITION_JOUEUR2 ((2*NB_COLONNES)-2)
 #define POSITION_JOUEUR3 (((NB_LIGNES-2)*NB_COLONNES)+1)
 #define POSITION_JOUEUR4 (((NB_LIGNES-1)*NB_COLONNES)-2)
+
+//Position de l'abscisse et de l'ordonnee de depart des joueurs en pixel
+
+#define ABSCISSE_ORIGINE1 25	//Pour joueur 1 et 3
+#define ORDONNEE_ORIGINE1 25	//Pour joueur 1 et 2
+#define ABSCISSE_ORIGINE2 500	//Pour joueur 2 et 4
+#define ORDONNEE_ORIGINE2 400	//Pour joueur 3 et 4
 
 //Case interdite à la construction de case car ca bloquerait le joueur au départ
 #define CASE_INTERDITE1 (NB_COLONNES+2)
@@ -48,12 +55,12 @@
 /*-----------------------------------Maximum et Minimum-------------------------------------------------*/
 #define MAX_BOMBE 6
 #define MAX_PUISSANCE 6
-#define MAX_SPEED 9
+#define MAX_SPEED 8
 
 
 #define MIN_BOMBE 1
 #define MIN_PUISSANCE 1
-#define MIN_SPEED 1
+#define MIN_SPEED 2
 
 /*-------------------------------------------Defaut-----------------------------------------------------*/
 
@@ -64,9 +71,9 @@
 
 /*-----------------------------------------MALUS---------------------------------------------------*/
 
-#define NB_MALUS 9
+#define NB_MALUS 2
 
-#define MALUS_RAPIDITE 15
+#define MALUS_RAPIDITE 9
 #define MALUS_LENTEUR 1
 
 
