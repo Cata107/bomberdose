@@ -3,22 +3,12 @@
 Flamme::Flamme(const sf::Vector2i _coordonnees) : ObjetFixe(_coordonnees)
 {
 	m_typeObjet = FLAMME;
+	m_pTimer = new Timer();
+	m_pTimer->MStartTimer();
 }
 
-//Creer une Case enflammee, qui tue le joueur
-bool Flamme::MCreation()
-{
-	m_pTimer->MStartTimer();
-    return false;
-}
 
 ObjetFixe* Flamme::MClone() const
 {
 	return new Flamme(*this);
-}
-
-//Faire disparaitre la flamme d'une Case
-bool Flamme::MDestruction()
-{
-    return false;
 }

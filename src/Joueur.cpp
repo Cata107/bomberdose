@@ -5,16 +5,17 @@ Joueur::Joueur(int _indice, sf::Vector2i _coordonneesPixel, Plateau* _plateau) :
 	m_coordonneesPixel.x = _coordonneesPixel.x;
 	m_coordonneesPixel.y = _coordonneesPixel.y;
 	m_coordonneesCase = MConvertirPixelEnCase();
+	MAjusterVitesse();
 }
 
 //Permet de poser une bombe sur la case où est le joueur
 bool Joueur::MPoserBombe()
 {
-	if (m_maladie != pasDeBombe)
+	if (m_maladie != pasDeBombe)	//si le joueur peut poser des bombe
 	{
 		if ((m_nbBombesPosees < m_nbBombes) && (m_plateau->MGetCase(m_coordonneesCase)->MIsEmpty()))
 		{
-			switch (m_maladie)
+			switch (m_maladie)	//on place une bombe sur la case. Le temps de la bombe depend de la maladie qu'il possede
 			{
 			case (explosionRapide):
 				m_plateau->MSetBombe(m_coordonneesCase, m_puissance, m_indice, 1);
@@ -40,60 +41,53 @@ bool Joueur::MIsDead()
 	return m_mort;
 }
 
-//Met a jour le joueur après une action
-bool Joueur::MUpdate()
-{
-    return false;
-}
-
-//Permet de jouer, c'est-a-dire, bouger ou poser une bombe
-bool Joueur::MJouer()
-{
-    return false;
-}
 
 bool Joueur::MMoveUp()
 {
 	 
-	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x/LONGUEUR_CASE), ((m_coordonneesPixel.y-(m_vitesse))/LARGEUR_CASE)));
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE), ((m_coordonneesPixel.y-(m_vitesse)) * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
 	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
-		m_coordonneesPixel.y -= m_vitesse;
+		m_coordonneesPixel.y -= m_vitesse;	//On deplace le joueur
 	}
+	MAjusterPositionCase();	//On met a jour m_coordonneeCase
 	return true;
 }
 
 bool Joueur::MMoveDown()
 {
-	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x/LONGUEUR_CASE), ((m_coordonneesPixel.y+m_vitesse)/LARGEUR_CASE)));
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE), ((m_coordonneesPixel.y+m_vitesse) * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
 	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
 		m_coordonneesPixel.y += m_vitesse;
 	}
+	MAjusterPositionCase();
 	return true;
 }
 
 bool Joueur::MMoveLeft()
 {
-	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x-m_vitesse)/LONGUEUR_CASE), (m_coordonneesPixel.y/LARGEUR_CASE)));
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x-m_vitesse) * INVERSE_LONGUEUR_CASE), (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
 	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
 		m_coordonneesPixel.x -= m_vitesse;
 	}
+	MAjusterPositionCase();
 	return true;
 }
 
 bool Joueur::MMoveRight()
 {	
-	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x+m_vitesse)/LONGUEUR_CASE), (m_coordonneesPixel.y/LARGEUR_CASE)));
+	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x+m_vitesse) * INVERSE_LONGUEUR_CASE), (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
 	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase));
 	{
 		m_coordonneesPixel.x += m_vitesse;	
 	}
+	MAjusterPositionCase();
 	return true;
 }
 
@@ -126,13 +120,12 @@ bool Joueur::MSetPlateau(Plateau* _plateau)
 	return true;
 }
 
-//Retourne le plateau
+
 const Plateau* Joueur::MGetPlateau() const
 {
 	return m_plateau;
 }
 
-//Retourne la position du joueur
 const sf::Vector2i Joueur::MGetPositionPixel() const
 {
     return m_coordonneesPixel;
@@ -146,46 +139,43 @@ const sf::Vector2i Joueur::MGetPositionCase() const
 const sf::Vector2i Joueur::MConvertirPixelEnCase() const
 {
 	sf::Vector2i temp;
-	temp.x = (m_coordonneesPixel.x / LONGUEUR_CASE ) ;	//A remplacer. LONGUEUR_CASE par le resultat de 1/LONGUEUR_CASE précalcule
-	temp.y = (m_coordonneesPixel.y / LARGEUR_CASE ) ;	//A remplacer. LARGEUR_CASE par le resultat de 1/LARGEUR_CASE précalcule
+	temp.x = (m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE ) ;	
+	temp.y = (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE ) ;	
 	return temp;
 }
 
 bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 {
-	if (m_maladie != aucune)
+	if (m_maladie != aucune)	//Si il y a une maladie
 	{
 		switch(m_maladie)
 		{
-			case (rapidite):
+			case (rapidite):	//Cas du deplacement rapide
 			m_coefficientVitesse = m_tmp;
 			m_maladie = aucune;
 			MAjusterVitesse();
 			break;
 
-			case (lenteur):
+			case (lenteur):		//Cas du deplacement lent
 			m_coefficientVitesse = m_tmp;
 			m_maladie = aucune;
 			MAjusterVitesse();
 			break;
 
-			case flamme1:
+			case flamme1:		//Cas de la flamme a 1
 			m_puissance = m_tmp;
 			m_maladie = aucune;
 			break;
 
-			case pasDeBombe:
-			m_nbBombes = m_tmp;
+			case pasDeBombe:	//Cas de l'impossibilite de poser une bombe
 			m_maladie = aucune;
 			break;
 
-			case explosionRapide:
-			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
+			case explosionRapide:	//Cas de la bombe qui explose rapidement
 			m_maladie = aucune;
 			break;
 
-			case explosionLente:
-			//Methode pour ramener l'explosion d'une bombe a la vitesse normale
+			case explosionLente:	//Cas de la bombe qui explose lentement
 			m_maladie = aucune;
 			break;
 
@@ -207,12 +197,11 @@ bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 	}
 	
 	//Cas d'un Bonus Bombe
-	if (_objet->MIsBonusBombe())
+	if (_objet->MIsBonusBombe())	
 	{
 		if (m_nbBombes < MAX_BOMBE)
 			m_nbBombes++;
 			m_listBonus.push_back(_objet);
-			m_plateau->MGetCase(m_coordonneesCase)->MClean();
 	}
 	
 	//Cas d'un Bonus Flamme
@@ -251,9 +240,28 @@ bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 			m_coefficientVitesse = MALUS_LENTEUR;
 			MAjusterVitesse();
 			break;
-		}
-	}
 
+			case 3:
+			m_maladie = flamme1;
+			m_tmp = m_puissance;
+			m_puissance = 1;
+			break;
+
+			case 4:
+			m_maladie = pasDeBombe;
+			break;
+
+			case 5:
+			m_maladie = explosionRapide;
+			break;
+
+			case 6:
+			m_maladie = explosionLente;
+			break;
+		}
+		
+	}
+	m_plateau->MGetCase(m_coordonneesCase)->MClean();
 	return true;
 }
 
@@ -263,6 +271,7 @@ bool Joueur::MSetPosition(const sf::Vector2i& _coordonnees)
 {
 	m_coordonneesPixel.x = _coordonnees.x;
 	m_coordonneesPixel.y = _coordonnees.y;
+	MAjusterPositionCase();
     return true;
 }
 
@@ -270,7 +279,7 @@ bool Joueur::MAugmenterNombreBombe()
 {
 	if (m_nbBombes < MAX_BOMBE)
 	{
-		m_nbBombes++;
+		m_nbBombes++;	//Augmente le nombre de bombe
 	}
 	return true;
 }
@@ -279,7 +288,7 @@ bool Joueur::MAugmenterPuissance()
 {
 	if (m_puissance < MAX_PUISSANCE)
 	{
-		m_puissance++;
+		m_puissance++;	//Augmente la puissance
 	}
 	return true;
 }
@@ -288,15 +297,15 @@ bool Joueur::MAugmenterVitesse()
 {
 	if (m_coefficientVitesse < MAX_SPEED)
 	{
-		m_coefficientVitesse++;
+		m_coefficientVitesse++;	//Augmente le coefficient de vitesse
 	}
-	MAjusterVitesse();
+	MAjusterVitesse();	//On ajuste la vitesse
 	return true;
 }
 
 bool Joueur::MDiminuerNbBombesPosees()
 {
-	m_nbBombesPosees--;
+	m_nbBombesPosees--;	//Quand une bombe explose, diminue le nombre de bombe max
 	return true;
 }
 
@@ -307,7 +316,7 @@ std::vector<ObjetPrenable*>& Joueur::MGetListBonus()
 
 bool Joueur::MAjusterVitesse()
 {
-	switch(m_coefficientVitesse)
+	switch(m_coefficientVitesse)	//Ajuste la vitesse selon le coefficient
 	{
 		case 1:
 			m_vitesse = 0;
@@ -337,5 +346,12 @@ bool Joueur::MAjusterVitesse()
 			m_vitesse = 8;
 			break;
 	}
+	return true;
+}
+
+bool Joueur::MAjusterPositionCase()
+{
+	m_coordonneesCase.x = m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE;
+	m_coordonneesCase.y = m_coordonneesPixel.y * INVERSE_LARGEUR_CASE;
 	return true;
 }

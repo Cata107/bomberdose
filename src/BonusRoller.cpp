@@ -6,21 +6,7 @@ BonusRoller::BonusRoller(const sf::Vector2i _coodonnees) : ObjetPrenable(_coodon
 	m_typeObjet = BONUSROLLER;
 }
 
-//Creer le BonusRoller
-bool BonusRoller::MCreation()
-{
-	//Ici, Code qui cree le BonusRoller
-	return true;
-}
-
 ObjetFixe* BonusRoller::MClone() const
 {
 	return new BonusRoller(*this);
 }
-
-/*
-bool BonusRoller::MAppliquerEffet(Joueur& _joueur)
-{
-    return _joueur.MRamasserObjet(*this);
-}
-*/

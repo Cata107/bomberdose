@@ -5,7 +5,6 @@ ObjetFixe::ObjetFixe()
 	m_pTimer = new Timer();
 }
 
-//Constructeur d'un ObjetFixe. Initialise les coordonnees
 ObjetFixe::ObjetFixe(const sf::Vector2i _coordonnees) : m_coordonnees(_coordonnees)
 {
 	m_pTimer = new Timer();

@@ -3,31 +3,19 @@
 	//Constructeur. Appelle le constructeur de la classe ObjetFixe, et appel la methode de creation de bombe.
 	Bombe::Bombe(const sf::Vector2i _coordonnees,int _puissance, int _indiceJoueur, int _maladie) : ObjetFixe(_coordonnees), m_puissance(_puissance), m_indiceJoueur(_indiceJoueur), m_maladie(_maladie)
 	{
-		m_typeObjet = BOMBE;
-		m_pTimer->MStartTimer();
+		m_typeObjet = BOMBE;	//On met le type de l'objet a la valeur BOMBE
+		m_pTimer = new Timer();	
+		m_pTimer->MStartTimer();	//On demarre le timer
 	}
 
 	Bombe::~Bombe()
 	{
 		
 	}
-	
-	//Creer la bombe
-	bool Bombe::MCreation()
-	{	
-		
-		return true;
-	}
 
 	ObjetFixe* Bombe::MClone() const
 	{
 		return new Bombe(*this);
-	}
-	
-	//Detruit la bombe
-	bool Bombe::MDestruction()
-	{
-		return false;
 	}
 
 	int Bombe::MGetPuissance()
