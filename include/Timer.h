@@ -11,14 +11,14 @@ class Timer {
 
 	/* Destructeur */			~Timer();
 
-    virtual bool				MStartTimer();
+    virtual bool				MStartTimer();	//Demarrer le timer
 
-    virtual float				MGetTime();
+    virtual float				MGetTime();		//Recuperer le temps ecoule depuis le demarrage
 
 
  protected:
 
-		sf::Clock*	m_pTimer;
+		sf::Clock*	m_pTimer;		//Un objet de type sf::Clock qui permet de gerer le temps
 
 };
 

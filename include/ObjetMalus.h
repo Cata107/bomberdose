@@ -11,13 +11,9 @@ class ObjetMalus : public ObjetPrenable {
 
 	/* Constructeur */		ObjetMalus(const sf::Vector2i _coordonnees);
 
-		virtual bool		MCreation();
+		virtual ObjetFixe*	MClone() const;	//Permet de cloner l'objet malus
 
-		virtual ObjetFixe*	MClone() const;
-
-		virtual bool		MDestruction();
-
-		//virtual bool	MAppliquerEffet(Joueur& _joueur);
+		
 };
 
 #endif // ObjetMalus_h

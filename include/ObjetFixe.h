@@ -14,37 +14,35 @@ class ObjetFixe {
 
 	/* Destructeur */	virtual				~ObjetFixe();
 
-		virtual ObjetFixe*					MClone() const = 0 ;
-		
-		virtual bool						MCreation()  = 0;
+		virtual ObjetFixe*					MClone() const = 0 ;	//Clone l'objet
 	
-		virtual sf::Vector2i				MGetCoordonnees();
+		virtual sf::Vector2i				MGetCoordonnees();	//Retourne les coordonnees de la case ou est de l'objet
 
-		virtual Timer*						MGetTimer();
+		virtual Timer*						MGetTimer();		//Timer de l'objet
 
-		virtual bool						MIsMurCassable();
+		virtual bool						MIsMurCassable();	//Retourne vrai si l'objet est un mur cassable
 
-		virtual bool						MIsMurAvecObjet();
+		virtual bool						MIsMurAvecObjet();	//Retourne vrai si l'objet est un mur cassable avec objet
 	
-		virtual bool						MIsMurIncassable();
+		virtual bool						MIsMurIncassable();	//Retourne vrai si l'objet est un mur incassable
 	
-		virtual bool						MIsMalus();
+		virtual bool						MIsMalus();			//Retourne vrai si l'objet est un malus
 	
-		virtual bool						MIsBonusFlamme();
+		virtual bool						MIsBonusFlamme();	//Retourne vrai si l'objet est un Bonus Flamme
 	
-		virtual bool						MIsBonusBombe();
+		virtual bool						MIsBonusBombe();	//Retourne vrai si l'objet est un Bonus Bombe
 	
-		virtual bool						MIsBonusRoller();
+		virtual bool						MIsBonusRoller();	//Retourne vrai si l'objet est un Bonus Roller
 
-		virtual bool						MIsBombe();
+		virtual bool						MIsBombe();			//Retourne vrai si l'objet est une bombe
 
-		virtual bool						MIsFlamme();
+		virtual bool						MIsFlamme();		//Retourne vrai si la case est enflammer
 
 		
 
 
 protected:
-		sf::Vector2i	m_coordonnees;
+		sf::Vector2i	m_coordonnees;	//Les coordonnees de la case ou est l'objet
 
 		enum TypeObjet
 		{
@@ -59,8 +57,8 @@ protected:
 						MALUS,
 		};
 
-		TypeObjet		m_typeObjet;
-		Timer*			m_pTimer;
+		TypeObjet		m_typeObjet;	//Le type de l'objet
+		Timer*			m_pTimer;		//Timer de l'objet
 };
 
 #endif // ObjetFixe_h
