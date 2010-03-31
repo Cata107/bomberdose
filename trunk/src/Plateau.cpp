@@ -3,11 +3,11 @@
 
 Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable*>& _listeMurCassableAvecObjetPrenable, int _nbBonus)
 {
-	m_tCase = new Case[NB_CASE];
+	m_tCase = new Case[NB_CASE];			//On alloue dynamiquement la memoire pour toutes les cases
 
 	for (int i = 0; i < NB_CASE; i++)		//On remplit le plateau de Case
 	{
-		m_tCase[i].MSetPosition(i);
+		m_tCase[i].MSetPosition(i);			
 		m_setIndiceCaseVide.insert(i);
 	}
 
@@ -34,33 +34,20 @@ Plateau::Plateau(std::vector<MurCassableAvecObjetPrenable*>& _listeMurCassableAv
 Plateau::~Plateau()
 {
 
-	delete [] m_tCase;
-	delete m_pTimer;
-	while (!m_listPBombes.empty())
+	delete [] m_tCase;	//On detruit chaque case
+	delete m_pTimer;	//On detruit le timer
+	while (!m_listPBombes.empty())	//On detruit toutes les bombes
 	{
 		delete m_listPBombes.back();
 		m_listPBombes.pop_back();
 	}
 
-	while (!m_listPMursCassables.empty())
+	while (!m_listPMursCassables.empty())	// On detruit tous les murs
 	{
 		delete m_listPMursCassables.back();
 		m_listPMursCassables.pop_back();
 	}
 
-}
-
-
-//Creer le Plateau
-bool Plateau::MCreation()
-{
-    return false;
-}
-
-//Destruction du Plateau
-bool Plateau::MDestruction()
-{
-    return false;
 }
 
 
@@ -139,8 +126,8 @@ bool Plateau::MPlacerMursCassables()
 	int random;
 	while(i < NB_MURSCASSABLES)
 	{
-		random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);	//On genere un nombre pseudo aleatoire
-		if (!std::binary_search(tableau, tableau+12, random) && ((m_setIndiceCaseVide.find(random)) != m_setIndiceCaseVide.end()))					//Si il n'est pas interdit
+		random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);	//On genere un nombre pseudo aleatoire 
+		if (!std::binary_search(tableau, tableau+12, random) && ((m_setIndiceCaseVide.find(random)) != m_setIndiceCaseVide.end()))			//Si il n'est pas interdit
 		{
 
 			m_listPMursCassables[i]->MSetCoordonnees(((m_tCase[*m_setIndiceCaseVide.find(random)]).MGetPosition()));	//On fixe les coordonnees du mur avec la position de la case
@@ -167,7 +154,7 @@ Case* Plateau::MGetCase(const int _coordonneeUniDimensionnelle)
     return &(m_tCase[ _coordonneeUniDimensionnelle ]);
 }
 
-//Retourne le Plateau
+
 Case* Plateau::MGetPlateau()
 
 {
@@ -206,37 +193,39 @@ bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
 
 bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
 {
-	m_listPFlammes.push_back(new Flamme(_coordonnees));
-	MGetCase(_coordonnees)->MFill(*(m_listPFlammes.back()));
-	MCreerFlammeHaut(_coordonnees, _puissance);
-	MCreerFlammeBas(_coordonnees, _puissance);
-	MCreerFlammeGauche(_coordonnees, _puissance);
-	MCreerFlammeDroite(_coordonnees, _puissance);
+	m_listPFlammes.push_back(new Flamme(_coordonnees));	//Rempli la liste de flamme avec une nouvell bombe
+	MGetCase(_coordonnees)->MFill(*(m_listPFlammes.back()));	//On remplit la case avec la flamme
+	MCreerFlammeHaut(_coordonnees, _puissance);					//On cree les flammes en haut
+	MCreerFlammeBas(_coordonnees, _puissance);					//On cree les flammes en bas
+	MCreerFlammeGauche(_coordonnees, _puissance);				//On cree les flammes a gauche
+	MCreerFlammeDroite(_coordonnees, _puissance);				//On cree les flamme a droite
 	return true;
 }
 
 bool Plateau::MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance)
 {
-	int i = _puissance;
-	int y = _coordonnees.y;
-	while (i > 0 && MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty())
+	int i = _puissance;	//Compteur
+	int y = _coordonnees.y;	//Coordonnees y
+	while (i > 0 && MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty())	//On verifie si la case du dessus est vide ou si i != 0
 	{
-		sf::Vector2i coordonnees(_coordonnees.x, (y -1));
-		m_listPFlammes.push_back(new Flamme(coordonnees));
-		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));
-		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));
+		sf::Vector2i coordonnees(_coordonnees.x, (y -1));		
+		m_listPFlammes.push_back(new Flamme(coordonnees));	//On cree une nouvelle flamme dans la case au dessus
+		MGetCase(coordonnees)->MFill(*(m_listPFlammes.back()));	//On remplit la case avec la flamme cree
+		m_setIndiceCaseVide.erase(coordonnees.x + (coordonnees.y * NB_COLONNES));	//On enleve la case de l'ensemble des indices des cases vides
 		y--;
 		i--;
+		//On recommence jusqu'a que i == 0 ou que la case au dessus n'est pas vide
 	}
-	if (i > 0 && !(MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty()))
+	if (i > 0 && !(MGetCase(sf::Vector2i(_coordonnees.x, (y -1)))->MIsEmpty()))	//Si la flamme n'a pas atteint la portee maximum
 	{
 		sf::Vector2i coordonnees(_coordonnees.x, (y-1));		
-		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());
+		MDestructionObjetFixe(MGetCase(coordonnees)->MGetObjetFixe());	//On detruit l'objet sur le chemin
 	}
 
 	return true;
 }
 
+//Analogie avec MCreerFlammehaut en remplacant (y-1) par (y+1)
 bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
@@ -258,7 +247,7 @@ bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
 
 	return true;
 }
-
+//Analogie avec MCreerFlammeHaut avec la coordonnees x
 bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
@@ -280,7 +269,7 @@ bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
 
 	return true;
 }
-
+//Analogie avec MCreerFlammeGauche en remplacant (x-1) par (x+1)
 bool Plateau::MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
@@ -343,7 +332,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 			int random;
 			while (it == m_setIndiceCaseVide.end())
 			{
-				random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);
+				random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);	//On prend une case du plateau
 				it = m_setIndiceCaseVide.find(random);
 			}
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
