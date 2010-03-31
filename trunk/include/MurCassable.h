@@ -12,13 +12,9 @@ class MurCassable : public ObjetFixe {
 	/*Constructeur */			MurCassable(sf::Vector2i _coordonnees);
 
 
-		virtual ObjetFixe*		MClone() const;
-    
-		virtual bool			MCreation();
+		virtual ObjetFixe*		MClone() const;	//Permet de cloner le mur
 
-		virtual bool			MDestruction();
-
-		virtual bool			MSetCoordonnees(sf::Vector2i _coordonnees);
+		virtual bool			MSetCoordonnees(sf::Vector2i _coordonnees);	//Placer le mur aux coordonnees envoyees en parametre
 };
 
 #endif // MurCassable_h

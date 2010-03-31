@@ -10,17 +10,13 @@ class Bombe : public ObjetFixe {
 
 	/* Destructeur */ virtual		~Bombe();
 
-		virtual bool				MCreation();
+		virtual ObjetFixe*			MClone() const;		//Permet de cloner une bombe
 
-		virtual ObjetFixe*			MClone() const;	//Permet de cloner une bombe
+				int					MGetPuissance();	//Retourne la puissance du joueur lorsqu'il a pose la bombe
 
-		virtual bool				MDestruction();
+				int					MGetIndice();		//Retourne l'indice du joueur qui a pose la bombe
 
-				int					MGetPuissance();
-
-				int					MGetIndice();
-
-				int					MGetMaladie();
+				int					MGetMaladie();		//Retourne la maladie que le joueur possedait quand il a pose la bombe
 
  protected:
 

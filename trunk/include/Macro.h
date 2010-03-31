@@ -38,8 +38,10 @@
 #define CASE_INTERDITE8 (((NB_LIGNES-1)*NB_COLONNES)-3)
 
 //Taille d'une Case
-#define LONGUEUR_CASE 1	//A remplacer par la vrai Longueur
-#define LARGEUR_CASE 1	//A remplacer par la vrai Largeur
+#define LONGUEUR_CASE 50
+#define LARGEUR_CASE 50	
+#define INVERSE_LONGUEUR_CASE (1/LONGUEUR_CASE)
+#define INVERSE_LARGEUR_CASE (1/LARGEUR_CASE)
 
 
 #define CASE_VIDE '1'
@@ -73,7 +75,7 @@
 
 /*-----------------------------------------MALUS---------------------------------------------------*/
 
-#define NB_MALUS 2
+#define NB_MALUS 6
 
 #define MALUS_RAPIDITE 9
 #define MALUS_LENTEUR 1

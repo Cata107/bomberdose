@@ -16,68 +16,67 @@ class Joueur {
 
 	/* Constructeur */	Joueur(int _indice, sf::Vector2i _coordonnees, Plateau* _plateau);
 		
-		virtual	bool					MPoserBombe();	//Methode appellee quand le joueur veut poser une bombe.
+				bool					MPoserBombe();	//Methode appellee quand le joueur veut poser une bombe.
 
-		virtual bool					MIsDead();		//retourne true si le joueur est mort
+				bool					MIsDead();		//Retourne true si le joueur est mort
 
-		virtual bool					MUpdate();
+				bool					MMoveUp();		//Bouger en haut
 
-		virtual bool					MJouer();
+				bool					MMoveDown();	//Bouger en bas
 
-				bool					MMoveUp();
+				bool					MMoveLeft();	//Bouger à gauche
 
-				bool					MMoveDown();
-
-				bool					MMoveLeft();
-
-				bool					MMoveRight();
+				bool					MMoveRight();	//Bouger à droite	
 				
-				bool					MDie();
+				bool					MDie();	//Faire mourrir le joueur si il se fait toucher par une bombe
 
-				bool					MReborn(const sf::Vector2i _coordonnees);
+				bool					MReborn(const sf::Vector2i _coordonnees);	//Recreer le joueur apres une partie
 
-				bool					MAugmenterScore();
+				bool					MAugmenterScore();	//Augmente le score quand le joueur a gagne
 
-	unsigned	int						MGetScore();
+	unsigned	int						MGetScore();	//Retourne le score du joueur
 
 				bool					MSetPlateau(Plateau* _plateau);
 
-		virtual const Plateau*			MGetPlateau() const;	//retourne le plateau
+				const Plateau*			MGetPlateau() const;	//Retourne le plateau
 
-		virtual const sf::Vector2i		MGetPositionPixel() const;	//retourne les coordonnees pixel
+				const sf::Vector2i		MGetPositionPixel() const;	//Retourne les coordonnees pixel
 
-		virtual const sf::Vector2i		MGetPositionCase() const;	//retourne les coordonnes de la case ou se situe le joueur
+				const sf::Vector2i		MGetPositionCase() const;	//Retourne les coordonnes de la case ou se situe le joueur
 
-		virtual const sf::Vector2i		MConvertirPixelEnCase()const;	//Converti la position pixel en position Case
+				const sf::Vector2i		MConvertirPixelEnCase()const;	//Converti la position pixel en position Case
 
-		virtual	bool					MRamasserObjet(ObjetPrenable* _objet);	//Methode appellee quand le joueur ramasse un objet
+				bool					MRamasserObjet(ObjetPrenable* _objet);	//Methode appellee quand le joueur ramasse un objet
 
-				bool					MAjusterVitesse();
+				bool					MAjusterVitesse();	//Ajuster la vitesse si on prend un BonusRoller ou un malus de vitesse
 
-		virtual bool					MSetPosition(const sf::Vector2i& _coordonnees);	
+				bool					MAjusterPositionCase();	//Ajuster la position de la case à chaque déplacement
+
+				bool					MSetPosition(const sf::Vector2i& _coordonnees);	//Replacer le joueur a une position
 	
-		virtual bool					MAugmenterNombreBombe();	//Permet d'incrementer le nombre de bombe maximum
+				bool					MAugmenterNombreBombe();	//Permet d'incrementer le nombre de bombe maximum
 
-		virtual bool					MAugmenterPuissance();		//Permet d'augmenter la puissance de la bombe
+				bool					MAugmenterPuissance();		//Permet d'augmenter la puissance de la bombe
 
-		virtual bool					MAugmenterVitesse();		//Permet d'augmenter la vitesse du joueur
+				bool					MAugmenterVitesse();		//Permet d'augmenter la vitesse du joueur
 
-		bool							MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
+				bool					MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
 
-		std::vector<ObjetPrenable*>&		MGetListBonus();			//Retourne la liste de bonus recolte par le joueur. Ils sont eparpilles sur le terrain quand le joueur meurt
+		std::vector<ObjetPrenable*>&	MGetListBonus();			//Retourne la liste de bonus recolte par le joueur. Ils sont eparpilles sur le terrain quand le joueur meurt
 		
 
 
  protected:
 		int				m_indice;				//Indice du joueur
-		int				m_score;
+		int				m_score;				//Le score du joueur
 		bool			m_mort;					//Savoir si le joueur est mort
 		int				m_nbBombes;				//Nombre de bombe maximum que le joueur peut poser
 		int				m_puissance;			//Puissance de ses bombes
 		int				m_coefficientVitesse;	//Coefficient de vitesse, incrementer quand le joueur ramasse un BonusRoller
 		float			m_vitesse;				//Vitesse du joueur apres calcul
-		int				m_nbBombesPosees;
-		int				m_tmp;	//Conserve l'entier pour pouvoir le reattribuer quand une maladie disparait
+		int				m_nbBombesPosees;		//Nombre de bombe pose par le joueur
+		int				m_tmp;					//Conserve l'entier pour pouvoir le reattribuer quand une maladie disparait
+		
 		enum Maladie
 		{
 			aucune,
@@ -92,10 +91,10 @@ class Joueur {
 			toujoursPoserBombe
 		};
 		Maladie							m_maladie;				//Le type de la maladie
-		std::vector<ObjetPrenable*>		m_listBonus;			//la liste de bonus
-		sf::Vector2i					m_coordonneesPixel;		
-		sf::Vector2i					m_coordonneesCase;
-		Plateau*						m_plateau;
+		std::vector<ObjetPrenable*>		m_listBonus;			//La liste de bonus ramasse par le joueur
+		sf::Vector2i					m_coordonneesPixel;		//Les coordonnees pixel du joueur		
+		sf::Vector2i					m_coordonneesCase;		//La case sur laquelle se trouve le joueur
+		Plateau*						m_plateau;				//Un pointeur vers le plateau, partage par tous les joueurs
 
 };
 

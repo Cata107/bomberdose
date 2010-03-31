@@ -11,13 +11,7 @@ class BonusFlamme : public ObjetPrenable {
 	
 	/* Constructeur */		BonusFlamme(const sf::Vector2i _coordonnees);
 
-		virtual bool		MCreation();
-
-		virtual ObjetFixe*	MClone() const;
-
-
-		
-		//virtual bool		MAppliquerEffet(Joueur& _joueur);
+		virtual ObjetFixe*	MClone() const;	//Permet de cloner le Bonus Flamme
 };
 
 #endif // BonusFlamme_h

@@ -11,13 +11,8 @@ class BonusRoller : public ObjetPrenable {
 	
 	/* Constructeur */		BonusRoller(const sf::Vector2i _coordonnees);
 
-		virtual bool		MCreation();
-
 		virtual ObjetFixe*	MClone() const;
 
-
-		
-		//virtual bool		MAppliquerEffet(Joueur& _joueur);
 };
 
 #endif // BonusRoller_h

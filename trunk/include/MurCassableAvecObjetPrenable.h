@@ -14,11 +14,7 @@ class MurCassableAvecObjetPrenable : public MurCassable {
 
 						MurCassableAvecObjetPrenable(int _typeObjet);
 
-		virtual bool	MCreation();
-
 		ObjetFixe*		MClone() const;
-
-		virtual bool	MDestruction();
 
 		enum ObjetContenu
 		{

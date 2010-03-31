@@ -10,11 +10,7 @@ class Flamme : public ObjetFixe {
 	
 	/* Constructeur */		Flamme(const sf::Vector2i _coordonnees);
 
-		virtual bool		MCreation();
-
-		virtual ObjetFixe*	MClone() const;
-
-		virtual bool		MDestruction();
+		virtual ObjetFixe*	MClone() const;	//Clone l'objet
 
  public:
 

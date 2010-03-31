@@ -13,9 +13,8 @@ class Case {
 
  /* Destructeur */		~Case();
 
-			bool		MCreation();
 
-			bool		operator==(const Case& _case);
+			bool		operator==(const Case& _case);	//Compare 2 cases. Renvoi true si les cases ont les mêmes coordonnees
 
 			bool		MIsEmpty();	//retourne true si la case est vide
 
@@ -37,7 +36,7 @@ class Case {
 
  protected:
 
-	sf::Vector2i	m_coordonnees;
+	sf::Vector2i	m_coordonnees;	//Les coordonnees de la case
 	bool			m_vide;			//vrai si la case est vide
 	ObjetFixe*		m_pObjetFixe;	//un pointeur vers l'objet contenu
 };
