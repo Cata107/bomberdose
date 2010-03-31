@@ -85,11 +85,10 @@ char Case::MConvertToChar()
         return CASE_VIDE;
     }
 
-    if (m_pObjetFixe->MIsMurCassable())
+    if (m_pObjetFixe->MIsMurCassable() || m_pObjetFixe->MIsMurAvecObjet())
     {
         return CASE_AVECMURCASSABLE;
     }
-
     if (m_pObjetFixe->MIsMurIncassable())
     {
         return CASE_AVECMURINCASSABLE;
@@ -114,5 +113,12 @@ char Case::MConvertToChar()
     {
         return CASE_AVECBONUS_ROLLER;
     }
-    //reste à définir les autres cases, avec bonus, etc
+    if ( m_pObjetFixe->MIsBombe())
+    {
+        return CASE_AVECBOMBE;
+    }
+    if ( m_pObjetFixe->MIsFlamme())
+    {
+        return CASE_ENFLAMMEE;
+    }
 }

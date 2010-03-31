@@ -49,6 +49,8 @@
 #define CASE_AVECBONUS_FLAMME '5'
 #define CASE_AVECBONUS_ROLLER '6'
 #define CASE_AVECBONUS_BOMBE '7'
+#define CASE_AVECBOMBE '8'
+#define CASE_ENFLAMMEE '9'
 //il reste à définir les constantes des cases avec les différents bonus
 
 
