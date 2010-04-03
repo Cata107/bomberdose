@@ -106,6 +106,9 @@ protected :
     /* PORT_TCP */
     unsigned int m_portTCP;
 
+    /* Mutex donnant la main aux threads */
+    sf::Mutex* m_pMutex;
+
     /** Attributs concernant la partie moteur du jeu **/
 
     /* Pointeur vers le Bomberdose */

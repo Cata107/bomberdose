@@ -1,19 +1,3 @@
-#ifndef WINDOWS
-#define WINDOWS
-
-#ifdef WINDOWS
-#define SLEEP10 Sleep(10)
-#define SLEEPDODO Sleep(DODO)
-#endif
-
-#ifdef LINUX
-#define SLEEP10 usleep(10000000)
-#define SLEEPDODO usleep(DODO)
-#endif
-
-#endif
-
-
 #include <iostream>
 #include "ThreadEnvoi.h"
 #include "MacroServer.h"
@@ -22,13 +6,14 @@ sf::Packet& operator <<(sf::Packet& Packet, const ToClient& T)
     return Packet <<T.plateau << T.j1 << T.x1 << T.y1 <<T.t1<<T.l1<< T.j2 << T.x2 << T.y2 << T.t2 <<T.l2<< T.j3 << T.x3 << T.y3 <<T.t3<<T.l3<< T.j4 << T.x4 << T.y4<<T.t4<<T.l4;
 }
 
-ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients, BomberDose* _pointeurBomberdose)
+ThreadEnvoi::ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector<Sclient*> const _ListeClients, BomberDose* _pointeurBomberdose,sf::Mutex* _pMutex )
 {
     m_pPartieEnCours = _pPartieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
     m_ListeClients = _ListeClients;
     m_portUDPEnvoi = PORT_UDP_ENVOI;
     m_pBomberdose = _pointeurBomberdose;
+    m_pMutex = _pMutex;
 
 }
 ThreadEnvoi::~ThreadEnvoi()
@@ -39,9 +24,10 @@ void ThreadEnvoi::Run()
 {
     std::cout << "THREAD ENVOI créé" << std::endl;
     int i = 0;
+    float tempsDodo = DODO;
     while ( *m_pPartieEnCours )
     {
-        SLEEPDODO;
+        sf::Sleep( tempsDodo );
         MEnvoiDonnees();
         i++;
         std::cout<<"Bouclage envoi " <<i <<std::endl;
@@ -66,6 +52,7 @@ bool ThreadEnvoi::MEnvoiDonnees()
 }
 bool ThreadEnvoi::MInitialise( ToClient& T )
 {
+    sf::Lock Lock( *m_pMutex );
     T.plateau = m_pBomberdose->m_pPlateau->MGetPlateauConverti();
     int nbJoueurs = m_ListeClients.size();
 

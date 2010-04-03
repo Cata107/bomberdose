@@ -6,13 +6,14 @@ sf::Packet& operator >>(sf::Packet& Packet, ToServer& T)
 {
     return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb>>T.elapsed_time;
 }
-ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose )
+ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose, sf::Mutex* const _pMutex)
 {
     m_pPartieEnCours = _pPartieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
     m_portUDPEcoute = PORT_UDP_ECOUTE;
     m_tableauIP = _tabCorrespondanceIP;
     m_pBomberdose = _pointeurBomberdose;
+    m_pMutex = _pMutex;
 }
 ThreadEcoute::~ThreadEcoute()
 {
@@ -80,32 +81,33 @@ int ThreadEcoute::MGetNumJoueur ( int const _addresseIP )
 }
 bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
 {
+    sf::Lock Lock( *m_pMutex );
     unsigned int time = T.elapsed_time;
     if ( T.up )
     {
 
         std::cout<<"Joueur "<< _numJoueur << "MOVE UP "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveUp(time);
+        m_pBomberdose->MGetJoueur( _numJoueur )->MMoveUp();
     }
     else if ( T.down )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE DOWN "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveDown(time);
+        m_pBomberdose->MGetJoueur( _numJoueur )->MMoveDown();
     }
     else if ( T.right )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE RIGHT "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveRight(time);
+        m_pBomberdose->MGetJoueur( _numJoueur )->MMoveRight();
     }
     else if ( T.left )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE LEFT "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MMoveLeft(time);
+        m_pBomberdose->MGetJoueur( _numJoueur )->MMoveLeft();
     }
     else if ( T.bomb )
     {
         std::cout<<"Joueur "<< _numJoueur << " POSE BOMBE "<<std::endl;
-        //m_pBomberdose->MGetJoueur( _numJoueur )->MPoserBombe();
+        m_pBomberdose->MGetJoueur( _numJoueur )->MPoserBombe();
     }
     return true;
 }
