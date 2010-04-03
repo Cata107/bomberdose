@@ -1,4 +1,4 @@
-#ifndef WINDOWS
+/*#ifndef WINDOWS
 #define WINDOWS
 
 #ifdef WINDOWS
@@ -11,7 +11,7 @@
 #define SLEEPDODO usleep(DODO)
 #endif
 
-#endif
+#endif*/
 
 
 #include <iostream>
@@ -29,6 +29,7 @@ Server::Server( int const _nbClientsAttendus )
     m_socketTCP = sf::SocketTCP::SocketTCP();
     m_PartieEnCours = false;
     m_portTCP = PORT_TCP;
+    m_pMutex = new sf::Mutex();
 }
 Server::~Server()
 {
@@ -36,6 +37,7 @@ Server::~Server()
     MNettoyerListeClients();
     delete m_pBomberdose;
     MDeleteFils();
+    delete m_pMutex;
 }
 void Server::MAfficherStatus()
 {
@@ -72,9 +74,10 @@ bool Server::MGetStatusPartie()
 int Server::MAttenteFinPartie()
 {
     int nbJoueursEnJeu;
+    float tempsDodo = DODO;
     while (m_PartieEnCours)
     {
-        SLEEPDODO;
+        sf::Sleep( tempsDodo );
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
         std::cout<<nbJoueursEnJeu<<std::endl;
         if ( nbJoueursEnJeu < 2 )
@@ -126,7 +129,7 @@ bool Server::MGameStart()
 {
     std::cout<<"UNE NOUVELLE PARTIE VA COMMENCER"<<std::endl;
 
-    /**m_pBomberdose->MRecreerPlateau();**/
+    m_pBomberdose->MRecreerPlateau();
     m_PartieEnCours = true;
     for ( unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
@@ -165,12 +168,12 @@ bool Server::MDeleteFils()
 }
 bool Server::MCreateEnvoi()
 {
-    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_ListeClients, m_pBomberdose );
+    m_pThreadEnvoi = new ThreadEnvoi( &m_PartieEnCours, m_ListeClients, m_pBomberdose, m_pMutex );
     return true;
 }
 bool Server::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute ( &m_PartieEnCours, MGetTableauIP(), m_pBomberdose);
+    m_pThreadEcoute = new ThreadEcoute ( &m_PartieEnCours, MGetTableauIP(), m_pBomberdose, m_pMutex );
     return true;
 }
 bool Server::MDeleteEcoute()
@@ -211,7 +214,7 @@ bool Server::MCreateBomberdose()
         std::cout<<"Entrez le score à atteindre par le joueur pour gagner :";
         std::cin>>score;
         std::cout<<std::endl;
-        std::cout<<"Entrez le temps de jeu en seconde :";
+        std::cout<<"Entrez le temps de jeu en minutes :";
         std::cin>>temps;
         std::cout<<std::endl;
     m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score, temps);
@@ -234,7 +237,7 @@ bool Server::MBoucleJeu()
         MGameStart();
         scoreGagnant = MAttenteFinPartie();
         MGameStop();
-        SLEEP10;
+        sf::Sleep(10.0);
     } while (true);/**while (gagnant != m_pBomberdose->MGetScore());**/
     return true;
 }

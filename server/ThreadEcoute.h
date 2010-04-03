@@ -7,7 +7,7 @@ class ThreadEcoute : public sf::Thread
 {
     public :
         /* Constructeur */
-        ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose );
+        ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose, sf::Mutex* _pMutex );
 
         /* Destructeur */
         ~ThreadEcoute();
@@ -42,6 +42,9 @@ class ThreadEcoute : public sf::Thread
 
         /* Tableau de LUT pour savoir à qui correspond quelle adresse ip */
         int * m_tableauIP;
+
+        /* Pointeur vers le mutex du serveur principal */
+        sf::Mutex* m_pMutex;
 
         /** POINTEUR VERS BOMBERDOSE **/
         BomberDose* m_pBomberdose;

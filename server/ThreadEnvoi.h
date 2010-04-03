@@ -13,7 +13,7 @@ class ThreadEnvoi : public sf::Thread
     public :
 
     /* Constructeur */
-    ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector< Sclient* >  _ListeClients, BomberDose* _pointeurBomberdose );
+    ThreadEnvoi( volatile const bool *_pPartieEnCours, std::vector< Sclient* >  _ListeClients, BomberDose* _pointeurBomberdose, sf::Mutex* _pMutex );
 
     /* Destructeur */
     ~ThreadEnvoi();
@@ -41,6 +41,9 @@ class ThreadEnvoi : public sf::Thread
 
     /* PORT_UDP_ENVOI */
     unsigned int m_portUDPEnvoi;
+
+    /* Pointeur vers le mutex principal du serveur */
+    sf::Mutex* m_pMutex;
 
     /** Pointeur vers le BOMBERDOSE **/
     BomberDose* m_pBomberdose;
