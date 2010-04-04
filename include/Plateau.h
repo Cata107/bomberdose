@@ -49,7 +49,7 @@ class Plateau {
 
 			bool	MSetJoueurs(std::vector< Joueur* >& _listJoueur);	//Placer les joueurs
 
-			bool	MCreerFlamme(const sf::Vector2i&  _coordonnees, int _puissance);	//Creer des flammes quand une bombe explose
+			bool	MCreerFlamme(const sf::Vector2i& _coordonnees, int _puissance);	//Creer des flammes quand une bombe explose
 
 			bool	MCreerFlammeHaut(const sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes du haut de l'origine l'explosion
 
