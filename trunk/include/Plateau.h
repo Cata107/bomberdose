@@ -49,15 +49,15 @@ class Plateau {
 
 			bool	MSetJoueurs(std::vector< Joueur* >& _listJoueur);	//Placer les joueurs
 
-			bool	MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance);	//Creer des flammes quand une bombe explose
+			bool	MCreerFlamme(const sf::Vector2i&  _coordonnees, int _puissance);	//Creer des flammes quand une bombe explose
 
-			bool	MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes du haut de l'origine l'explosion
+			bool	MCreerFlammeHaut(const sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes du haut de l'origine l'explosion
 
-			bool	MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes en bas de l'origine de l'explosion
+			bool	MCreerFlammeBas(const sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes en bas de l'origine de l'explosion
 
-			bool	MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes a gauche de lorigine de l'explosion
+			bool	MCreerFlammeGauche(const sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes a gauche de lorigine de l'explosion
 
-			bool	MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes a droite de lorigine de l'explosion
+			bool	MCreerFlammeDroite(const sf::Vector2i& _coordonnees, int _puissance);	//Creer les flammes a droite de lorigine de l'explosion
 
 			bool	MDestructionObjetFixe(ObjetFixe* _objetFixe);					//Destruction de l'objet si est sur le chemin d'une flamme
 
