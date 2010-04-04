@@ -16,7 +16,7 @@ class ObjetFixe {
 
 		virtual ObjetFixe*					MClone() const = 0 ;	//Clone l'objet
 	
-		virtual sf::Vector2i				MGetCoordonnees();	//Retourne les coordonnees de la case ou est de l'objet
+		virtual sf::Vector2i				MGetCoordonnees();	//Retourne les coordonnees de la case ou est l'objet
 
 		virtual Timer*						MGetTimer();		//Timer de l'objet
 
