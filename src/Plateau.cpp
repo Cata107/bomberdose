@@ -191,7 +191,7 @@ bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
 	return true;
 }
 
-bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
+bool Plateau::MCreerFlamme(const sf::Vector2i&  _coordonnees, int _puissance)
 {
 	m_listPFlammes.push_back(new Flamme(_coordonnees));	//Rempli la liste de flamme avec une nouvell bombe
 	MGetCase(_coordonnees)->MFill(*(m_listPFlammes.back()));	//On remplit la case avec la flamme
@@ -202,7 +202,7 @@ bool Plateau::MCreerFlamme(sf::Vector2i& _coordonnees, int _puissance)
 	return true;
 }
 
-bool Plateau::MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance)
+bool Plateau::MCreerFlammeHaut(const sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;	//Compteur
 	int y = _coordonnees.y;	//Coordonnees y
@@ -226,7 +226,7 @@ bool Plateau::MCreerFlammeHaut(sf::Vector2i& _coordonnees, int _puissance)
 }
 
 //Analogie avec MCreerFlammehaut en remplacant (y-1) par (y+1)
-bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
+bool Plateau::MCreerFlammeBas(const sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
 	int y = _coordonnees.y;
@@ -248,7 +248,7 @@ bool Plateau::MCreerFlammeBas(sf::Vector2i& _coordonnees, int _puissance)
 	return true;
 }
 //Analogie avec MCreerFlammeHaut avec la coordonnees x
-bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
+bool Plateau::MCreerFlammeGauche(const sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
 	int x = _coordonnees.x;
@@ -270,7 +270,7 @@ bool Plateau::MCreerFlammeGauche(sf::Vector2i& _coordonnees, int _puissance)
 	return true;
 }
 //Analogie avec MCreerFlammeGauche en remplacant (x-1) par (x+1)
-bool Plateau::MCreerFlammeDroite(sf::Vector2i& _coordonnees, int _puissance)
+bool Plateau::MCreerFlammeDroite(const sf::Vector2i& _coordonnees, int _puissance)
 {
 	int i = _puissance;
 	int x = _coordonnees.x;
@@ -344,7 +344,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 		else if (_objetFixe->MIsBombe())	//Si c'est une bombe, elle explose
 		{
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
-//			MCreerFlamme( _objetFixe->MGetCoordonnees(), dynamic_cast<Bombe*>(_objetFixe)->MGetPuissance());
+			MCreerFlamme( _objetFixe->MGetCoordonnees(), dynamic_cast<Bombe*>(_objetFixe)->MGetPuissance());
 			m_listJoueurs[(dynamic_cast<Bombe*>(_objetFixe)->MGetIndice())-1]->MDiminuerNbBombesPosees();
 			delete _objetFixe;
 		}
@@ -364,7 +364,7 @@ bool Plateau::MUpdate()
 		{
 			MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
 
-//			MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
+			MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
 			m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
 
 			delete *it;					//On supprime la bombe en question de la memoire
