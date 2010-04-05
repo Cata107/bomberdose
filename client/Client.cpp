@@ -26,7 +26,8 @@ void Client::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
-        usleep( DODO );
+       // usleep( DODO );
+       sf::Sleep(DODO);
     }
 }
 bool Client::MConnect()
@@ -66,7 +67,8 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
-                usleep ( 10000000 );
+            //    usleep ( 10000000 );
+                sf::Sleep( 10000000 );
                 m_pEnvoi->MEnvoiPoseBombe();
             }
             if ( MInstructionIsStop ( Buffer ) )
