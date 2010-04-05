@@ -4,12 +4,13 @@
 #include <iostream>
 #include "ThreadEcoute.h"
 #include "Envoi.h"
+#include "ToClient.h"
 class Client {
     /* Client qui se connecte au serveur par TCP pour lui donner les informations importantes, notamment l'adresse ip ; se charge de créer les sous threads de communication avec le serveur */
     public :
 
         /* Constructeur */
-        Client(char const* _addressIpServer);
+        Client(char const* _addressIpServer, ToClient* _pStructToClient );
 
         /* Destructeur */
         ~Client();
@@ -84,6 +85,8 @@ class Client {
 
         /* Thread fils d'envoi UDP */
         Envoi* m_pEnvoi;
+
+        ToClient * m_pStructToClient;
 
 };
 
