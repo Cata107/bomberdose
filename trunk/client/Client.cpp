@@ -1,12 +1,13 @@
 #include "Client.h"
 #include "MacroClient.h"
-Client::Client(char const * _addressIpServer)
+Client::Client(char const * _addressIpServer, ToClient * _structToClient)
 {
     m_portTCP = PORT_TCP;
     m_localAddress = sf::IPAddress::GetLocalAddress();
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
+    m_pStructToClient = _structToClient;
 }
 Client::~Client()
 {
@@ -123,7 +124,7 @@ bool Client::MCreateFils()
 }
 bool Client::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours );
+    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours, m_pStructToClient );
     return true;
 }
 bool Client::MCreateEnvoi()

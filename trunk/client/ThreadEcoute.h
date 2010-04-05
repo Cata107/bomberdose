@@ -8,7 +8,7 @@ class ThreadEcoute : public sf::Thread
 {
     public :
         /* Constructeur */
-        ThreadEcoute( volatile bool const * _partieEnCours );
+        ThreadEcoute( volatile bool const * _partieEnCours, ToClient * _pStructToClient );
 
         /* Destructeur */
         ~ThreadEcoute();
@@ -24,6 +24,9 @@ class ThreadEcoute : public sf::Thread
 
         void MPrintToClient(ToClient const T);
 
+        bool MCommitToClient(ToClient* T);
+
+
 
 
     private :
@@ -35,6 +38,8 @@ class ThreadEcoute : public sf::Thread
 
         /* Pointeur vers l'état de la partie en cours contenu dans le Client */
         volatile bool const *m_pPartieEnCours;
+
+        ToClient* m_pVue;
 
 };
 

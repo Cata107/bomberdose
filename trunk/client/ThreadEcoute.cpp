@@ -6,11 +6,12 @@ sf::Packet& operator >>(sf::Packet& Packet, ToClient& T)
     return Packet >> T.plateau >> T.j1 >> T.x1 >> T.y1 >> T.t1 >>T.l1>>T.j2 >> T.x2 >> T.y2 >> T.t2>>T.l2>> T.j3 >> T.x3 >> T.y3 >>T.t3>>T.l3>> T.j4 >> T.x4 >> T.y4>>T.t4>>T.l4;
 }
 
-ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours )
+ThreadEcoute::ThreadEcoute( volatile bool const * _partieEnCours, ToClient* _pStructToClient )
 {
     m_portUDPEcoute = PORT_UDP_ECOUTE;
     m_pPartieEnCours = _partieEnCours;
     m_SocketUdp = sf::SocketUDP::SocketUDP();
+    m_pVue = _pStructToClient;
 }
 
 ThreadEcoute::~ThreadEcoute()
@@ -69,4 +70,9 @@ void ThreadEcoute::MPrintToClient(ToClient const T)
 {
     std::cout<<T.plateau;
     std::cout<<std::endl<< T.j1 << T.x1 << T.y1 <<std::endl<< T.j2 << T.x2 << T.y2 <<std::endl<< T.j3 << T.x3 << T.y3 <<std::endl<< T.j4 << T.x4 << T.y4<<std::endl;
+}
+bool ThreadEcoute::MCommitToClient(ToClient* T)
+{
+    m_pVue = T;
+    return true;
 }
