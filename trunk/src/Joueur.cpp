@@ -4,7 +4,7 @@ Joueur::Joueur(int _indice, sf::Vector2i _coordonneesPixel, Plateau* _plateau) :
 {
 	m_coordonneesPixel.x = _coordonneesPixel.x;
 	m_coordonneesPixel.y = _coordonneesPixel.y;
-	m_coordonneesCase = MConvertirPixelEnCase();
+	MAjusterPositionCase();
 	MAjusterVitesse();
 }
 
@@ -38,6 +38,7 @@ bool Joueur::MPoserBombe()
 
 bool Joueur::MIsDead()
 {
+	
 	return m_mort;
 }
 
@@ -94,6 +95,7 @@ bool Joueur::MMoveRight()
 bool Joueur::MDie()
 {
 	m_mort = true;
+	std::cout << "Je suis le joueur " << m_indice << " et je suis mort";
 	return true;
 }
 
@@ -354,4 +356,9 @@ bool Joueur::MAjusterPositionCase()
 	m_coordonneesCase.x = m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE;
 	m_coordonneesCase.y = m_coordonneesPixel.y * INVERSE_LARGEUR_CASE;
 	return true;
+}
+
+int Joueur::MGetIndice()
+{
+	return m_indice;
 }
