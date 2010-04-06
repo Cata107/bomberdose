@@ -16,11 +16,11 @@ public :
 
     Screen(/*sf::VideoMode v, std::string name*/);
     ~Screen();
-    void Refresh(const ToClient* fromServ);
-    void Wall(const ToClient* fromServ);
+    void Refresh(ToClient* fromServ);
+    void Wall(ToClient* fromServ);
     int XPos(int i);
     int YPos(int i);
-    void SetPosPlayer(const ToClient* fromServ);
+    void SetPosPlayer(ToClient* fromServ);
 
     ToClient* GetStruct();
 
