@@ -94,7 +94,7 @@ int main()
 
 	Plateau* plateau = bomberdose->MGetPlateau();
 	bomberdose->MGetJoueur(0)->MPoserBombe();
-
+	bomberdose->MGetJoueur(1)->MPoserBombe();
 	while (true)
 	{
 		plateau->MUpdate();
