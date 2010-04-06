@@ -28,7 +28,8 @@ class BomberDose {
 			
 			Joueur*		MGetGagnant();				//Renvoi le pointeur sur le joueur Gagnant, uniquement si MFinMatch retourne 1
 
- public:
+			Plateau*	MGetPlateau();				//Renvoi le pointeur sur le Plateau
+ protected:
 
 	Plateau*										m_pPlateau;		//Plateau de jeu
 

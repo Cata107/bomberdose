@@ -63,7 +63,8 @@ class Joueur {
 				bool					MDiminuerNbBombesPosees();	//Decrementer le nombre de bombe posee quand une bombe explose
 
 		std::vector<ObjetPrenable*>&	MGetListBonus();			//Retourne la liste de bonus recolte par le joueur. Ils sont eparpilles sur le terrain quand le joueur meurt
-		
+			
+				int						MGetIndice();
 
 
  protected:
