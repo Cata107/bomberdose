@@ -355,35 +355,47 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 bool Plateau::MUpdate()
 {
 	//On verifie le timer de toutes les bombes
-	for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end(); it++)
+	if (!m_listPBombes.empty())
 	{
-
-		if ((((*it)->MGetMaladie() == 0) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_DEFAUT)) ||	//Si aucune maladie affectant les bombes et temps supérieur au temps par defaut d'une bombe
-			(((*it)->MGetMaladie() == 1) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_RAPIDE)) ||	//Ou si maladie de la bombe qui explose vite et depassement du temps fixe pour cette maladie
-			(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
+		for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end(); it++)
 		{
-			MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
-
-			MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
-			m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
-
-			delete *it;					//On supprime la bombe en question de la memoire
-			m_listPBombes.erase(it);	//On supprime la bombe de la liste
-			it--;						//On remet l'iterateur a l'element juste avant pour ne pas sauter des bombes
+	
+			if ((((*it)->MGetMaladie() == 0) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_DEFAUT)) ||	//Si aucune maladie affectant les bombes et temps supérieur au temps par defaut d'une bombe
+				(((*it)->MGetMaladie() == 1) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_RAPIDE)) ||	//Ou si maladie de la bombe qui explose vite et depassement du temps fixe pour cette maladie
+				(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
+			{
+				MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
+	
+				MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
+				m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
+	
+				delete *it;					//On supprime la bombe en question de la memoire
+				m_listPBombes.erase(it);	//On supprime la bombe de la liste
+			}
+			if (m_listPBombes.empty())
+			{
+				break;
+			}
 		}
 	}
 
 	//On verifie le timer de toutes les flammes
-	for (std::list<Flamme*>::iterator it = m_listPFlammes.begin(); it != m_listPFlammes.end(); it++)
+	if (!m_listPFlammes.empty())
 	{
-		if ((*it)->MGetTimer()->MGetTime() > TEMPS_FLAMME)	//Si le temps de la flamme est ecoule
+		for (std::list<Flamme*>::iterator it = m_listPFlammes.begin(); it != m_listPFlammes.end(); it++)
 		{
-			m_setIndiceCaseVide.insert((*it)->MGetCoordonnees().x * ((*it)->MGetCoordonnees().y * NB_COLONNES) );	//On rajoute l'indice de la case ou la flamme a disparu dans l'ensemble des indices des cases vides
-			MGetCase((*it)->MGetCoordonnees())->MClean();	//On detruit la flamme
-			delete *it;										//On efface la flamme de la memoire
-			m_listPFlammes.erase(it);						//On supprime la flamme du tableau
-			it--;											//On recule l'iterateur pour ne pas sauter un element de la liste
-
+			if ((*it)->MGetTimer()->MGetTime() > TEMPS_FLAMME)	//Si le temps de la flamme est ecoule
+			{
+				m_setIndiceCaseVide.insert((*it)->MGetCoordonnees().x * ((*it)->MGetCoordonnees().y * NB_COLONNES) );	//On rajoute l'indice de la case ou la flamme a disparu dans l'ensemble des indices des cases vides
+				MGetCase((*it)->MGetCoordonnees())->MClean();	//On detruit la flamme
+				delete *it;										//On efface la flamme de la memoire
+				m_listPFlammes.erase(it);						//On supprime la flamme du tableau
+																//On recule l'iterateur pour ne pas sauter un element de la liste
+			}
+			if (m_listPFlammes.empty())
+			{
+				break;
+			}
 		}
 	}
 
@@ -392,7 +404,7 @@ bool Plateau::MUpdate()
 	{
 		if (!(*it)->MIsDead())	//Si le joueur est mort, on ne verifie pas
 		{
-			if (!MGetCase((*it)->MGetPositionCase())->MIsEmpty())	//On verifie si la case n'est pas vide, sinan, il ne se passe rien
+			if (!(MGetCase((*it)->MGetPositionCase())->MIsEmpty()))	//On verifie si la case n'est pas vide, sinan, il ne se passe rien
 			{
 				if (MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsFlamme())	//Si le joueur est sur une case enflammee
 				{

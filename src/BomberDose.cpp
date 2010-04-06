@@ -20,7 +20,7 @@ BomberDose::BomberDose(int _nbJoueur,int _nbBonusBombe, int _nbBonusFlamme, int 
 
 BomberDose::~BomberDose()
 {
-	delete m_pPlateau;	//On detruit le plateau
+	//delete m_pPlateau;	//On detruit le plateau
 
 	while (!m_tPJoueurs.empty())	//Tant que la liste de joueur n'est pas vide
 	{
@@ -45,7 +45,6 @@ bool BomberDose::MCreatePlayer(int _nbJoueur)
 		{
 		case 0:
 			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE1, ORDONNEE_ORIGINE1), m_pPlateau));
-
 			break;
 		case 1:
 			m_tPJoueurs.push_back(new Joueur(i+1, sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE1), m_pPlateau));
@@ -160,3 +159,7 @@ Joueur* BomberDose::MGetGagnant()
 	return m_tPJoueurs[i];	//Retourne le joueur en vie a la fin d'une partie
 }
 
+Plateau* BomberDose::MGetPlateau()
+{
+	return m_pPlateau;
+}
