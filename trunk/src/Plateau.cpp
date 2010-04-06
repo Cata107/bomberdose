@@ -357,7 +357,7 @@ bool Plateau::MUpdate()
 	//On verifie le timer de toutes les bombes
 	if (!m_listPBombes.empty())
 	{
-		for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end(); it++)
+		for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end();)
 		{
 	
 			if ((((*it)->MGetMaladie() == 0) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_DEFAUT)) ||	//Si aucune maladie affectant les bombes et temps supérieur au temps par defaut d'une bombe
@@ -370,11 +370,11 @@ bool Plateau::MUpdate()
 				m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
 	
 				delete *it;					//On supprime la bombe en question de la memoire
-				m_listPBombes.erase(it);	//On supprime la bombe de la liste
+				it = m_listPBombes.erase(it);	//On supprime la bombe de la liste
 			}
-			if (m_listPBombes.empty())
+			else
 			{
-				break;
+				it++;
 			}
 		}
 	}
@@ -382,19 +382,19 @@ bool Plateau::MUpdate()
 	//On verifie le timer de toutes les flammes
 	if (!m_listPFlammes.empty())
 	{
-		for (std::list<Flamme*>::iterator it = m_listPFlammes.begin(); it != m_listPFlammes.end(); it++)
+		for (std::list<Flamme*>::iterator it = m_listPFlammes.begin(); it != m_listPFlammes.end();)
 		{
 			if ((*it)->MGetTimer()->MGetTime() > TEMPS_FLAMME)	//Si le temps de la flamme est ecoule
 			{
 				m_setIndiceCaseVide.insert((*it)->MGetCoordonnees().x * ((*it)->MGetCoordonnees().y * NB_COLONNES) );	//On rajoute l'indice de la case ou la flamme a disparu dans l'ensemble des indices des cases vides
 				MGetCase((*it)->MGetCoordonnees())->MClean();	//On detruit la flamme
 				delete *it;										//On efface la flamme de la memoire
-				m_listPFlammes.erase(it);						//On supprime la flamme du tableau
+				it = m_listPFlammes.erase(it);						//On supprime la flamme du tableau
 																//On recule l'iterateur pour ne pas sauter un element de la liste
 			}
-			if (m_listPFlammes.empty())
+			else
 			{
-				break;
+				it++;
 			}
 		}
 	}
