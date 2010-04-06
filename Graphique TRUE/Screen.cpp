@@ -1,10 +1,11 @@
 #include "Screen.h"
 #define HAUTEUR 50
 #define LARGEUR 50
+#include "BomberDose.h"
 
 
 Screen::Screen(/*sf::VideoMode v, std::string s*/) :
-    sf::RenderWindow(sf::VideoMode(800,600), "try"), imageFond(800,600,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
+    sf::RenderWindow(sf::VideoMode(1000,900), "try"), imageFond(1000,900,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
     m_incassable(LARGEUR,HAUTEUR,sf::Color(0,0,51))
 {
     SetFramerateLimit(60);
@@ -31,7 +32,7 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
  Screen::~Screen(){
  }
 
- void Screen::Refresh(const ToClient* fromServ)
+ void Screen::Refresh(ToClient* fromServ)
  {
  // Rafraichit la fenètre
     Clear();
@@ -42,18 +43,38 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
 
  }
 
-void Screen::Wall(const ToClient* fromServ){
+void Screen::Wall(ToClient* fromServ){
 	// Place les murs selon de tableau de char
+    std::cout<<"START"<<std::endl;
+    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+    char* ppp;
+    ppp=new char[196];
+    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
+
+    bool passe=false;
+
     for(int i=0; i<(15*13);i++){
-        if(fromServ->plateau[i]==CASE_AVECMURCASSABLE){
+        if(ppp[i]==CASE_AVECMURCASSABLE){
             m_listSprites[i].SetImage(m_cassable);
             m_listSprites[i].SetPosition(XPos(i), YPos(i));
+            if(!passe){
+                std::cout<<XPos(i)<<"-"<<YPos(i);
+            }
+            Draw(m_listSprites[i]);
+         //   exit(0);
+
         }
-        else if(fromServ->plateau[i]==CASE_AVECMURINCASSABLE){
+        else if(ppp[i]==CASE_AVECMURINCASSABLE){
+            std::cout<<"ICI CASE INCASSABLE..."<<std::endl;
             m_listSprites[i].SetImage(m_incassable);
+            //std::cout<<i<<std::endl;
             m_listSprites[i].SetPosition(XPos(i), YPos(i));
+           // std::cout<<XPos(i)<<"-"<<YPos(i);
+          //  std::exit(0);
+          Draw(m_listSprites[i]);
         }
         else if(fromServ->plateau[i]==CASE_AVECMALUS){
+            std::cout<<"ICI CASE MALUS..."<<std::endl;
         }
         else if(fromServ->plateau[i]==CASE_AVECBONUS_FLAMME){
         }
@@ -69,7 +90,7 @@ void Screen::Wall(const ToClient* fromServ){
 
  }
 
-void Screen::SetPosPlayer(const ToClient* fromServ){
+void Screen::SetPosPlayer(ToClient* fromServ){
 // Place les joueurs sur le terrain
 
     if(fromServ->j1){
@@ -93,9 +114,11 @@ void Screen::SetPosPlayer(const ToClient* fromServ){
 
 
 int Screen::XPos(int i){
-    return (i/(13*15)) * LARGEUR;
+    std::cout<<"XPOS : "<<(i/(15)) * LARGEUR<<std::endl;
+    return (i/(15)) * LARGEUR;
  }
 int Screen::YPos(int i){
+    std::cout<<(i%15)*50<<std::endl;
     return (i%15)*50;
  }
 

@@ -21,7 +21,7 @@
             if(m_animated->GetAnim()!=m_first){
                 m_animated->SetAnim(m_first);
             }
-            envoi.MEnvoiMoveDown(0);
+            envoi.MEnvoiMoveDown();
             m_animated->Move(0, 100*Ftime);
 
         }
@@ -30,17 +30,17 @@
             if(m_animated->GetAnim()!=m_second){
                 m_animated->SetAnim(m_second);
             }
-             envoi.MEnvoiMoveUp(0);
+             envoi.MEnvoiMoveUp();
             m_animated->Move(0, -100*Ftime);
         }
         if(m_input->IsKeyDown(sf::Key::Left)){
    //         std::cout<<"LEFT"<<std::endl;
-             envoi.MEnvoiMoveLeft(0);
+             envoi.MEnvoiMoveLeft();
             m_animated->Move(-100*Ftime, 0);
         }
         if(m_input->IsKeyDown(sf::Key::Right)){
    //         std::cout<<"RIGHT"<<std::endl;
-             envoi.MEnvoiMoveRight(0);
+             envoi.MEnvoiMoveRight();
             m_animated->Move(100*Ftime, 0);
         }
     }
