@@ -4,7 +4,7 @@
 #include "Server.h"
 sf::Packet& operator >>(sf::Packet& Packet, ToServer& T)
 {
-    return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb>>T.elapsed_time;
+    return Packet >>T.up >> T.down >> T.right>>T.left>>T.bomb;
 }
 ThreadEcoute::ThreadEcoute( volatile const bool *_pPartieEnCours, int* _tabCorrespondanceIP, BomberDose* _pointeurBomberdose, sf::Mutex* const _pMutex)
 {
@@ -82,10 +82,8 @@ int ThreadEcoute::MGetNumJoueur ( int const _addresseIP )
 bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
 {
     sf::Lock Lock( *m_pMutex );
-    unsigned int time = T.elapsed_time;
     if ( T.up )
     {
-
         std::cout<<"Joueur "<< _numJoueur << "MOVE UP "<<std::endl;
         m_pBomberdose->MGetJoueur( _numJoueur )->MMoveUp();
     }

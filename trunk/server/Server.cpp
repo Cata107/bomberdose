@@ -162,8 +162,8 @@ bool Server::MCreateFils()
 }
 bool Server::MDeleteFils()
 {
-    MDeleteEnvoi();
     MDeleteEcoute();
+    MDeleteEnvoi();
     return true;
 }
 bool Server::MCreateEnvoi()
