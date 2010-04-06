@@ -3,7 +3,7 @@
 #include <iostream>
 sf::Packet& operator <<(sf::Packet& Packet, const ToServer& T)
 {
-    return Packet <<T.up << T.down << T.right<< T.left<< T.bomb<<T.elapsed_time;
+    return Packet <<T.up << T.down << T.right<< T.left<< T.bomb;
 }
 Envoi::Envoi( sf::IPAddress const _IPAddressServer )
 {
@@ -16,10 +16,10 @@ Envoi::~Envoi()
 {
 
 }
-bool Envoi::MEnvoiInformations( bool const _up, bool const _down, bool const _right, bool const _left, bool const _bomb, unsigned int const _elapsed_time)
+bool Envoi::MEnvoiInformations( bool const _up, bool const _down, bool const _right, bool const _left, bool const _bomb)
 {
     ToServer T;
-    MInitialiseToServer ( T, _up,_down,_right,_left,_bomb,_elapsed_time);
+    MInitialiseToServer ( T, _up,_down,_right,_left,_bomb);
     MEnvoiPacket( T );
     return true;
 }
@@ -35,39 +35,38 @@ bool Envoi::MEnvoiPacket(ToServer const T)
     }
     return true;
 }
-bool Envoi::MInitialiseToServer( ToServer& T, bool const _up, bool const _down, bool const _right, bool const _left, bool const _bomb, unsigned int const _elapsed_time)
+bool Envoi::MInitialiseToServer( ToServer& T, bool const _up, bool const _down, bool const _right, bool const _left, bool const _bomb)
 {
     T.up = _up;
     T.down = _down;
     T.right = _right;
     T.left = _left;
     T.bomb = _bomb;
-    T.elapsed_time = _elapsed_time;
     return true;
 }
 bool Envoi::MEnvoiPoseBombe()
 {
-    MEnvoiInformations( false, false, false, false, true, 0);
+    MEnvoiInformations( false, false, false, false, true);
     return true;
 }
-bool Envoi::MEnvoiMoveUp(unsigned int const _elapsed_time)
+bool Envoi::MEnvoiMoveUp()
 {
-    MEnvoiInformations( true, false, false, false, false, _elapsed_time);
+    MEnvoiInformations( true, false, false, false, false);
     return true;
 }
-bool Envoi::MEnvoiMoveDown(unsigned int const _elapsed_time)
+bool Envoi::MEnvoiMoveDown()
 {
-    MEnvoiInformations( false, true, false, false, false, _elapsed_time);
+    MEnvoiInformations( false, true, false, false, false);
     return true;
 }
-bool Envoi::MEnvoiMoveRight(unsigned int const _elapsed_time)
+bool Envoi::MEnvoiMoveRight()
 {
-    MEnvoiInformations( false, false, true, false, false, _elapsed_time);
+    MEnvoiInformations( false, false, true, false, false);
     return true;
 }
-bool Envoi::MEnvoiMoveLeft(unsigned int const _elapsed_time)
+bool Envoi::MEnvoiMoveLeft()
 {
-    MEnvoiInformations( false, false, false, true, false, _elapsed_time);
+    MEnvoiInformations( false, false, false, true, false);
     return true;
 }
 
