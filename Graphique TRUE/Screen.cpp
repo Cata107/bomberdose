@@ -33,6 +33,7 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
 
  void Screen::Refresh(const ToClient* fromServ)
  {
+ // Rafraichit la fenètre
     Clear();
     Draw(fond);
     Wall(fromServ);
@@ -42,7 +43,7 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
  }
 
 void Screen::Wall(const ToClient* fromServ){
-
+	// Place les murs selon de tableau de char
     for(int i=0; i<(15*13);i++){
         if(fromServ->plateau[i]==CASE_AVECMURCASSABLE){
             m_listSprites[i].SetImage(m_cassable);
@@ -69,6 +70,7 @@ void Screen::Wall(const ToClient* fromServ){
  }
 
 void Screen::SetPosPlayer(const ToClient* fromServ){
+// Place les joueurs sur le terrain
 
     if(fromServ->j1){
         j1.SetPosition(fromServ->x1,fromServ->y1);
@@ -98,6 +100,7 @@ int Screen::YPos(int i){
  }
 
 ToClient* Screen::GetStruct(){
+// Retourne la structure
     return &m_fromServ;
 }
 
