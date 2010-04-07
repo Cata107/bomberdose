@@ -163,3 +163,8 @@ Plateau* BomberDose::MGetPlateau()
 {
 	return m_pPlateau;
 }
+
+unsigned int BomberDose::MGetScore()
+{
+	return m_score;
+}
