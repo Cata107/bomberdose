@@ -61,6 +61,7 @@ bool ThreadEcoute::MReceptionDonnees()
         else
         {
             MPrintToClient( received );
+			MCommitToClient(received);
         }
 
     }
