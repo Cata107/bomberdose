@@ -61,7 +61,7 @@ bool ThreadEcoute::MReceptionDonnees()
         else
         {
             MPrintToClient( received );
-			MCommitToClient(received);
+			MCommitToClient(&received);
         }
 
     }
@@ -74,6 +74,9 @@ void ThreadEcoute::MPrintToClient(ToClient const T)
 }
 bool ThreadEcoute::MCommitToClient(ToClient* T)
 {
-    m_pVue = T;
+   // std::cout<<"COMMIT"<<std::endl;
+   // std::cout<<"PLATEAU THREAD :"<< T->plateau<<std::endl;
+    *m_pVue= *T;
+  //  std::cout<<"PLATEAU THREAD 2 :" << m_pVue<<std::endl;
     return true;
 }
