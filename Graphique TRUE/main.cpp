@@ -7,10 +7,10 @@
 #include <SFML/Graphics.hpp>
 #include "../client/Client.h"
 #include "BomberDose.h";
-#include "TestStruct.h"
+//#include "TestStruct.h"
 
 
-int main()
+int main(int argc, char ** argv)
 {
 
     Screen s;
@@ -47,7 +47,7 @@ int main()
     std::cout<<xx.plateau<<std::endl;
     */
 
-    Client myClient("127.0.0.1", s.GetStruct());
+    Client myClient(argv[1], s.GetStruct());
     /*
     myClient.MAfficherStatus();
     myClient.MConnect();

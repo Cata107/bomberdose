@@ -81,7 +81,10 @@ int ThreadEcoute::MGetNumJoueur ( int const _addresseIP )
 }
 bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
 {
-    sf::Lock Lock( *m_pMutex );
+    std::cout<<"TEST DE FOU"<<std::endl;
+    //sf::Lock Lock( *m_pMutex );
+        std::cout<<"TEST DE FOU 2s"<<std::endl;
+
     if ( T.up )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE UP "<<std::endl;

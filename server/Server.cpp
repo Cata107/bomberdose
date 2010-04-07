@@ -59,12 +59,12 @@ int Server::MAttenteFinPartie()
 {
     int nbJoueursEnJeu;
     float tempsDodo = DODO;
-    while (m_PartieEnCours)
+    while (m_PartieEnCours && m_pBomberdose->MGetPlateau()->MGetTimer()->MGetTime()<120.0)
     {
         sf::Sleep( tempsDodo );
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
         std::cout<<nbJoueursEnJeu<<std::endl;
-        if ( nbJoueursEnJeu < 2 )
+        if ( nbJoueursEnJeu < 1 )
         {
             std::cout<<"Fin partie"<<std::endl;
             //fin de partie, il y a moins de 2 joueurs en jeu
@@ -76,11 +76,14 @@ int Server::MAttenteFinPartie()
                 return m_pBomberdose->MGetGagnant()->MGetScore();
             }
             else
+            //il n'y a plus de joueur, tous morts
             {
-                return 0;
+                //return 0;
             }
         }
     }
+    return 0;
+
 }
 bool Server::MAjouterClient( Sclient * _client )
 {
@@ -215,8 +218,8 @@ bool Server::MBoucleJeu()
     do
     {
         MGameStart();
-        //scoreGagnant = MAttenteFinPartie();
-        //MGameStop();
+        scoreGagnant = MAttenteFinPartie();
+        MGameStop();
         sf::Sleep(10.0);
     } while (scoreGagnant != m_pBomberdose->MGetScore());
     return true;

@@ -6,7 +6,7 @@
 #define START 0
 #define STOP 1
 #define QUIT 9
-#define DODO 1.0
+#define DODO 0.016
 #define NB_CLIENTS_ATTENDUS 1
 
 #endif //MacroServer_h

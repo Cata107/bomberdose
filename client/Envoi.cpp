@@ -51,6 +51,7 @@ bool Envoi::MEnvoiPoseBombe()
 }
 bool Envoi::MEnvoiMoveUp()
 {
+    std::cout<<"MoveUP"<<std::endl;
     MEnvoiInformations( true, false, false, false, false);
     return true;
 }
