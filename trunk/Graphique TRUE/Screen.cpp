@@ -121,9 +121,9 @@ void Screen::SetPosPlayer(ToClient* fromServ){
 /*
 void Screen::SetPosPlayer(Joueur* jj1){
 
-    j1.SetPosition(jj1->MGetPositionPixel().x-25, jj1->MGetPositionPixel().y-25);
-    j1.Resize(50,50);
-    Draw(j1);
+//    j1.SetPosition(jj1->MGetPositionPixel().x-25, jj1->MGetPositionPixel().y-25);
+//    j1.Resize(50,50);
+//    Draw(j1);
 
 
 }

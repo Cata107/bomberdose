@@ -2,10 +2,11 @@
 #include "Client.h"
 
 int main(int argc, char ** argv)
-{
-   Client myClient = Client::Client(/*argv[1]*/"5.13.213.237");
-    myClient.MAfficherStatus();
-    myClient.MConnect();
-    myClient.MAttenteInstruction();
+{/*
+    //pour créer le client il faut un deuxième argument, le pointeur vers la struct à modifier.
+    Client myClient = Client::Client(argv[1]);
+    //ça ça va lancer le client, c comme le Start() en java
+    myClient.Launch();*/
 	return 1;
 }
+

@@ -1,15 +1,13 @@
 #include "Client.h"
 #include "MacroClient.h"
-Client::Client(char const * _addressIpServer/*, ToClient * _structToClient*/)
+Client::Client(char const * _addressIpServer, ToClient * _structToClient)
 {
     m_portTCP = PORT_TCP;
     m_localAddress = sf::IPAddress::GetLocalAddress();
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
-    m_pScreen = new Screen();
-    clavier=new Events(&(m_pScreen->GetInput()));
-    //m_pStructToClient = _structToClient;
+    m_pStructToClient = _structToClient;
 }
 Client::~Client()
 {
@@ -30,6 +28,11 @@ void Client::MAttenteFinPartie()
     {
        sf::Sleep(DODO);
     }
+}
+void Client::Run()
+{
+    MConnect();
+    MAttenteInstruction();
 }
 bool Client::MConnect()
 {
@@ -68,27 +71,12 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
-                while(!MInstructionIsStop ( Buffer )){
-                sf::Event ev;
-                while(m_pScreen->GetEvent(ev)){
-                    std::cout<<"ICI "<< std::endl;
-                    if (ev.Type == sf::Event::Closed){
-                        m_pScreen->Close();
-                    }
-                }
-                clavier->Try(m_pScreen->GetFrameTime());
-                m_pScreen->Refresh( m_pScreen->GetStruct() );
-                m_pScreen->Display();
-                }
-                //appel méthode de quetin pour la fenêtre
-                MGameStop();
-
             }
-            /*if ( MInstructionIsStop ( Buffer ) )
+            if ( MInstructionIsStop ( Buffer ) )
             {
                 std::cout<<"La partie va s'arrêter ..."<<std::endl;
                 MGameStop();
-            }*/
+            }
 
         }
     }
@@ -139,7 +127,7 @@ bool Client::MCreateFils()
 }
 bool Client::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours, m_pScreen->GetStruct() );
+    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours, m_pStructToClient );
     return true;
 }
 bool Client::MCreateEnvoi()
