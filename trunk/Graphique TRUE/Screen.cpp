@@ -48,10 +48,10 @@ void Screen::Wall(ToClient* fromServ){
     /*
     *   Partie test
     */
-    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+//    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
     char* ppp;
     ppp=new char[196];
-    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
+//    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
     Joueur* j1=bomberdose->MGetJoueur(0);
     Joueur* j2=bomberdose->MGetJoueur(1);
     Joueur* j3=bomberdose->MGetJoueur(2);

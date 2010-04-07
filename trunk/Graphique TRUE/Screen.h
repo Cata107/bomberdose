@@ -5,8 +5,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "..\client\Client.h"
-#include "..\include\Macro.h"
+#include "../client/ToClient.h"
+//#include "..\client\Client.h"
+//#include "..\include\Macro.h"
 #include "Joueur.h"
 
 
