@@ -22,10 +22,10 @@
 
 //Position de l'abscisse et de l'ordonnee de depart des joueurs en pixel
 
-#define ABSCISSE_ORIGINE1 75	//Pour joueur 1 et 3
-#define ORDONNEE_ORIGINE1 75	//Pour joueur 1 et 2
-#define ABSCISSE_ORIGINE2 675	//Pour joueur 2 et 4
-#define ORDONNEE_ORIGINE2 575	//Pour joueur 3 et 4
+#define ABSCISSE_ORIGINE1 (1.5 * LONGUEUR_CASE)	//Pour joueur 1 et 3
+#define ORDONNEE_ORIGINE1 (1.5 * LARGEUR_CASE)	//Pour joueur 1 et 2
+#define ABSCISSE_ORIGINE2 ((NB_COLONNES * LONGUEUR_CASE) - (1.5*LONGUEUR_CASE))	//Pour joueur 2 et 4
+#define ORDONNEE_ORIGINE2 ((NB_LIGNES * LARGEUR_CASE) - (1.5*LARGEUR_CASE))	//Pour joueur 3 et 4
 
 //Case interdite à la construction de case car ca bloquerait le joueur au départ
 #define CASE_INTERDITE1 (NB_COLONNES+2)
