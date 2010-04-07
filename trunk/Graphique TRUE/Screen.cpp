@@ -118,7 +118,7 @@ void Screen::SetPosPlayer(ToClient* fromServ){
     }
 
 }
-
+/*
 void Screen::SetPosPlayer(Joueur* jj1){
 
     j1.SetPosition(jj1->MGetPositionPixel().x-25, jj1->MGetPositionPixel().y-25);
@@ -127,7 +127,7 @@ void Screen::SetPosPlayer(Joueur* jj1){
 
 
 }
-
+*/
 
 int Screen::XPos(int i){
     return (i%15) * LARGEUR;
