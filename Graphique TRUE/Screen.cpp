@@ -125,21 +125,19 @@ void Screen::SetPosPlayer(ToClient* fromServ){
 
 void Screen::SetPosPlayer(Joueur* jj1){
 
-//    j1.SetPosition(jj1->MGetPositionPixel().x, jj1->MGetPositionPixel().y);
-//    j1.Resize(50,50);
-//    Draw(j1);
+    j1.SetPosition(jj1->MGetPositionPixel().x-25, jj1->MGetPositionPixel().y-25);
+    j1.Resize(50,50);
+    Draw(j1);
 
 
 }
 
 
 int Screen::XPos(int i){
-    std::cout<<"XPOS : "<<(i/(15)) * LARGEUR<<std::endl;
-    return (i/(15)) * LARGEUR;
+    return (i%15) * LARGEUR;
  }
 int Screen::YPos(int i){
-    std::cout<<(i%15)*50<<std::endl;
-    return (i%15)*50;
+    return (i/15)* HAUTEUR;
  }
 
 ToClient* Screen::GetStruct(){
