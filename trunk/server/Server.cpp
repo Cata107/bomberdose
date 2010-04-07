@@ -1,19 +1,3 @@
-/*#ifndef WINDOWS
-#define WINDOWS
-
-#ifdef WINDOWS
-#define SLEEP10 Sleep(10)
-#define SLEEPDODO Sleep(DODO)
-#endif
-
-#ifdef LINUX
-#define SLEEP10 usleep(10000000)
-#define SLEEPDODO usleep(DODO)
-#endif
-
-#endif*/
-
-
 #include <iostream>
 #include "Server.h"
 #include "Sclient.h"
@@ -197,7 +181,6 @@ bool Server::MCreateBomberdose()
 {
     int nbJoueurs = m_nbClientsAttendus;
     int nbBonusBombe=0,nbBonusFlamme=0,nbBonusRoller=0,nbMalus=0, score=0;
-    int temps;
     do
     {
         std::cout<<"Entrez le nombre de bonus et malus que vous souhaitez avoir en jeu (le total ne doit pas dépasser 80) :";
@@ -214,10 +197,7 @@ bool Server::MCreateBomberdose()
         std::cout<<"Entrez le score à atteindre par le joueur pour gagner :";
         std::cin>>score;
         std::cout<<std::endl;
-        std::cout<<"Entrez le temps de jeu en minutes :";
-        std::cin>>temps;
-        std::cout<<std::endl;
-    m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score, temps);
+    m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score, 2);
     return true;
 }
 int* Server::MGetTableauIP()

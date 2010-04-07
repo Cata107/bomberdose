@@ -26,7 +26,6 @@ void Client::MAttenteFinPartie()
 {
     while (m_PartieEnCours)
     {
-       // usleep( DODO );
        sf::Sleep(DODO);
     }
 }
@@ -67,15 +66,14 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
-            //    usleep ( 10000000 );
-                sf::Sleep( 10000000 );
-                m_pEnvoi->MEnvoiPoseBombe();
+                //appel méthode de quetin pour la fenêtre
+
             }
-            if ( MInstructionIsStop ( Buffer ) )
+            /*if ( MInstructionIsStop ( Buffer ) )
             {
                 std::cout<<"La partie va s'arrêter ..."<<std::endl;
                 MGameStop();
-            }
+            }*/
 
         }
     }
@@ -159,4 +157,8 @@ bool Client::MDeleteEcoute()
     delete m_pThreadEcoute;
     std::cout<<"SUPPRESSION THREAD ECOUTE EFFECTUEE"<<std::endl;
     return true;
+}
+bool * Client::MGetPointeurPartieEncours()
+{
+    return &m_pPartieEnCours;
 }
