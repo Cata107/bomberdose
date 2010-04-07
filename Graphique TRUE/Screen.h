@@ -8,7 +8,8 @@
 #include "../client/ToClient.h"
 //#include "..\client\Client.h"
 //#include "..\include\Macro.h"
-
+//#include "Joueur.h"
+#include "TestStruct.h"
 
 class Screen : public sf::RenderWindow
 {
