@@ -63,6 +63,10 @@ class Client {
         /* Supprime le ThreadEnvoi */
         bool MDeleteEnvoi();
 
+        /* Récupère un pointeur sur l'état de la partie */
+        bool * MGetPointeurPartieEncours();
+
+
     protected :
 
         /* Port utilisé pour la socket TCP */
