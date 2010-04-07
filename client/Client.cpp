@@ -1,13 +1,14 @@
 #include "Client.h"
 #include "MacroClient.h"
-Client::Client(char const * _addressIpServer, ToClient * _structToClient)
+Client::Client(char const * _addressIpServer/*, ToClient * _structToClient*/)
 {
     m_portTCP = PORT_TCP;
     m_localAddress = sf::IPAddress::GetLocalAddress();
     m_serverAddress = sf::IPAddress::IPAddress(_addressIpServer);
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
-    m_pStructToClient = _structToClient;
+    m_pScreen = new Screen();
+    //m_pStructToClient = _structToClient;
 }
 Client::~Client()
 {
@@ -66,7 +67,10 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
+                m_pScreen->Refresh( m_pScreen->GetStruct() );
+                m_pScreen->Display();
                 //appel méthode de quetin pour la fenêtre
+                MGameStop();
 
             }
             /*if ( MInstructionIsStop ( Buffer ) )
@@ -124,7 +128,7 @@ bool Client::MCreateFils()
 }
 bool Client::MCreateEcoute()
 {
-    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours, m_pStructToClient );
+    m_pThreadEcoute = new ThreadEcoute( &m_PartieEnCours, m_pScreen->GetStruct() );
     return true;
 }
 bool Client::MCreateEnvoi()
@@ -160,5 +164,5 @@ bool Client::MDeleteEcoute()
 }
 bool * Client::MGetPointeurPartieEncours()
 {
-    return &m_pPartieEnCours;
+    return &m_PartieEnCours;
 }

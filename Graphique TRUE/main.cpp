@@ -5,8 +5,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "Client.h"
-
+#include "../client/Client.h"
+/*
 
 int main()
 {
@@ -41,7 +41,7 @@ int main()
     myClient.MConnect();
     myClient.MAttenteInstruction();
     */
-
+/*
 
     while(s.IsOpened()){
 
@@ -59,4 +59,4 @@ int main()
 
 
     return 0;
-}
+}*/

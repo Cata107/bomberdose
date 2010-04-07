@@ -6,8 +6,8 @@
 #include <SFML/System.hpp>
 #include "Screen.h"
 #include "Animated.h"
-#include "Envoi.h"
-#include "ToServer.h"
+#include "../client/Envoi.h"
+#include "../client/ToServer.h"
 
 class Events{
 
