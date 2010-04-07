@@ -5,8 +5,8 @@
 #include "Macro.h"
 #include "BomberDose.h"
 
-int main()
-{
+//int main()
+//{
 /*------------------------------------------Test Bomberdose--------------------------------------------------*/
 
 	//Creation d'un plateau via bomberdose, et test de MRecreer Plateau
@@ -105,5 +105,5 @@ int main()
 
 
 
-}
+//}
 
