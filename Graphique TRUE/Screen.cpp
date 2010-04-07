@@ -5,7 +5,7 @@
 
 
 Screen::Screen(/*sf::VideoMode v, std::string s*/) :
-    sf::RenderWindow(sf::VideoMode(1000,900), "try"), imageFond(1000,900,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
+    sf::RenderWindow(sf::VideoMode(13*50,15*50), "try"), imageFond(1000,900,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
     m_incassable(LARGEUR,HAUTEUR,sf::Color(0,0,51))
 {
     SetFramerateLimit(60);
@@ -45,24 +45,34 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
 
 void Screen::Wall(ToClient* fromServ){
 	// Place les murs selon de tableau de char
-    std::cout<<"START"<<std::endl;
+    /*
+    *   Partie test
+    */
     BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
     char* ppp;
     ppp=new char[196];
     ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
+    Joueur* j1=bomberdose->MGetJoueur(0);
+    Joueur* j2=bomberdose->MGetJoueur(1);
+    Joueur* j3=bomberdose->MGetJoueur(2);
+    Joueur* j4=bomberdose->MGetJoueur(3);
+
+    SetPosPlayer(j1);
+    SetPosPlayer(j2);
+    SetPosPlayer(j3);
+    SetPosPlayer(j4);
+
 
     bool passe=false;
+    /*
+    *   Fin partie test
+    */
 
     for(int i=0; i<(15*13);i++){
         if(ppp[i]==CASE_AVECMURCASSABLE){
             m_listSprites[i].SetImage(m_cassable);
             m_listSprites[i].SetPosition(XPos(i), YPos(i));
-            if(!passe){
-                std::cout<<XPos(i)<<"-"<<YPos(i);
-            }
             Draw(m_listSprites[i]);
-         //   exit(0);
-
         }
         else if(ppp[i]==CASE_AVECMURINCASSABLE){
             std::cout<<"ICI CASE INCASSABLE..."<<std::endl;
@@ -88,6 +98,7 @@ void Screen::Wall(ToClient* fromServ){
         }
     }
 
+
  }
 
 void Screen::SetPosPlayer(ToClient* fromServ){
@@ -109,6 +120,15 @@ void Screen::SetPosPlayer(ToClient* fromServ){
         j4.SetPosition(fromServ->x4,fromServ->y4);
         Draw(j4);
     }
+
+}
+
+void Screen::SetPosPlayer(Joueur* jj1){
+
+    j1.SetPosition(jj1->MGetPositionPixel().x, jj1->MGetPositionPixel().y);
+    j1.Resize(50,50);
+    Draw(j1);
+
 
 }
 
