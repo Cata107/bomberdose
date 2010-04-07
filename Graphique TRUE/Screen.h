@@ -8,7 +8,6 @@
 #include "../client/ToClient.h"
 //#include "..\client\Client.h"
 //#include "..\include\Macro.h"
-#include "Joueur.h"
 
 
 class Screen : public sf::RenderWindow
@@ -25,7 +24,7 @@ public :
     void SetPosPlayer(ToClient* fromServ);
 
     ToClient* GetStruct();
-    void SetPosPlayer(Joueur* j1);
+//    void SetPosPlayer(Joueur* j1);
 
 
 
