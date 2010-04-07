@@ -13,7 +13,8 @@ class Events{
 
     public :
 
-        Events(const sf::Input *i, Animated *a, Anim *first, Anim *second);
+        Events(const sf::Input *i, Animated *a=NULL, Anim *first=NULL, Anim *second=NULL);
+     //   Events(const sf::Input *i);
         ~Events();
         void Try(float Ftime);
         void Try2();

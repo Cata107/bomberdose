@@ -9,7 +9,11 @@
         m_second=second;
 
     }
-
+    /*
+    Events::Events(const sf::Input *i): envoi("127.0.0.1"){
+        m_input=i;
+    }
+*/
     Events::~Events(){
         delete m_input;
     }
