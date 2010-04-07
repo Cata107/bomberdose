@@ -73,7 +73,7 @@ int Server::MAttenteFinPartie()
             {
                 //le nb de joueur en jeu est 1
                 m_pBomberdose->MGetGagnant()->MAugmenterScore();
-                /**return m_pBomberdose->MGetGagnant()->MGetScore();**/
+                return m_pBomberdose->MGetGagnant()->MGetScore();
             }
             else
             {
@@ -215,10 +215,10 @@ bool Server::MBoucleJeu()
     do
     {
         MGameStart();
-        scoreGagnant = MAttenteFinPartie();
-        MGameStop();
+        //scoreGagnant = MAttenteFinPartie();
+        //MGameStop();
         sf::Sleep(10.0);
-    } while (true);/**while (gagnant != m_pBomberdose->MGetScore());**/
+    } while (scoreGagnant != m_pBomberdose->MGetScore());
     return true;
 }
 bool Server::MDisconnect()

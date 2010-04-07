@@ -52,15 +52,15 @@ void Screen::Wall(ToClient* fromServ){
     char* ppp;
     ppp=new char[196];
 //    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
-    Joueur* j1=bomberdose->MGetJoueur(0);
-    Joueur* j2=bomberdose->MGetJoueur(1);
-    Joueur* j3=bomberdose->MGetJoueur(2);
-    Joueur* j4=bomberdose->MGetJoueur(3);
+//    Joueur* j1=bomberdose->MGetJoueur(0);
+//    Joueur* j2=bomberdose->MGetJoueur(1);
+//    Joueur* j3=bomberdose->MGetJoueur(2);
+//    Joueur* j4=bomberdose->MGetJoueur(3);
 
-    SetPosPlayer(j1);
-    SetPosPlayer(j2);
-    SetPosPlayer(j3);
-    SetPosPlayer(j4);
+//    SetPosPlayer(j1);
+//    SetPosPlayer(j2);
+//    SetPosPlayer(j3);
+//    SetPosPlayer(j4);
 
 
     bool passe=false;
@@ -125,9 +125,9 @@ void Screen::SetPosPlayer(ToClient* fromServ){
 
 void Screen::SetPosPlayer(Joueur* jj1){
 
-    j1.SetPosition(jj1->MGetPositionPixel().x, jj1->MGetPositionPixel().y);
-    j1.Resize(50,50);
-    Draw(j1);
+//    j1.SetPosition(jj1->MGetPositionPixel().x, jj1->MGetPositionPixel().y);
+//    j1.Resize(50,50);
+//    Draw(j1);
 
 
 }
