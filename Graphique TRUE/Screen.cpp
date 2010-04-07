@@ -5,7 +5,7 @@
 
 
 Screen::Screen(/*sf::VideoMode v, std::string s*/) :
-    sf::RenderWindow(sf::VideoMode(13*50,15*50), "try"), imageFond(1000,900,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
+    sf::RenderWindow(sf::VideoMode(15*50,13*50), "try"), imageFond(1000,900,sf::Color::Green), m_cassable(LARGEUR, HAUTEUR,sf::Color(51,51,51)),
     m_incassable(LARGEUR,HAUTEUR,sf::Color(0,0,51))
 {
     SetFramerateLimit(60);
@@ -16,16 +16,16 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
     whiteBomber.SetImage(whiteBomberIMG);
 
     j1.SetImage(whiteBomberIMG);
-    j1.SetSubRect(sf::IntRect(6.26,7.14,9.22,10.28));
+    j1.SetSubRect(sf::IntRect(10,10,60,60));
 
     j2.SetImage(whiteBomberIMG);
-    j2.SetSubRect(sf::IntRect(6.26,7.14,9.22,10.28));
+    j2.SetSubRect(sf::IntRect(10,10,60,60));
 
     j3.SetImage(whiteBomberIMG);
-    j3.SetSubRect(sf::IntRect(6.26,7.14,9.22,10.28));
+    j3.SetSubRect(sf::IntRect(10,10,60,60));
 
     j4.SetImage(whiteBomberIMG);
-    j4.SetSubRect(sf::IntRect(6.26,7.14,9.22,10.28));
+    j4.SetSubRect(sf::IntRect(10,10,60,60));
 
 
 }
@@ -35,6 +35,9 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
  void Screen::Refresh(ToClient* fromServ)
  {
  // Rafraichit la fenètre
+ /*   std::cout<<"DANS LE GRAPHICCCCCCCCCCCCCCCCCCCCCC : "<<fromServ->plateau<<std::endl;
+    std::cout<<"GRAPHIC 2 : " <<fromServ->x1<<std::endl;
+*/
     Clear();
     Draw(fond);
     Wall(fromServ);
@@ -48,22 +51,21 @@ void Screen::Wall(ToClient* fromServ){
     /*
     *   Partie test
     */
-//    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
-//    char* ppp;
-//    ppp=new char[196];
-//    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
-//    Joueur* j1=bomberdose->MGetJoueur(0);
-//    Joueur* j2=bomberdose->MGetJoueur(1);
-//    Joueur* j3=bomberdose->MGetJoueur(2);
-//    Joueur* j4=bomberdose->MGetJoueur(3);
+/*
+    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+    char* ppp;
+    ppp=new char[196];
+    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
+    Joueur* j1=bomberdose->MGetJoueur(0);
+    Joueur* j2=bomberdose->MGetJoueur(1);
+    Joueur* j3=bomberdose->MGetJoueur(2);
+    Joueur* j4=bomberdose->MGetJoueur(3);
 
-//    SetPosPlayer(j1);
-//    SetPosPlayer(j2);
-//    SetPosPlayer(j3);
-//    SetPosPlayer(j4);
-
-
-    bool passe=false;
+    SetPosPlayer(j1);
+    SetPosPlayer(j2);
+    SetPosPlayer(j3);
+    SetPosPlayer(j4);
+*/
     /*
     *   Fin partie test
     */
@@ -118,16 +120,6 @@ void Screen::SetPosPlayer(ToClient* fromServ){
     }
 
 }
-/*
-void Screen::SetPosPlayer(Joueur* jj1){
-
-//    j1.SetPosition(jj1->MGetPositionPixel().x-25, jj1->MGetPositionPixel().y-25);
-//    j1.Resize(50,50);
-//    Draw(j1);
-
-
-}
-*/
 
 int Screen::XPos(int i){
     return (i%15) * LARGEUR;

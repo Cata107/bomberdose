@@ -6,13 +6,15 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "../client/Client.h"
-/*
+#include "BomberDose.h";
+#include "TestStruct.h"
+
 
 int main()
 {
 
     Screen s;
-
+    /*
     Anim first;
     first.PushFrame(sf::IntRect(0,0,20,20));
     first.PushFrame(sf::IntRect(10,0,30,20));
@@ -29,34 +31,48 @@ int main()
     test.SetAnim(&first);
     test.SetRect(0);
     test.SetPosition(10,10);
+    */
 
-
-    Events ev(&(s.GetInput()), &test, &first, &second);
+    Events ev(&(s.GetInput())/*, &test, &first, &second*/);
 
     sf::Event real;
 
     /*
+    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+    char* ppp;
+    ppp=new char[196];
+    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
+    TestStruct xx;
+    xx.plateau=bomberdose->MGetPlateau()->MGetPlateauConverti();
+    std::cout<<xx.plateau<<std::endl;
+    */
+
     Client myClient("127.0.0.1", s.GetStruct());
+    /*
     myClient.MAfficherStatus();
     myClient.MConnect();
     myClient.MAttenteInstruction();
     */
-/*
+    myClient.Launch();
+
+
+
 
     while(s.IsOpened()){
-
+        if(myClient.MGetPointeurPartieEncours()){
         while(s.GetEvent(real)){
             if (real.Type == sf::Event::Closed){
                 s.Close();
+                myClient.Terminate();
             }
         }
         ev.Try(s.GetFrameTime());
 
         s.Refresh(s.GetStruct());
         s.Display();
-
+        }
     }
 
 
     return 0;
-}*/
+}
