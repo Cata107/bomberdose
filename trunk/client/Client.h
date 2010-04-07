@@ -6,6 +6,8 @@
 #include "Envoi.h"
 #include "ToClient.h"
 #include "../Graphique TRUE/Screen.h"
+#include "../Graphique TRUE/Events.h"
+
 class Client {
     /* Client qui se connecte au serveur par TCP pour lui donner les informations importantes, notamment l'adresse ip ; se charge de créer les sous threads de communication avec le serveur */
     public :
@@ -93,6 +95,8 @@ class Client {
 
         /** Pointeur vers la fenêtre de jeu **/
         Screen* m_pScreen;
+
+        Events* clavier;
 
         //ToClient * m_pStructToClient;
 

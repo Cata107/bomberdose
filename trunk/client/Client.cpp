@@ -8,6 +8,7 @@ Client::Client(char const * _addressIpServer/*, ToClient * _structToClient*/)
     m_PartieEnCours = false;
     m_SocketTCP = sf::SocketTCP::SocketTCP();
     m_pScreen = new Screen();
+    clavier=new Events(&(m_pScreen->GetInput()));
     //m_pStructToClient = _structToClient;
 }
 Client::~Client()
@@ -67,6 +68,13 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
+                sf::Event ev;
+                while(m_pScreen->GetEvent(ev)){
+                    if (ev.Type == sf::Event::Closed){
+                        m_pScreen->Close();
+                    }
+                }
+                clavier->Try(m_pScreen->GetFrameTime());
                 m_pScreen->Refresh( m_pScreen->GetStruct() );
                 m_pScreen->Display();
                 //appel méthode de quetin pour la fenêtre
