@@ -71,6 +71,11 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
+                sf::Sleep(4);
+                //for (int i = 0; i < 30; i++) {
+                //m_pEnvoi->MEnvoiMoveUp();
+                //}
+
             }
             if ( MInstructionIsStop ( Buffer ) )
             {

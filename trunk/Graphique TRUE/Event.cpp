@@ -2,7 +2,7 @@
 
 
 
-    Events::Events(const sf::Input *i, Animated *a, Anim *first, Anim *second): envoi("5.13.213.237") {
+    Events::Events(const sf::Input *i, Animated *a, Anim *first, Anim *second): envoi("192.168.1.3,") {
         m_input=i;
         m_animated=a;
         m_first=first;
