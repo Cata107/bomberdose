@@ -193,7 +193,7 @@ bool Plateau::MSetJoueurs(std::vector< Joueur* >& _listJoueur)
 
 bool Plateau::MCreerFlamme(const sf::Vector2i&  _coordonnees, int _puissance)
 {
-	m_listPFlammes.push_back(new Flamme(_coordonnees));	//Rempli la liste de flamme avec une nouvell bombe
+	m_listPFlammes.push_back(new Flamme(_coordonnees));	//Rempli la liste de flamme avec une nouvelle bombe
 	MGetCase(_coordonnees)->MFill(*(m_listPFlammes.back()));	//On remplit la case avec la flamme
 	MCreerFlammeHaut(_coordonnees, _puissance);					//On cree les flammes en haut
 	MCreerFlammeBas(_coordonnees, _puissance);					//On cree les flammes en bas

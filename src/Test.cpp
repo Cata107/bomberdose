@@ -4,7 +4,7 @@
 #include "MurCassableAvecObjetPrenable.h"
 #include "Macro.h"
 #include "BomberDose.h"
-/*
+
 int main()
 {
 /*------------------------------------------Test Bomberdose--------------------------------------------------*/
@@ -90,7 +90,8 @@ int main()
 	*/
 
 	//Test de update
-	/*BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+	/*
+	BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
 
 	Plateau* plateau = bomberdose->MGetPlateau();
 	bomberdose->MGetJoueur(0)->MPoserBombe();
@@ -99,9 +100,10 @@ int main()
 	{
 		plateau->MUpdate();
 	}
+	*/
 
 
 
 
 }
-*/
+
