@@ -8,12 +8,13 @@
 #include "../Graphique TRUE/Screen.h"
 #include "../Graphique TRUE/Events.h"
 
-class Client {
+class Client : public sf::Thread {
     /* Client qui se connecte au serveur par TCP pour lui donner les informations importantes, notamment l'adresse ip ; se charge de créer les sous threads de communication avec le serveur */
     public :
 
+
         /* Constructeur */
-        Client(char const* _addressIpServer/*, ToClient* _pStructToClient */);
+        Client(char const* _addressIpServer, ToClient* _pStructToClient );
 
         /* Destructeur */
         ~Client();
@@ -69,6 +70,8 @@ class Client {
         /* Récupère un pointeur sur l'état de la partie */
         bool * MGetPointeurPartieEncours();
 
+        virtual void Run();
+
 
     protected :
 
@@ -94,11 +97,11 @@ class Client {
         Envoi* m_pEnvoi;
 
         /** Pointeur vers la fenêtre de jeu **/
-        Screen* m_pScreen;
+        //Screen* m_pScreen;
 
-        Events* clavier;
+        //Events* clavier;
 
-        //ToClient * m_pStructToClient;
+        ToClient * m_pStructToClient;
 
 };
 
