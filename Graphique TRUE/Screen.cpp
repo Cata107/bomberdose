@@ -49,8 +49,8 @@ void Screen::Wall(ToClient* fromServ){
     *   Partie test
     */
 //    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
-    char* ppp;
-    ppp=new char[196];
+//    char* ppp;
+//    ppp=new char[196];
 //    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
 //    Joueur* j1=bomberdose->MGetJoueur(0);
 //    Joueur* j2=bomberdose->MGetJoueur(1);
@@ -69,22 +69,18 @@ void Screen::Wall(ToClient* fromServ){
     */
 
     for(int i=0; i<(15*13);i++){
-        if(ppp[i]==CASE_AVECMURCASSABLE){
+        if(fromServ->plateau[i]==CASE_AVECMURCASSABLE){
             m_listSprites[i].SetImage(m_cassable);
             m_listSprites[i].SetPosition(XPos(i), YPos(i));
             Draw(m_listSprites[i]);
         }
-        else if(ppp[i]==CASE_AVECMURINCASSABLE){
-            std::cout<<"ICI CASE INCASSABLE..."<<std::endl;
+        else if(fromServ->plateau[i]==CASE_AVECMURINCASSABLE){
             m_listSprites[i].SetImage(m_incassable);
-            //std::cout<<i<<std::endl;
             m_listSprites[i].SetPosition(XPos(i), YPos(i));
-           // std::cout<<XPos(i)<<"-"<<YPos(i);
-          //  std::exit(0);
+
           Draw(m_listSprites[i]);
         }
         else if(fromServ->plateau[i]==CASE_AVECMALUS){
-            std::cout<<"ICI CASE MALUS..."<<std::endl;
         }
         else if(fromServ->plateau[i]==CASE_AVECBONUS_FLAMME){
         }
