@@ -68,8 +68,10 @@ bool Client::MAttenteInstruction()
             {
                 std::cout<<"La partie va commencer ..."<<std::endl;
                 MGameStart();
+                while(!MInstructionIsStop ( Buffer )){
                 sf::Event ev;
                 while(m_pScreen->GetEvent(ev)){
+                    std::cout<<"ICI "<< std::endl;
                     if (ev.Type == sf::Event::Closed){
                         m_pScreen->Close();
                     }
@@ -77,6 +79,7 @@ bool Client::MAttenteInstruction()
                 clavier->Try(m_pScreen->GetFrameTime());
                 m_pScreen->Refresh( m_pScreen->GetStruct() );
                 m_pScreen->Display();
+                }
                 //appel méthode de quetin pour la fenêtre
                 MGameStop();
 
