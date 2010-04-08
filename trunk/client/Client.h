@@ -70,6 +70,7 @@ class Client : public sf::Thread {
         /* Récupère un pointeur sur l'état de la partie */
         bool * MGetPointeurPartieEncours();
 
+        /* Méthode Run du thread */
         virtual void Run();
 
 
@@ -96,10 +97,7 @@ class Client : public sf::Thread {
         /* Thread fils d'envoi UDP */
         Envoi* m_pEnvoi;
 
-        /** Pointeur vers la fenêtre de jeu **/
-        //Screen* m_pScreen;
-
-        //Events* clavier;
+        /** Pointeur vers la structure ToClient présente dans le GRAPHIQUE TRUE **/
 
         ToClient * m_pStructToClient;
 

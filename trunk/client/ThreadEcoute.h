@@ -22,8 +22,10 @@ class ThreadEcoute : public sf::Thread
         /* Bind la socket au port udp correspondant */
         bool MBindSocket();
 
+        /* Affiche le ToClient en console :: DEBUG */
         void MPrintToClient(ToClient const T);
 
+        /* Enregistre la Structure dans le GRAPHIQUE TRUE */
         bool MCommitToClient(ToClient* T);
 
 
@@ -39,6 +41,7 @@ class ThreadEcoute : public sf::Thread
         /* Pointeur vers l'état de la partie en cours contenu dans le Client */
         volatile bool const *m_pPartieEnCours;
 
+        /** Pointeur de ToClient qui se trouve dans GRAPHIQUE TRUE **/
         ToClient* m_pVue;
 
 };
