@@ -24,7 +24,6 @@ class ThreadEnvoi : public sf::Thread
     /* Envoie les données du jeu au client */
     bool MEnvoiDonnees();
 
-    /* Initialise une struct ToClient, va chercher les informations utiles dans le moteur de jeu */
     bool MInitialise (ToClient& T);
 
 
