@@ -6,6 +6,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "../client/Client.h"
+//#include "TestStruct.h"
 
 int main(int argc, char ** argv)
 {
