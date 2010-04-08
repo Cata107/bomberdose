@@ -64,7 +64,8 @@ int Server::MAttenteFinPartie()
         m_pBomberdose->MGetPlateau()->MUpdate();
         sf::Sleep( tempsDodo );
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
-        //std::cout<<nbJoueursEnJeu<<std::endl;
+
+        //std::cout<<"il reste : " << nbJoueursEnJeu << " joueurs en jeu "<<std::endl;
         if ( nbJoueursEnJeu < 2)
         {
             std::cout<<"Fin partie"<<std::endl;
@@ -79,7 +80,7 @@ int Server::MAttenteFinPartie()
             else
             //il n'y a plus de joueur, tous morts
             {
-                //return 0;
+                return 0;
             }
         }
     }
@@ -167,18 +168,18 @@ bool Server::MCreateEcoute()
 }
 bool Server::MDeleteEcoute()
 {
-    std::cout<<"Suppression thread écoute en cours"<<std::endl;
+    std::cout<<"Suppression run écoute en cours"<<std::endl;
     m_pThreadEcoute->Wait();
     //delete m_pThreadEcoute;
-    std::cout<<"THREAD ECOUTE SUPPRIME"<<std::endl;
+    std::cout<<"RUN ECOUTE TERMINE"<<std::endl;
     return true;
 }
 bool Server::MDeleteEnvoi()
 {
-    std::cout<<"Suppression thread envoi en cours"<<std::endl;
+    std::cout<<"Suppression run envoi en cours"<<std::endl;
     m_pThreadEnvoi->Wait();
     //delete m_pThreadEnvoi;
-    std::cout<<"THREAD ENVOI SUPPRIME"<<std::endl;
+    std::cout<<"Run ENVOI Termine"<<std::endl;
 
     return true;
 }
@@ -225,9 +226,22 @@ bool Server::MBoucleJeu()
     {
         MGameStart();
         scoreGagnant = MAttenteFinPartie();
+        if (scoreGagnant == 0)
+        {
+            std::cout<<"MATCH NUL, VOUS ETES PATHETIQUES"<<std::endl;
+        }
+        else
+        {
+            std::cout<<"Le joueur n° "<< m_pBomberdose->MGetGagnant()->MGetIndice()<<" remporte la partie. Son score est de " <<scoreGagnant /*m_pBomberdose->MGetGagnant()->MGetScore() */<<std::endl;
+        }
         MGameStop();
-        sf::Sleep(10.0);
-    } while (scoreGagnant != m_pBomberdose->MGetScore());
+        for (int i = 0; i < 3; i ++ )
+        {
+            std::cout<< 3 - i << std::endl;
+            sf::Sleep(1);
+        }
+    } while (scoreGagnant < m_pBomberdose->MGetScore());
+    std::cout<<"Le joueur n° : " << m_pBomberdose->MGetGagnant()->MGetIndice()<<"remporte la victoire avec " << m_pBomberdose->MGetScore()<<"parties remportées" <<std::endl;
     return true;
 }
 bool Server::MDisconnect()

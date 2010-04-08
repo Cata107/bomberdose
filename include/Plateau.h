@@ -65,6 +65,10 @@ class Plateau {
 
 			bool	MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet);	//Quand un joueur meurt, les objets qu'il a ramasse sont eparpilles sur le plateau, sur des cases vides
 
+            std::vector<Joueur*> MGetListeJoueurs();
+
+            bool MSetListeJoueurs( std::vector<Joueur*> _listeJoueurs );
+
 
  protected:
 

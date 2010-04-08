@@ -451,3 +451,13 @@ bool Plateau::MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet
 	}
 	return true;
 }
+
+std::vector<Joueur*> Plateau::MGetListeJoueurs()
+{
+    return m_listJoueurs;
+}
+bool Plateau::MSetListeJoueurs( std::vector<Joueur*> _listeJoueurs )
+{
+    m_listJoueurs = _listeJoueurs;
+    return true;
+}
