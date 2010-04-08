@@ -9,11 +9,6 @@
         m_second=second;
 
     }
-    /*
-    Events::Events(const sf::Input *i): envoi("127.0.0.1"){
-        m_input=i;
-    }
-*/
     Events::~Events(){
         delete m_input;
     }
@@ -22,32 +17,17 @@
 
         if(m_input->IsKeyDown(sf::Key::Down)){
             std::cout<<"DOWN"<<std::endl;
-   /*         if(m_animated->GetAnim()!=m_first){
-                m_animated->SetAnim(m_first);
-            }
-            */
             envoi.MEnvoiMoveDown();
-     //       m_animated->Move(0, 100*Ftime);
 
         }
         if(m_input->IsKeyDown(sf::Key::Up)){
- //           std::cout<<"UP"<<std::endl;
-    /*        if(m_animated->GetAnim()!=m_second){
-                m_animated->SetAnim(m_second);
-            }
-        */
              envoi.MEnvoiMoveUp();
-   //         m_animated->Move(0, -100*Ftime);
         }
         if(m_input->IsKeyDown(sf::Key::Left)){
-   //         std::cout<<"LEFT"<<std::endl;
              envoi.MEnvoiMoveLeft();
-      //      m_animated->Move(-100*Ftime, 0);
         }
         if(m_input->IsKeyDown(sf::Key::Right)){
-   //         std::cout<<"RIGHT"<<std::endl;
              envoi.MEnvoiMoveRight();
-       //     m_animated->Move(100*Ftime, 0);
         }
         if(m_input->IsKeyDown(sf::Key::Space)){
             envoi.MEnvoiPoseBombe();

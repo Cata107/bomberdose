@@ -6,17 +6,13 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "../client/ToClient.h"
-//#include "..\client\Client.h"
-//#include "..\include\Macro.h"
-//#include "Joueur.h"
-//#include "TestStruct.h"
 
 class Screen : public sf::RenderWindow
 {
 
 public :
 
-    Screen(/*sf::VideoMode v, std::string name*/);
+    Screen();
     ~Screen();
     void Refresh(ToClient* fromServ);
     void Wall(ToClient* fromServ);
@@ -25,7 +21,6 @@ public :
     void SetPosPlayer(ToClient* fromServ);
 
     ToClient* GetStruct();
-//    void SetPosPlayer(Joueur* j1);
 
 
 
