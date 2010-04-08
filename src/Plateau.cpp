@@ -302,7 +302,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 		{
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();		//On vide la case
 			m_setIndiceCaseVide.insert(_objetFixe->MGetCoordonnees().x + ((_objetFixe->MGetCoordonnees().y)* NB_COLONNES ));	//On met l'indice de la case maintenant vide dans l'ensemble des indices des cases vides
-			std::cout << "Je suis un mur a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
+			//std::cout << "Je suis un mur a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 			delete _objetFixe;
 		}
 
@@ -327,7 +327,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 					MGetCase(_objetFixe->MGetCoordonnees())->MFill(ObjetMalus(_objetFixe->MGetCoordonnees()));
 					break;
 			 }
-			 std::cout << "Je suis un mur avec objet a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
+			 //std::cout << "Je suis un mur avec objet a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 		}
 
 		else if (_objetFixe->MIsMalus())	//Si on detruit un malus, il se teleporte sur une case vide
@@ -350,7 +350,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
 			MCreerFlamme( _objetFixe->MGetCoordonnees(), dynamic_cast<Bombe*>(_objetFixe)->MGetPuissance());
 			m_listJoueurs[(dynamic_cast<Bombe*>(_objetFixe)->MGetIndice())-1]->MDiminuerNbBombesPosees();
-			std::cout << "Je suis une bombe a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit par une autre bombe." << std::endl;
+			//std::cout << "Je suis une bombe a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit par une autre bombe." << std::endl;
 			delete _objetFixe;
 		}
 	}
@@ -370,9 +370,9 @@ bool Plateau::MUpdate()
 				(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
 			{
 				MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
-				std::cout << "Je suis une bombe initiale a la position (" << (*it)->MGetCoordonnees().y << ", " << (*it)->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
+				//std::cout << "Je suis une bombe initiale a la position (" << (*it)->MGetCoordonnees().y << ", " << (*it)->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 				m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
-                std::cout << "Flamme cree" << std::endl;
+                //std::cout << "Flamme cree" << std::endl;
 				MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
 
 

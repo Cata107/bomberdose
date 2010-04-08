@@ -95,7 +95,6 @@ bool Joueur::MMoveRight()
 bool Joueur::MDie()
 {
 	m_mort = true;
-	std::cout << "Je suis le joueur " << m_indice << " et je suis mort" << std::endl;
 	return true;
 }
 

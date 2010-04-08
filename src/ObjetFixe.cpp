@@ -12,7 +12,7 @@ ObjetFixe::ObjetFixe(const sf::Vector2i _coordonnees) : m_coordonnees(_coordonne
 
 ObjetFixe::~ObjetFixe()
 {
-	//delete m_pTimer;
+
 }
 
 
