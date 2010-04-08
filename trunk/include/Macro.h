@@ -39,7 +39,7 @@
 
 //Taille d'une Case
 #define LONGUEUR_CASE 50
-#define LARGEUR_CASE 50	
+#define LARGEUR_CASE 50
 #define INVERSE_LONGUEUR_CASE (1.00/LONGUEUR_CASE)
 #define INVERSE_LARGEUR_CASE (1.00/LARGEUR_CASE)
 
@@ -88,7 +88,12 @@
 #define TEMPS_BOMBE_RAPIDE 1.5
 #define TEMPS_BOMBE_LENTE 5
 
-#define TEMPS_FLAMME 1.5
+#define TEMPS_FLAMME 0.6
 
+/** TEST **/
+//#define NB_JOUEURS_MINI_FINPARTIE = 2
+//Version partie normale
+#define NB_JOUEURS_MINI_FINPARTIE = 1
+//VErsion debug
 
 #endif //Macro_h

@@ -33,7 +33,7 @@ int main(int argc, char ** argv)
     test.SetPosition(10,10);
     */
 
-    Events ev(&(s.GetInput())/*, &test, &first, &second*/);
+    Events ev(&(s.GetInput()), argv[1])/*, &test, &first, &second)*/;
 
     sf::Event real;
 

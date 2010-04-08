@@ -28,7 +28,7 @@ void ThreadEcoute::Run()
     {
         MReceptionDonnees();
         i++;
-        std::cout<<"Bouclage écoute " << i <<std::endl;
+        //std::cout<<"Bouclage écoute " << i <<std::endl;
     }
 }
 
@@ -84,7 +84,7 @@ bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
     std::cout<<"TEST DE FOU"<<std::endl;
     //sf::Lock Lock( *m_pMutex );
         std::cout<<"TEST DE FOU 2s"<<std::endl;
-
+    if ( !m_pBomberdose->MGetJoueur( _numJoueur )->MIsDead()){
     if ( T.up )
     {
         std::cout<<"Joueur "<< _numJoueur << "MOVE UP "<<std::endl;
@@ -109,6 +109,7 @@ bool ThreadEcoute::MCommitToServer ( ToServer const T, int const _numJoueur )
     {
         std::cout<<"Joueur "<< _numJoueur << " POSE BOMBE "<<std::endl;
         m_pBomberdose->MGetJoueur( _numJoueur )->MPoserBombe();
+    }
     }
     return true;
 }

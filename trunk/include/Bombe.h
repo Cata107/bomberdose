@@ -12,6 +12,8 @@ class Bombe : public ObjetFixe {
 
 		virtual ObjetFixe*			MClone() const;		//Permet de cloner une bombe
 
+				//bool				Bombe::operator==(const Bombe &_bombe);
+
 				int					MGetPuissance();	//Retourne la puissance du joueur lorsqu'il a pose la bombe
 
 				int					MGetIndice();		//Retourne l'indice du joueur qui a pose la bombe

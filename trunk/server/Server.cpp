@@ -59,12 +59,13 @@ int Server::MAttenteFinPartie()
 {
     int nbJoueursEnJeu;
     float tempsDodo = DODO;
-    while (m_PartieEnCours && m_pBomberdose->MGetPlateau()->MGetTimer()->MGetTime()<120.0)
+    while (m_PartieEnCours && m_pBomberdose->MGetPlateau()->MGetTimer()->MGetTime()<m_pBomberdose->MGetTemps())
     {
+        m_pBomberdose->MGetPlateau()->MUpdate();
         sf::Sleep( tempsDodo );
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
-        std::cout<<nbJoueursEnJeu<<std::endl;
-        if ( nbJoueursEnJeu < 1 )
+        //std::cout<<nbJoueursEnJeu<<std::endl;
+        if ( nbJoueursEnJeu < 2)
         {
             std::cout<<"Fin partie"<<std::endl;
             //fin de partie, il y a moins de 2 joueurs en jeu
@@ -116,7 +117,7 @@ bool Server::MGameStart()
 {
     std::cout<<"UNE NOUVELLE PARTIE VA COMMENCER"<<std::endl;
 
-    m_pBomberdose->MRecreerPlateau();
+    //m_pBomberdose->MRecreerPlateau();
     m_PartieEnCours = true;
     for ( unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
@@ -133,6 +134,7 @@ bool Server::MGameStop()
     std::cout<<"FIN DE LA PARTIE"<<std::endl;
 
     m_PartieEnCours = false;
+    m_pBomberdose->MRecreerPlateau();
     for ( unsigned int i = 0; i < m_ListeClients.size(); i++)
     {
         m_ListeClients[i]->MGameStop();
@@ -167,7 +169,7 @@ bool Server::MDeleteEcoute()
 {
     std::cout<<"Suppression thread écoute en cours"<<std::endl;
     m_pThreadEcoute->Wait();
-    delete m_pThreadEcoute;
+    //delete m_pThreadEcoute;
     std::cout<<"THREAD ECOUTE SUPPRIME"<<std::endl;
     return true;
 }
@@ -175,7 +177,7 @@ bool Server::MDeleteEnvoi()
 {
     std::cout<<"Suppression thread envoi en cours"<<std::endl;
     m_pThreadEnvoi->Wait();
-    delete m_pThreadEnvoi;
+    //delete m_pThreadEnvoi;
     std::cout<<"THREAD ENVOI SUPPRIME"<<std::endl;
 
     return true;
@@ -184,6 +186,7 @@ bool Server::MCreateBomberdose()
 {
     int nbJoueurs = m_nbClientsAttendus;
     int nbBonusBombe=0,nbBonusFlamme=0,nbBonusRoller=0,nbMalus=0, score=0;
+    int temps = 2;
     do
     {
         std::cout<<"Entrez le nombre de bonus et malus que vous souhaitez avoir en jeu (le total ne doit pas dépasser 80) :";
@@ -200,7 +203,10 @@ bool Server::MCreateBomberdose()
         std::cout<<"Entrez le score à atteindre par le joueur pour gagner :";
         std::cin>>score;
         std::cout<<std::endl;
-    m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score, 2);
+        std::cout<<"Entrez le temps en minute d'une partie : ";
+        std::cin>>temps;
+        std::cout<<std::endl;
+    m_pBomberdose = new BomberDose(nbJoueurs,nbBonusBombe, nbBonusFlamme, nbBonusRoller, nbMalus, score, temps);
     return true;
 }
 int* Server::MGetTableauIP()

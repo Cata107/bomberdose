@@ -19,18 +19,20 @@ class BomberDose {
 			bool		MCreatePlayer(int _nbJoueur);	//Creer les joueur
 
 			bool		MCreateMursAvecObjet(int _nbBonusBombe, int nbBonusFlamme, int _nbBonusRoller, int _nbMalus);	//Creer les murs avec Objet
-		
+
 			Joueur*		MGetJoueur(int _indice);	//Retourne le joueur a l'indice passe en parametre
 
 			bool		MRecreerPlateau();			//Permet de recreer le plateau a chaque partie
 
 			int			MFinMatch();				//Renvoi 1 si le match est gagné par un joueur, 0 si match nul(tous mort, ou temps ecoule), sinon, retourne le nombre de joeuur de vie
-			
+
 			Joueur*		MGetGagnant();				//Renvoi le pointeur sur le joueur Gagnant, uniquement si MFinMatch retourne 1
 
 			Plateau*	MGetPlateau();				//Renvoi le pointeur sur le Plateau
 
 			unsigned	MGetScore();				//Renvoi le score a atteindre
+
+			unsigned int MGetTemps();
  protected:
 
 			Plateau*										m_pPlateau;		//Plateau de jeu
