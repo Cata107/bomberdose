@@ -1,10 +1,9 @@
 #include "Screen.h"
 #define HAUTEUR 50
 #define LARGEUR 50
-#include "BomberDose.h"
+#include "../client/MacroClient.h";
 
-
-Screen::Screen(/*sf::VideoMode v, std::string s*/) :
+Screen::Screen() :
     sf::RenderWindow(sf::VideoMode(15*50,13*50), "BomberDose Final 0.90"), imageFond(15*50,13*50,sf::Color::Green),
     m_cassable(LARGEUR, HAUTEUR), m_incassable(LARGEUR,HAUTEUR), m_bombe(LARGEUR,HAUTEUR), m_flamme(LARGEUR,HAUTEUR),
     m_bonusBombe(LARGEUR, HAUTEUR),m_bonusFlamme(LARGEUR, HAUTEUR), m_bonusRoller(LARGEUR, HAUTEUR)
@@ -13,13 +12,6 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
     fond.SetImage(imageFond);
 
     m_listSprites=new sf::Sprite[15*13];
-
-    /*
-    whiteBomberIMG.LoadFromFile("bombermanBlanc copy.png");
-    whiteBomber.SetImage(whiteBomberIMG);
-    */
-
-
 
 
     /*
@@ -64,12 +56,6 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
  void Screen::Refresh(ToClient* fromServ)
  {
  // Rafraichit la fenètre
- /*   std::cout<<"DANS LE GRAPHICCCCCCCCCCCCCCCCCCCCCC : "<<fromServ->plateau<<std::endl;
-    std::cout<<"GRAPHIC 2 : " <<fromServ->x1<<std::endl;
-*/
-
-//    std::cout<<"DANS REFRESH :"<<fromServ->plateau<<std::endl;
-//    std::cout<<" LES JOUEURS:" << fromServ->j1<<"-"<<fromServ->j2<<std::endl;
 
     Clear();
     Draw(fond);
@@ -81,27 +67,7 @@ Screen::Screen(/*sf::VideoMode v, std::string s*/) :
 
 void Screen::Wall(ToClient* fromServ){
 	// Place les murs selon de tableau de char
-    /*
-    *   Partie test
-    */
-/*
-    BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
-    char* ppp;
-    ppp=new char[196];
-    ppp=bomberdose->MGetPlateau()->MGetPlateauConverti();
-    Joueur* j1=bomberdose->MGetJoueur(0);
-    Joueur* j2=bomberdose->MGetJoueur(1);
-    Joueur* j3=bomberdose->MGetJoueur(2);
-    Joueur* j4=bomberdose->MGetJoueur(3);
 
-    SetPosPlayer(j1);
-    SetPosPlayer(j2);
-    SetPosPlayer(j3);
-    SetPosPlayer(j4);
-*/
-    /*
-    *   Fin partie test
-    */
 
     for(int i=0; i<(15*13);i++){
         if(fromServ->plateau[i]==CASE_AVECMURCASSABLE){

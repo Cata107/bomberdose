@@ -53,7 +53,7 @@
     void Animated::anim(float ElapsedTime){
 
         std::cout<<paused;
-        if(!paused/* && myCurrentRect!=NULL*/){
+        if(!paused){
 
             myElapsedTime-=ElapsedTime;
             if(myElapsedTime<=0.f){
