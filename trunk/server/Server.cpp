@@ -65,7 +65,7 @@ int Server::MAttenteFinPartie()
         sf::Sleep( tempsDodo );
         nbJoueursEnJeu = m_pBomberdose->MFinMatch();
         //std::cout<<nbJoueursEnJeu<<std::endl;
-        if ( nbJoueursEnJeu < 1)
+        if ( nbJoueursEnJeu < 2)
         {
             std::cout<<"Fin partie"<<std::endl;
             //fin de partie, il y a moins de 2 joueurs en jeu
