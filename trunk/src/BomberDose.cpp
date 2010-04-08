@@ -95,11 +95,13 @@ bool BomberDose::MCreateMursAvecObjet(int _nbBonusBombe, int _nbBonusFlamme, int
 
 bool BomberDose::MRecreerPlateau()
 {
+    std::vector<Joueur*> tmp_listeJoueurs = m_pPlateau->MGetListeJoueurs();
+
 	delete m_pPlateau;	//On efface le plateau
 	m_tPMursCassables.clear();	//On efface la liste de mur
 	MCreateMursAvecObjet(m_nbBombe,m_nbFlamme,m_nbRoller,m_nbMalus);	//Et on recree la liste de mur avec bonus
 	m_pPlateau = new Plateau(m_tPMursCassables, m_nbBonus);	//On recree le plateau
-
+    m_pPlateau->MSetListeJoueurs( tmp_listeJoueurs );
 	for (unsigned int i = 0; i < m_nbJoueur; i++)	//On replace les joueurs
 	{
 		m_tPJoueurs[i]->MSetPlateau(m_pPlateau);
