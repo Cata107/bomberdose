@@ -121,7 +121,7 @@ bool BomberDose::MRecreerPlateau()
 				m_tPJoueurs[i]->MReborn(sf::Vector2i(ABSCISSE_ORIGINE2, ORDONNEE_ORIGINE2));
 				break;
 		}
-		
+
 	}
 	return true;
 }
@@ -139,7 +139,7 @@ int BomberDose::MFinMatch()
 		{
 			if (m_tPJoueurs[i]->MIsDead())
 			{
-				nbVivant--;	
+				nbVivant--;
 			}
 		}
 		return nbVivant;	//Sinon, on retourne le nombre de joueur vivant
@@ -167,4 +167,8 @@ Plateau* BomberDose::MGetPlateau()
 unsigned int BomberDose::MGetScore()
 {
 	return m_score;
+}
+unsigned int BomberDose::MGetTemps()
+{
+    return m_temps;
 }

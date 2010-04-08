@@ -38,17 +38,17 @@ bool Joueur::MPoserBombe()
 
 bool Joueur::MIsDead()
 {
-	
+
 	return m_mort;
 }
 
 
 bool Joueur::MMoveUp()
 {
-	 
+
 	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE), ((m_coordonneesPixel.y-(m_vitesse)) * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
-	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	if (caseArrivee->MIsEmpty() || caseArrivee->MGetObjetFixe()->MIsBonusBombe() || caseArrivee->MGetObjetFixe()->MIsBonusFlamme() || caseArrivee->MGetObjetFixe()->MIsBonusRoller() || caseArrivee->MGetObjetFixe()->MIsMalus()|| caseArrivee->MGetObjetFixe()->MIsFlamme() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
 		m_coordonneesPixel.y -= m_vitesse;	//On deplace le joueur
 	}
@@ -60,7 +60,7 @@ bool Joueur::MMoveDown()
 {
 	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i((m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE), ((m_coordonneesPixel.y+m_vitesse) * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
-	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	if (caseArrivee->MIsEmpty() || caseArrivee->MGetObjetFixe()->MIsBonusBombe() || caseArrivee->MGetObjetFixe()->MIsBonusFlamme() || caseArrivee->MGetObjetFixe()->MIsBonusRoller() || caseArrivee->MGetObjetFixe()->MIsMalus()|| caseArrivee->MGetObjetFixe()->MIsFlamme() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
 		m_coordonneesPixel.y += m_vitesse;
 	}
@@ -72,7 +72,7 @@ bool Joueur::MMoveLeft()
 {
 	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x-m_vitesse) * INVERSE_LONGUEUR_CASE), (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
-	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
+	if (caseArrivee->MIsEmpty() || caseArrivee->MGetObjetFixe()->MIsBonusBombe() || caseArrivee->MGetObjetFixe()->MIsBonusFlamme() || caseArrivee->MGetObjetFixe()->MIsBonusRoller() || caseArrivee->MGetObjetFixe()->MIsMalus()|| caseArrivee->MGetObjetFixe()->MIsFlamme() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
 		m_coordonneesPixel.x -= m_vitesse;
 	}
@@ -81,12 +81,12 @@ bool Joueur::MMoveLeft()
 }
 
 bool Joueur::MMoveRight()
-{	
+{
 	Case* caseArrivee = m_plateau->MGetCase(sf::Vector2i(((m_coordonneesPixel.x+m_vitesse) * INVERSE_LONGUEUR_CASE), (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE)));
 	//Si la case d'arrivee est vide OU si la case d'arrivee est la même que celui ou est le joueur
-	if (caseArrivee->MIsEmpty() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase));
+	if (caseArrivee->MIsEmpty() || caseArrivee->MGetObjetFixe()->MIsBonusBombe() || caseArrivee->MGetObjetFixe()->MIsBonusFlamme() || caseArrivee->MGetObjetFixe()->MIsBonusRoller() || caseArrivee->MGetObjetFixe()->MIsMalus()|| caseArrivee->MGetObjetFixe()->MIsFlamme() ||  caseArrivee == m_plateau->MGetCase(m_coordonneesCase))
 	{
-		m_coordonneesPixel.x += m_vitesse;	
+		m_coordonneesPixel.x += m_vitesse;
 	}
 	MAjusterPositionCase();
 	return true;
@@ -95,7 +95,7 @@ bool Joueur::MMoveRight()
 bool Joueur::MDie()
 {
 	m_mort = true;
-	std::cout << "Je suis le joueur " << m_indice << " et je suis mort";
+	std::cout << "Je suis le joueur " << m_indice << " et je suis mort" << std::endl;
 	return true;
 }
 
@@ -141,8 +141,8 @@ const sf::Vector2i Joueur::MGetPositionCase() const
 const sf::Vector2i Joueur::MConvertirPixelEnCase() const
 {
 	sf::Vector2i temp;
-	temp.x = (m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE ) ;	
-	temp.y = (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE ) ;	
+	temp.x = (m_coordonneesPixel.x * INVERSE_LONGUEUR_CASE ) ;
+	temp.y = (m_coordonneesPixel.y * INVERSE_LARGEUR_CASE ) ;
 	return temp;
 }
 
@@ -194,18 +194,18 @@ bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 			//code ptet
 			m_maladie = aucune;
 			break;
-			
+
 		}
 	}
-	
+
 	//Cas d'un Bonus Bombe
-	if (_objet->MIsBonusBombe())	
+	if (_objet->MIsBonusBombe())
 	{
 		if (m_nbBombes < MAX_BOMBE)
 			m_nbBombes++;
 			m_listBonus.push_back(_objet);
 	}
-	
+
 	//Cas d'un Bonus Flamme
 	if (_objet->MIsBonusFlamme())
 	{
@@ -213,7 +213,7 @@ bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 			m_puissance++;
 			m_listBonus.push_back(_objet);
 	}
-	
+
 	//Case d'un Bonus Roller
 	if (_objet->MIsBonusRoller())
 	{
@@ -261,7 +261,7 @@ bool Joueur::MRamasserObjet(ObjetPrenable* _objet)
 			m_maladie = explosionLente;
 			break;
 		}
-		
+
 	}
 	m_plateau->MGetCase(m_coordonneesCase)->MClean();
 	return true;

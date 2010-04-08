@@ -5,8 +5,8 @@
 #include "Macro.h"
 #include "BomberDose.h"
 
-//int main()
-//{
+int main()
+{
 /*------------------------------------------Test Bomberdose--------------------------------------------------*/
 
 	//Creation d'un plateau via bomberdose, et test de MRecreer Plateau
@@ -102,8 +102,32 @@
 	}
 	*/
 
+	
+	BomberDose* bomberdose = new BomberDose(4, 5, 5, 5, 3, 5, 5);
+
+	Plateau* plateau = bomberdose->MGetPlateau();
+	
+	for (int i = 0; i < NB_CASE; i++)
+	{
+		if (plateau->MGetCase(i)->MIsEmpty())
+		{
+			plateau->MSetBombe(plateau->MGetCase(i)->MGetPosition(),3, 1, 0);
+		}
+
+	}
+	
+	plateau->MSetBombe(sf::Vector2i(1, 1),3, 1, 0);
+	plateau->MSetBombe(sf::Vector2i(1, 2),3, 1, 0);
+	while(true)
+	{
+		//bomberdose->MGetJoueur(0)->MMoveRight();
+		//sf::Sleep(0.5);
+		plateau->MUpdate();
+	} 
 
 
 
-//}
+
+
+}
 

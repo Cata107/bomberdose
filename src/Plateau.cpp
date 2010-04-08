@@ -36,11 +36,13 @@ Plateau::~Plateau()
 
 	delete [] m_tCase;	//On detruit chaque case
 	delete m_pTimer;	//On detruit le timer
+	/*
 	while (!m_listPBombes.empty())	//On detruit toutes les bombes
 	{
 		delete m_listPBombes.back();
 		m_listPBombes.pop_back();
 	}
+	*/
 
 	while (!m_listPMursCassables.empty())	// On detruit tous les murs
 	{
@@ -294,12 +296,13 @@ bool Plateau::MCreerFlammeDroite(const sf::Vector2i& _coordonnees, int _puissanc
 
 bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 {
-	if(!_objetFixe->MIsMurIncassable())	//Si l'objet n'a rien de particulier lors de la destruction
+	if(!_objetFixe->MIsMurIncassable() && !_objetFixe->MIsFlamme())
 	{
-		if(_objetFixe->MIsMurCassable() || _objetFixe->MIsBonusBombe() || _objetFixe->MIsBonusFlamme() || _objetFixe->MIsBonusRoller())	//Cas du mur cassable
+		if(_objetFixe->MIsMurCassable() || _objetFixe->MIsBonusBombe() || _objetFixe->MIsBonusFlamme() || _objetFixe->MIsBonusRoller())	//Si l'objet n'a rien de particulier lors de la destruction
 		{
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();		//On vide la case
 			m_setIndiceCaseVide.insert(_objetFixe->MGetCoordonnees().x + ((_objetFixe->MGetCoordonnees().y)* NB_COLONNES ));	//On met l'indice de la case maintenant vide dans l'ensemble des indices des cases vides
+			std::cout << "Je suis un mur a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 			delete _objetFixe;
 		}
 
@@ -324,6 +327,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 					MGetCase(_objetFixe->MGetCoordonnees())->MFill(ObjetMalus(_objetFixe->MGetCoordonnees()));
 					break;
 			 }
+			 std::cout << "Je suis un mur avec objet a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 		}
 
 		else if (_objetFixe->MIsMalus())	//Si on detruit un malus, il se teleporte sur une case vide
@@ -346,6 +350,7 @@ bool Plateau::MDestructionObjetFixe(ObjetFixe* _objetFixe)
 			MGetCase(_objetFixe->MGetCoordonnees())->MClean();
 			MCreerFlamme( _objetFixe->MGetCoordonnees(), dynamic_cast<Bombe*>(_objetFixe)->MGetPuissance());
 			m_listJoueurs[(dynamic_cast<Bombe*>(_objetFixe)->MGetIndice())-1]->MDiminuerNbBombesPosees();
+			std::cout << "Je suis une bombe a la position (" << _objetFixe->MGetCoordonnees().y << ", " << _objetFixe->MGetCoordonnees().x << ") et je suis detruit par une autre bombe." << std::endl;
 			delete _objetFixe;
 		}
 	}
@@ -359,16 +364,18 @@ bool Plateau::MUpdate()
 	{
 		for (std::list<Bombe*>::iterator it = m_listPBombes.begin(); it != m_listPBombes.end();)
 		{
-	
+
 			if ((((*it)->MGetMaladie() == 0) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_DEFAUT)) ||	//Si aucune maladie affectant les bombes et temps supérieur au temps par defaut d'une bombe
 				(((*it)->MGetMaladie() == 1) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_RAPIDE)) ||	//Ou si maladie de la bombe qui explose vite et depassement du temps fixe pour cette maladie
 				(((*it)->MGetMaladie() == 2) && ((*it)->MGetTimer()->MGetTime() > TEMPS_BOMBE_LENTE)))		//Ou si maladie de la bombe qui explose lentement et depassement du temps fixe pour cette maladie
 			{
 				MGetCase((*it)->MGetCoordonnees())->MClean();	//On efface la bombe de la case
-	
-				MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
+				std::cout << "Je suis une bombe initiale a la position (" << (*it)->MGetCoordonnees().y << ", " << (*it)->MGetCoordonnees().x << ") et je suis detruit." << std::endl;
 				m_listJoueurs[((*it)->MGetIndice())-1]->MDiminuerNbBombesPosees();			//Diminue le nombre de bombe posee par le joueur
-	
+                std::cout << "Flamme cree" << std::endl;
+				MCreerFlamme((*it)->MGetCoordonnees(), (*it)->MGetPuissance());				//Les flammes se creent sur les cases adjacentes selon la puissance de la bombe
+
+
 				delete *it;					//On supprime la bombe en question de la memoire
 				it = m_listPBombes.erase(it);	//On supprime la bombe de la liste
 			}
@@ -390,11 +397,11 @@ bool Plateau::MUpdate()
 				MGetCase((*it)->MGetCoordonnees())->MClean();	//On detruit la flamme
 				delete *it;										//On efface la flamme de la memoire
 				it = m_listPFlammes.erase(it);						//On supprime la flamme du tableau
-																//On recule l'iterateur pour ne pas sauter un element de la liste
+
 			}
 			else
 			{
-				it++;
+				it++;	//On incrémente l'iterateur pour passer au prochain element sinon
 			}
 		}
 	}
@@ -406,23 +413,26 @@ bool Plateau::MUpdate()
 		{
 			if (!(MGetCase((*it)->MGetPositionCase())->MIsEmpty()))	//On verifie si la case n'est pas vide, sinan, il ne se passe rien
 			{
-				if (MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsFlamme())	//Si le joueur est sur une case enflammee
+				if (!MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsMurCassable() && !MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsMurAvecObjet() && !MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsMurIncassable())
 				{
-					(*it)->MDie();	//Il meurt
-					MPlacerObjetBonusApresMort((*it)->MGetListBonus());
-				}
+					if (MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsFlamme())	//Si le joueur est sur une case enflammee
+					{
+						(*it)->MDie();	//Il meurt
+						MPlacerObjetBonusApresMort((*it)->MGetListBonus());
+					}
 
-				else if (!(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsBombe()))	//On verifie que le joueur n'est pas sur une bombe, car ce n'est pas un objet prenable
-				{
-					(*it)->MRamasserObjet(dynamic_cast<ObjetPrenable*>(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()));	//Le joueur ramasse l'objet et on applique l'effet
-					m_setIndiceCaseVide.insert((*it)->MGetPositionCase().x + ((*it)->MGetPositionCase().y)*NB_COLONNES);			//On met l'indice ou etait l'objet dans l'ensemble des indices des cases vides
+					else if (!(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()->MIsBombe()))	//On verifie que le joueur n'est pas sur une bombe, car ce n'est pas un objet prenable
+					{
+						(*it)->MRamasserObjet(dynamic_cast<ObjetPrenable*>(MGetCase((*it)->MGetPositionCase())->MGetObjetFixe()));	//Le joueur ramasse l'objet et on applique l'effet
+						m_setIndiceCaseVide.insert((*it)->MGetPositionCase().x + ((*it)->MGetPositionCase().y)*NB_COLONNES);			//On met l'indice ou etait l'objet dans l'ensemble des indices des cases vides
+					}
 				}
 			}
 		}
 	}
 
 
-	return true;
+		return true;
 }
 
 bool Plateau::MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet)
@@ -434,7 +444,8 @@ bool Plateau::MPlacerObjetBonusApresMort(std::vector<ObjetPrenable*>& _listObjet
 		random = sf::Randomizer::Random(POSITION_JOUEUR1, POSITION_JOUEUR4);
 		if (m_setIndiceCaseVide.find(random) != m_setIndiceCaseVide.end())
 		{
-			MGetCase(random)->MFill(*(_listObjet.front()));
+			MGetCase(random)->MFill(*(_listObjet.back()));
+			_listObjet.pop_back();
 			m_setIndiceCaseVide.erase(random);
 		}
 	}

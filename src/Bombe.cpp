@@ -4,14 +4,26 @@
 	Bombe::Bombe(const sf::Vector2i _coordonnees,int _puissance, int _indiceJoueur, int _maladie) : ObjetFixe(_coordonnees), m_puissance(_puissance), m_indiceJoueur(_indiceJoueur), m_maladie(_maladie)
 	{
 		m_typeObjet = BOMBE;	//On met le type de l'objet a la valeur BOMBE
-		m_pTimer = new Timer();	
+		m_pTimer = new Timer();
 		m_pTimer->MStartTimer();	//On demarre le timer
 	}
 
 	Bombe::~Bombe()
 	{
-		
+
 	}
+
+/*	bool Bombe::operator==(const Bombe &_bombe)
+	{
+		if (m_coordonnees == _bombe.m_coordonnees)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}*/
 
 	ObjetFixe* Bombe::MClone() const
 	{

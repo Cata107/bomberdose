@@ -2,7 +2,7 @@
 
 
 
-    Events::Events(const sf::Input *i, Animated *a, Anim *first, Anim *second): envoi("192.168.1.3,") {
+    Events::Events(const sf::Input *i, char* ip, Animated *a, Anim *first, Anim *second): envoi(ip) {
         m_input=i;
         m_animated=a;
         m_first=first;
@@ -48,6 +48,9 @@
    //         std::cout<<"RIGHT"<<std::endl;
              envoi.MEnvoiMoveRight();
        //     m_animated->Move(100*Ftime, 0);
+        }
+        if(m_input->IsKeyDown(sf::Key::Space)){
+            envoi.MEnvoiPoseBombe();
         }
     }
 

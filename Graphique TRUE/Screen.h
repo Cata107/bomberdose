@@ -30,20 +30,36 @@ public :
 
 
 private :
-    std::string hasard;
+
     sf::Sprite fond;
+
     sf::Image imageFond;
-    sf::Image img;
+
     sf::Image whiteBomberIMG;
-    sf::Sprite whiteBomber;
     sf::Image m_cassable;
     sf::Image m_incassable;
-    sf::Sprite* m_listSprites;
+    sf::Image m_bombe;
+    sf::Image m_flamme;
+    sf::Image m_bonusRoller;
+    sf::Image m_bonusBombe;
+    sf::Image m_bonusFlamme;
+    sf::Image m_malus;
 
+    // Les images des joueurs
+    sf::Image joueur1;
+    sf::Image joueur2;
+    sf::Image joueur3;
+    sf::Image joueur4;
+
+    // Les sprites des joueurs
     sf::Sprite j1;
     sf::Sprite j2;
     sf::Sprite j3;
     sf::Sprite j4;
+
+
+    sf::Sprite* m_listSprites; // Tableau de sprite correspondant au plateau
+
 
     ToClient m_fromServ;
 
